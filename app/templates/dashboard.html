@@ -1,0 +1,26 @@
+<!-- 'dashboard.html' will serve as the main dashboard where users can select the current year or previous ones
+and select which month they would like to view transaction in -->
+<!-- This html file will use Jinja2 logic to loop through a list of months and pythons enumerate function to 
+get the appropriate month_id (1 = January, 2 = February, ...) to mimic the month_id culumn in the database
+and gather the appropriate data for a certain month-->
+<!-- Also handles years TO BE IMPLEMENTED-->
+<!-- This Template extends 'base.html' -->
+
+{% extends 'base.html' %}
+
+{% block content %}
+<!-- Create a div and class for the main dashboard -->
+<div class="dashboard">
+    <h1>Dashboard</h1>
+    <!-- Create a div and class for all of the links to each month -->
+    <div class="monthButtonContainer">
+        {% for month_id, month in enumerate(months, start=1) %}
+            <!-- Create a link to the checkbook page for each month by giving it the url for the checkbook route and the month_id-->
+            <a href="{{url_for('view.checkbook', month_id=month_id)}}" class="monthButton"> 
+                {{month}}
+            </a>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}
