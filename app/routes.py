@@ -41,6 +41,8 @@ def checkbook(month_id:int):
             db.session.add(newTransaction)
             #commit the transaction to the db
             db.session.commit()
+            #redirect the user to the checkbook page
+            return redirect(url_for('view.checkbook', month_id=month_id))
         except Exception as e:
             #return an ERROR and its error type
             return "ERROR:{}".format(e)
