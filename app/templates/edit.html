@@ -1,0 +1,23 @@
+<!-- 'edit.html' allows users to access the an editing page where a new form is displayed where users can change the 
+existing data for the selected transaction.
+This page also has a link back to 'checkbook.html' incase accidentally clicked -->
+
+{% extends 'base.html' %}
+
+{% block content %}
+<!-- Create a Form to allow users to edit the transaction -->
+<div class="userInput">
+    <h1>Edit Your Transaction</h1>
+    <form action="{{url_for('view.edit', month_id=month_id, id=transaction.id)}}" method="POST">
+        <input type="text" name="content" id="content" value="{{transaction.content}}" required>
+        <input type="text" name="amount" id="amount" value="{{transaction.amount}}" required>
+        <input type="text" name="type" id="type" value="{{transaction.type}}" required>
+        <input type="submit" value="Edit Transaction" id="btnAdd">
+    </form>
+</div>
+<!-- Create a link back to the Checkbook page -->
+<div>
+    <a href="{{url_for('view.checkbook', month_id=month_id)}}">Back</a>
+</div>
+
+{% endblock %}

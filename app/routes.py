@@ -33,7 +33,7 @@ def checkbook(month_id:int):
         amount = request.form['amount']
         type = request.form['type']
         #create a new transaction object
-        newTransaction = Transaction(content=content, amount=amount, type=type, month_id=month_id)
+        newTransaction = Transaction(content=content, amount=amount, type=type, month_id=month_id, year_id=1)
         #add the transaction to the database
         #try and except block to handle errors
         try:
@@ -59,6 +59,46 @@ def checkbook(month_id:int):
         #return the rendered template and pass transactions to the html page
         return render_template('checkbook.html', transactions=transactions, transactionType=transactionType, month_id=month_id, month_name=month_name)
     
-#add a route to delete a transaction
-
-
+#route to delete a transaction
+@view.route('/checkbook/delete/<int:month_id>/<int:id>')
+def delete(month_id:int, id:int):
+    #query the transaction we need to delete
+    deleteTransaction = Transaction.query.get_or_404(id)
+    #try, except block to handle errors
+    try:
+        #connect to the db and delete the transaction
+        db.session.delete(deleteTransaction)
+        #commit the transaction to the db
+        db.session.commit()
+        #redirect the user to the checkbook page
+        return redirect(url_for('view.checkbook', month_id=month_id))
+    #ERROR
+    except Exception as e:
+        #return an ERROR and its error type
+        return "ERROR:{}".format(e)
+    
+#route to edit a transaction
+@view.route('/checkbook/edit/<int:month_id>/<int:id>', methods=["POST", "GET"])
+def edit(month_id:int, id:int):
+    #query the transaction we need to edit by the id
+    transaction = Transaction.query.get_or_404(id)
+    #check if the method is POST
+    if request.method == "POST":
+        #update the attributes fo the transaction
+        transaction.content = request.form['content']
+        transaction.amount = request.form['amount']
+        transaction.type = request.form['type']
+        #try, except block to handle errors
+        try:
+            #connect to the db and update the transaction
+            db.session.commit()
+            #redirect the user to the checkbook page
+            return redirect(url_for('view.checkbook', month_id=month_id))
+        #ERROR
+        except Exception as e:
+            #return an ERROR and its error type
+            return "ERROR:{}".format(e)
+    #otherwise we want to display a page where the user can edit their transaction
+    else:
+        #pass the transaction model to use its id in the edit.html page
+        return render_template('edit.html', transaction=transaction, month_id=month_id)

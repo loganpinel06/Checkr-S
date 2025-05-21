@@ -1,0 +1,61 @@
+<!-- 'checkbook.html' sets up the main checkbook page for a specific months transactions. 
+This page has a main table that displays the users transaction data in columns of "Content", "Amount", "Type", and "Actions"
+There is also a form below the table which will allow users to input their transactions data
+Lastly, there is a link back to the 'dashboard.html' page-->
+
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="tableData">
+    <h1>Check Register for {{mont_name}}</h1>
+    <!-- Add Jinja2 logic -->
+    {% if transactions | length < 1 %}
+        <h3>Add Your First Transaction!</h3>
+    {% else %}
+        <!-- Create the checkbook table -->
+        <table>
+            <thead>
+                <th>About</th>
+                <th>Amount</th>
+                <th>Type +/-</th>
+                <th>Actions</th>
+            </thead>
+            <!-- Add looping logic to create the table from the database data -->
+            {% for transaction in transactions %}
+                <tr>
+                    <td>{{transaction.content}}</td>
+                    <td>{{transaction.formatAmount}}</td>
+                    {% if transaction.type == "+" %}
+                        <td class="deposit">{{transaction.type}}</td>
+                    {% elif transaction.type == "-" %}
+                        <td class="withdraw">{{transaction.type}}</td>
+                    {% endif %}
+                    <td>
+                        <!-- Give edit and delete options in the table -->
+                        <a href="{{url_for('view.delete', month_id=month_id, id=transaction.id)}}">Delete</a>
+                        <br>
+                        <a href="{{url_for('view.edit', month_id=month_id, id=transaction.id)}}">Edit</a>
+                    </td>
+                </tr> 
+            {% endfor %}
+        </table>
+    {% endif %}
+</div>
+
+<!-- Create a Form for user input -->
+<div class="userInput">
+    <form action="{{url_for('view.checkbook', month_id=month_id)}}" method="POST">
+        <input type="text" name="content" id="content" required placeholder="Transaction Description">
+        <input type="text" name="amount" id="amount" required placeholder="Transaction Amount">
+        <input type="text" name="type" id="type" required placeholder="Transaction Type (+/-)">
+        <input type="submit" value="Add Transaction" id="btnAdd">
+    </form>
+</div>
+
+<!-- Create a link back to the Dashboard-->
+<div>
+    <a href="{{url_for('view.dashboard')}}">Dashboard</a>
+</div>
+
+{% endblock %}
