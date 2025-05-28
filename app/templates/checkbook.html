@@ -1,14 +1,30 @@
 <!-- 'checkbook.html' sets up the main checkbook page for a specific months transactions. 
 This page has a main table that displays the users transaction data in columns of "Content", "Amount", "Type", and "Actions"
 There is also a form below the table which will allow users to input their transactions data
-Lastly, there is a link back to the 'dashboard.html' page-->
+<!-- Also handles the ability to filter by a specific year by using a Jinja 2 Loop to effectively populate a select dropdown -->
+<!-- Lastly, there is a link back to the 'dashboard.html' page -->
+
 
 {% extends 'base.html' %}
 
 {% block content %}
 
+<!-- Heading for the Check Register -->
+<h1>Check Register for {{mont_name}}</h1>
+
+<!-- Create a div and class for a year selector -->
+<div class="yearSelector">
+   <label for="year">Year: </label>
+   <select name="year" id="year">
+       {% for year in range (1950, 2100) %}
+           <!-- Create an option for each year -->
+            <option value="{{year}}">{{year}}</option>
+       {% endfor %}
+   </select>
+</div>
+
+<!-- Create a div and class for the checkbook table -->
 <div class="tableData">
-    <h1>Check Register for {{mont_name}}</h1>
     <!-- Add Jinja2 logic -->
     {% if transactions | length < 1 %}
         <h3>Add Your First Transaction!</h3>
@@ -16,6 +32,7 @@ Lastly, there is a link back to the 'dashboard.html' page-->
         <!-- Create the checkbook table -->
         <table>
             <thead>
+                <th>Date</th>
                 <th>About</th>
                 <th>Amount</th>
                 <th>Type +/-</th>
@@ -24,6 +41,7 @@ Lastly, there is a link back to the 'dashboard.html' page-->
             <!-- Add looping logic to create the table from the database data -->
             {% for transaction in transactions %}
                 <tr>
+                    <td>{{transaction.date.strftime("%Y-%m-%d")}}</td> <!-- Format the date to YYYY-MM-DD using strftime -->
                     <td>{{transaction.content}}</td>
                     <td>{{transaction.formatAmount}}</td>
                     {% if transaction.type == "+" %}
@@ -46,6 +64,7 @@ Lastly, there is a link back to the 'dashboard.html' page-->
 <!-- Create a Form for user input -->
 <div class="userInput">
     <form action="{{url_for('view.checkbook', month_id=month_id)}}" method="POST">
+        <input type="date" name="date" id="date" required value="{{defaultMonth}}">
         <input type="text" name="content" id="content" required placeholder="Transaction Description">
         <input type="text" name="amount" id="amount" required placeholder="Transaction Amount">
         <input type="text" name="type" id="type" required placeholder="Transaction Type (+/-)">

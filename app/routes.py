@@ -4,6 +4,7 @@
 from flask import Blueprint, render_template, request, redirect, url_for
 from .models import Transaction
 from . import db
+from datetime import date
 
 #create the blueprint for the routes
 view = Blueprint('view', __name__)
@@ -25,6 +26,11 @@ def dashboard():
 #route for the main checkbook page
 @view.route('/checkbook/<int:month_id>', methods=["POST", "GET"])
 def checkbook(month_id:int):
+    #use date from datetime to handle time and date features
+    #create a currentYear variable so that the checkbook page will always default to the current year
+    #create a defaultMonth variable to use in the checkbook page so that the html date input will default to the selected month from dashboard.html
+    currentYear = date.today().year
+    defaultMonth = date(currentYear, month_id, 1).strftime('%Y-%m-%d')
     #add a task to the checkbook
     #make sure the method is "POST"
     if request.method == "POST":
@@ -57,7 +63,7 @@ def checkbook(month_id:int):
         #define the transaction type as a seperate variable so we can format it on the web page
         transactionType = Transaction.type
         #return the rendered template and pass transactions to the html page
-        return render_template('checkbook.html', transactions=transactions, transactionType=transactionType, month_id=month_id, month_name=month_name)
+        return render_template('checkbook.html', transactions=transactions, transactionType=transactionType, month_id=month_id, month_name=month_name, defaultMonth=defaultMonth, enumerate=enumerate)
     
 #route to delete a transaction
 @view.route('/checkbook/delete/<int:month_id>/<int:id>')
