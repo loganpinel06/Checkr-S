@@ -1,7 +1,7 @@
 <!-- 'checkbook.html' sets up the main checkbook page for a specific months transactions. 
 This page has a main table that displays the users transaction data in columns of "Content", "Amount", "Type", and "Actions"
 There is also a form below the table which will allow users to input their transactions data
-<!-- Also handles the ability to filter by a specific year by using a Jinja 2 Loop to effectively populate a select dropdown -->
+<!-- Also handles the ability to filter by a specific year by using a form and input field to allow users to filter any year they'd like -->
 <!-- Lastly, there is a link back to the 'dashboard.html' page -->
 
 
@@ -12,15 +12,14 @@ There is also a form below the table which will allow users to input their trans
 <!-- Heading for the Check Register -->
 <h1>Check Register for {{mont_name}}</h1>
 
-<!-- Create a div and class for a year selector -->
-<div class="yearSelector">
-   <label for="year">Year: </label>
-   <select name="year" id="year">
-       {% for year in range (1950, 2100) %}
-           <!-- Create an option for each year -->
-            <option value="{{year}}">{{year}}</option>
-       {% endfor %}
-   </select>
+<!-- Create a div and class for a year filterer -->
+<div class="yearFilter">
+   <h3>Filter by Year</h3>
+   <form action="{{url_for('view.checkbook', month_id=month_id)}}" method="GET">
+        <label for="year">Year: </label>
+        <input type="text" name="year_filter" id="year" value="{{request.args.get('year_filter', '')}}" placeholder="YYYY">
+        <input type="submit" value="Filter Year" id="btnYear">
+   </form>
 </div>
 
 <!-- Create a div and class for the checkbook table -->
@@ -64,7 +63,7 @@ There is also a form below the table which will allow users to input their trans
 <!-- Create a Form for user input -->
 <div class="userInput">
     <form action="{{url_for('view.checkbook', month_id=month_id)}}" method="POST">
-        <input type="date" name="date" id="date" required value="{{defaultMonth}}">
+        <input type="date" name="date" id="date" required value="{{default_month}}">
         <input type="text" name="content" id="content" required placeholder="Transaction Description">
         <input type="text" name="amount" id="amount" required placeholder="Transaction Amount">
         <input type="text" name="type" id="type" required placeholder="Transaction Type (+/-)">

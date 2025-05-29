@@ -27,10 +27,10 @@ def dashboard():
 @view.route('/checkbook/<int:month_id>', methods=["POST", "GET"])
 def checkbook(month_id:int):
     #use date from datetime to handle time and date features
-    #create a currentYear variable so that the checkbook page will always default to the current year
-    #create a defaultMonth variable to use in the checkbook page so that the html date input will default to the selected month from dashboard.html
-    currentYear = date.today().year
-    defaultMonth = date(currentYear, month_id, 1).strftime('%Y-%m-%d')
+    #create a current_year variable so that the checkbook page will always default to the current year
+    #create a default_month variable to use in the checkbook page so that the html date input will default to the selected month from dashboard.html
+    current_year = date.today().year
+    default_month = date(current_year, month_id, 1).strftime('%Y-%m-%d')
     #add a task to the checkbook
     #make sure the method is "POST"
     if request.method == "POST":
@@ -39,7 +39,7 @@ def checkbook(month_id:int):
         amount = request.form['amount']
         type = request.form['type']
         #create a new transaction object
-        newTransaction = Transaction(content=content, amount=amount, type=type, month_id=month_id, year_id=1)
+        newTransaction = Transaction(content=content, amount=amount, type=type, month_id=month_id)
         #add the transaction to the database
         #try and except block to handle errors
         try:
@@ -62,8 +62,18 @@ def checkbook(month_id:int):
         transactions = Transaction.query.filter_by(month_id=month_id).all()
         #define the transaction type as a seperate variable so we can format it on the web page
         transactionType = Transaction.type
+
+        #YEAR FILTERING
+        #get the year_filter from the request
+        year_filter = request.args.get('year_filter', type=int)
+        #if there is a year_filter we need to filter the transactions we query
+        if year_filter:
+            #update the transactions we queried to only include transactions from the selected year
+            for transaction in transactions:
+                if transaction.date.year != year_filter:
+                    transactions.remove(transaction)
         #return the rendered template and pass transactions to the html page
-        return render_template('checkbook.html', transactions=transactions, transactionType=transactionType, month_id=month_id, month_name=month_name, defaultMonth=defaultMonth, enumerate=enumerate)
+        return render_template('checkbook.html', transactions=transactions, transactionType=transactionType, month_id=month_id, month_name=month_name, default_month=default_month, enumerate=enumerate)
     
 #route to delete a transaction
 @view.route('/checkbook/delete/<int:month_id>/<int:id>')
