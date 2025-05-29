@@ -4,7 +4,7 @@
 from flask import Blueprint, render_template, request, redirect, url_for
 from .models import Transaction
 from . import db
-from datetime import date
+from datetime import date, datetime
 
 #create the blueprint for the routes
 view = Blueprint('view', __name__)
@@ -35,11 +35,13 @@ def checkbook(month_id:int):
     #make sure the method is "POST"
     if request.method == "POST":
         #get the data from the html form
+        transaction_date_string = request.form['date'] #this gets the date as a string
+        transaction_date_object = datetime.strptime(transaction_date_string, '%Y-%m-%d') #convert the string to a datetime object
         content = request.form['content']
         amount = request.form['amount']
         type = request.form['type']
         #create a new transaction object
-        newTransaction = Transaction(content=content, amount=amount, type=type, month_id=month_id)
+        newTransaction = Transaction(date=transaction_date_object, content=content, amount=amount, type=type, month_id=month_id)
         #add the transaction to the database
         #try and except block to handle errors
         try:

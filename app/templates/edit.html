@@ -9,9 +9,15 @@ This page also has a link back to 'checkbook.html' incase accidentally clicked -
 <div class="userInput">
     <h1>Edit Your Transaction</h1>
     <form action="{{url_for('view.edit', month_id=month_id, id=transaction.id)}}" method="POST">
+        <input type="date" name="date" id="date" value="{{transaction.date}}" required>
         <input type="text" name="content" id="content" value="{{transaction.content}}" required>
         <input type="text" name="amount" id="amount" value="{{transaction.amount}}" required>
-        <input type="text" name="type" id="type" value="{{transaction.type}}" required>
+        <!-- Transaction Type selector -->
+        <label for="type">Transaction Type (+/-): </label>
+        <select name="type" id="type" value="{{transaction.type}}" required>
+            <option value="+">+</option>
+            <option value="-">-</option>
+        </select>
         <input type="submit" value="Edit Transaction" id="btnAdd">
     </form>
 </div>
