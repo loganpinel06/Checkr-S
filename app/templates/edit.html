@@ -14,9 +14,10 @@ This page also has a link back to 'checkbook.html' incase accidentally clicked -
         <input type="text" name="amount" id="amount" value="{{transaction.amount}}" required>
         <!-- Transaction Type selector -->
         <label for="type">Transaction Type (+/-): </label>
-        <select name="type" id="type" value="{{transaction.type}}" required>
-            <option value="+">+</option>
-            <option value="-">-</option>
+        <select name="type" id="type" required>
+            <!-- Use Jinja2 logic to correctly display the pre-existing transaction type -->
+            <option value="+" {% if transaction.type == '+' %}selected{% endif %}>+</option>
+            <option value="-" {% if transaction.type == '-' %}selected{% endif %}>-</option>
         </select>
         <input type="submit" value="Edit Transaction" id="btnAdd">
     </form>
