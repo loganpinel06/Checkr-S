@@ -40,7 +40,7 @@ def dashboard():
     #else we want to display the dashboard page
     else:
         #render the dashboard template and pass the months list and enumerate python function to the template
-        return render_template('dashboard.html', months=MONTHS, current_year=CURRENT_YEAR, year_id=year_id, enumerate=enumerate)
+        return render_template('main/dashboard.html', months=MONTHS, current_year=CURRENT_YEAR, year_id=year_id, enumerate=enumerate)
 
 #route for the main checkbook page
 @view.route('/checkbook/<int:year_id>/<int:month_id>', methods=["POST", "GET"])
@@ -83,7 +83,7 @@ def checkbook(year_id:int, month_id:int):
         transactionType = Transaction.type
 
         #return the rendered template and pass transactions to the html page
-        return render_template('checkbook.html', transactions=transactions, transactionType=transactionType, year_id=year_id, month_id=month_id, month_name=month_name, default_month=default_month, enumerate=enumerate)
+        return render_template('main/checkbook.html', transactions=transactions, transactionType=transactionType, year_id=year_id, month_id=month_id, month_name=month_name, default_month=default_month, enumerate=enumerate)
     
 #route to delete a transaction
 @view.route('/checkbook/delete/<int:year_id>/<int:month_id>/<int:id>')
@@ -130,4 +130,4 @@ def edit(year_id:int, month_id:int, id:int):
     #otherwise we want to display a page where the user can edit their transaction
     else:
         #pass the transaction model to use its id in the edit.html page
-        return render_template('edit.html', transaction=transaction, year_id=year_id, month_id=month_id)
+        return render_template('main/edit.html', transaction=transaction, year_id=year_id, month_id=month_id)
