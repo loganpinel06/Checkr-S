@@ -33,7 +33,7 @@ and gather the appropriate data for a certain month -->
     <div class="monthButtonContainer">
         {% for month_id, month in enumerate(months, start=1) %}
             <!-- Create a link to the checkbook page for each month by giving it the url for the checkbook route and the month_id-->
-            <a href="{{url_for('view.checkbook', month_id=month_id)}}" class="monthButton"> 
+            <a href="{{url_for('view.checkbook', year_id=year_id, month_id=month_id)}}" class="monthButton"> 
                 {{month}}
             </a>
         {% endfor %}

@@ -15,25 +15,35 @@ MONTHS = [
     "July", "August", "September", "October", "November", "December"
 ]
 
-#create a global variable to hold the current year which will be used in dashboard and checkbook routes
+#create a global variable to hold the current year which will be used in dashboard and checkbook routes as a default value
 CURRENT_YEAR = date.today().year
 
 #route for the dashboard
-@view.route('/')
+@view.route('/', methods=["POST", "GET"])
 def dashboard():
     #call the MONTHS and CURRENT_YEAR global variable
     global MONTHS, CURRENT_YEAR
-    #render the dashboard template and pass the months list and enumerate python function to the template
-    return render_template('dashboard.html', months=MONTHS, current_year=CURRENT_YEAR, enumerate=enumerate)
+    #default the year_id to the current year
+    year_id = CURRENT_YEAR
+    #check if the method is POST (aka we are getting data from the form)
+    if request.method == "POST":
+        #get the year from the form
+        year_id = int(request.form['year']) #make sure the variable is an int
+        #update the CURRENT_YEAR variable to the selected year
+        CURRENT_YEAR = year_id
+        #redirect the user back to the dashboard with the selected year
+        return redirect(url_for('view.dashboard', year_id=year_id))
+    #else we want to display the dashboard page
+    else:
+        #render the dashboard template and pass the months list and enumerate python function to the template
+        return render_template('dashboard.html', months=MONTHS, current_year=CURRENT_YEAR, year_id=year_id, enumerate=enumerate)
 
 #route for the main checkbook page
-@view.route('/checkbook/<int:month_id>', methods=["POST", "GET"])
-def checkbook(month_id:int):
+@view.route('/checkbook/<int:year_id>/<int:month_id>', methods=["POST", "GET"])
+def checkbook(year_id:int, month_id:int):
     #use date from datetime to handle time and date features
-    #call the CURRENT_YEAR global variable
     #create a default_month variable to use in the checkbook page so that the html date input will default to the selected month from dashboard.html
-    global CURRENT_YEAR
-    default_month = date(CURRENT_YEAR, month_id, 1).strftime('%Y-%m-%d')
+    default_month = date(year_id, month_id, 1).strftime('%Y-%m-%d')
     #add a task to the checkbook
     #make sure the method is "POST"
     if request.method == "POST":
@@ -44,7 +54,7 @@ def checkbook(month_id:int):
         amount = request.form['amount']
         type = request.form['type']
         #create a new transaction object
-        newTransaction = Transaction(date=transaction_date_object, content=content, amount=amount, type=type, month_id=month_id)
+        newTransaction = Transaction(date=transaction_date_object, content=content, amount=amount, type=type, year_id=year_id, month_id=month_id)
         #add the transaction to the database
         #try and except block to handle errors
         try:
@@ -53,7 +63,7 @@ def checkbook(month_id:int):
             #commit the transaction to the db
             db.session.commit()
             #redirect the user to the checkbook page
-            return redirect(url_for('view.checkbook', month_id=month_id))
+            return redirect(url_for('view.checkbook', year_id=year_id, month_id=month_id))
         except Exception as e:
             #return an ERROR and its error type
             return "ERROR:{}".format(e)
@@ -64,12 +74,12 @@ def checkbook(month_id:int):
         #get the name of the month based on its id so we can use the name when displaying the checkbook.html page
         month_name = MONTHS[month_id-1] #do -1 because we enumerated the months in the dashboard.html page starting at 1
         #query all transactions from the db based on the month_id
-        transactions = Transaction.query.filter_by(month_id=month_id).all()
+        transactions = Transaction.query.filter_by(year_id=year_id, month_id=month_id).all()
         #define the transaction type as a seperate variable so we can format it on the web page
         transactionType = Transaction.type
 
         #return the rendered template and pass transactions to the html page
-        return render_template('checkbook.html', transactions=transactions, transactionType=transactionType, month_id=month_id, month_name=month_name, default_month=default_month, enumerate=enumerate)
+        return render_template('checkbook.html', transactions=transactions, transactionType=transactionType, year_id=year_id, month_id=month_id, month_name=month_name, default_month=default_month, enumerate=enumerate)
     
 #route to delete a transaction
 @view.route('/checkbook/delete/<int:month_id>/<int:id>')

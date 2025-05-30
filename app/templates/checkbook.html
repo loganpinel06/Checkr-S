@@ -9,7 +9,7 @@ There is also a form below the table which will allow users to input their trans
 {% block content %}
 
 <!-- Heading for the Check Register -->
-<h1>Check Register for {{mont_name}}</h1>
+<h1>Check Register for {{month_name}} {{year_id}}</h1>
 
 <!-- Create a div and class for the checkbook table -->
 <div class="tableData">
@@ -51,7 +51,7 @@ There is also a form below the table which will allow users to input their trans
 
 <!-- Create a Form for user input -->
 <div class="userInput">
-    <form action="{{url_for('view.checkbook', month_id=month_id)}}" method="POST">
+    <form action="{{url_for('view.checkbook', year_id=year_id, month_id=month_id)}}" method="POST">
         <input type="date" name="date" id="date" value="{{default_month}}" required>
         <input type="text" name="content" id="content" required placeholder="Transaction Description">
         <input type="text" name="amount" id="amount" required placeholder="Transaction Amount">

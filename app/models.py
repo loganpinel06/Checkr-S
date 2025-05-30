@@ -7,6 +7,7 @@ from datetime import datetime
 #create the Transaction model
 #this model will be used to store the transactions in the database
 #it will have the following fields:
+#year_id: the id of the year for the transaction
 #month_id: the id of the month for the transaction
 #id: the id of the transaction
 #content: the description of the transaction
@@ -14,6 +15,8 @@ from datetime import datetime
 #type: the type of the transaction (income or expense) (measured by user input of + or -)
 #date: the date of the transaction
 class Transaction(db.Model):
+    #year_id field
+    year_id = db.Column(db.Integer, nullable=False)
     #month_id field
     month_id = db.Column(db.Integer, nullable=False)
     #id field
