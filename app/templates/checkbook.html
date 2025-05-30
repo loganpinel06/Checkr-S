@@ -39,9 +39,9 @@ There is also a form below the table which will allow users to input their trans
                     {% endif %}
                     <td>
                         <!-- Give edit and delete options in the table -->
-                        <a href="{{url_for('view.delete', month_id=month_id, id=transaction.id)}}">Delete</a>
+                        <a href="{{url_for('view.delete', year_id=year_id, month_id=month_id, id=transaction.id)}}">Delete</a>
                         <br>
-                        <a href="{{url_for('view.edit', month_id=month_id, id=transaction.id)}}">Edit</a>
+                        <a href="{{url_for('view.edit', year_id=year_id, month_id=month_id, id=transaction.id)}}">Edit</a>
                     </td>
                 </tr> 
             {% endfor %}

@@ -10,9 +10,12 @@ and gather the appropriate data for a certain month -->
 
 {% block content %}
 
+<!-- Main Header for the page -->
+<h1>Dashboard</h1>
+
 <!-- Create a div and class for a year selector -->
 <div class="yearSelector">
-   <h3>Select a Year</h3>
+   <h3>Please Select a Year</h3>
    <form action="{{url_for('view.dashboard')}}" method="POST">
         <label for="year">Year: </label>
         <select name="year" id="year" required>
@@ -28,11 +31,11 @@ and gather the appropriate data for a certain month -->
 
 <!-- Create a div and class for the main dashboard -->
 <div class="dashboard">
-    <h1>Dashboard</h1>
     <!-- Create a div and class for all of the links to each month -->
     <div class="monthButtonContainer">
         {% for month_id, month in enumerate(months, start=1) %}
             <!-- Create a link to the checkbook page for each month by giving it the url for the checkbook route and the month_id-->
+            <!-- NOTE making the monthButtons dependent on the yearSelector is NOT required as year_id always defaults to the current year ie: 2025 -->
             <a href="{{url_for('view.checkbook', year_id=year_id, month_id=month_id)}}" class="monthButton"> 
                 {{month}}
             </a>

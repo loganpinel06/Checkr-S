@@ -8,7 +8,7 @@ This page also has a link back to 'checkbook.html' incase accidentally clicked -
 <!-- Create a Form to allow users to edit the transaction -->
 <div class="userInput">
     <h1>Edit Your Transaction</h1>
-    <form action="{{url_for('view.edit', month_id=month_id, id=transaction.id)}}" method="POST">
+    <form action="{{url_for('view.edit', year_id=year_id, month_id=month_id, id=transaction.id)}}" method="POST">
         <input type="date" name="date" id="date" value="{{transaction.date.strftime('%Y-%m-%d')}}" required>
         <input type="text" name="content" id="content" value="{{transaction.content}}" required>
         <input type="text" name="amount" id="amount" value="{{transaction.amount}}" required>
@@ -24,7 +24,7 @@ This page also has a link back to 'checkbook.html' incase accidentally clicked -
 </div>
 <!-- Create a link back to the Checkbook page -->
 <div>
-    <a href="{{url_for('view.checkbook', month_id=month_id)}}">Back</a>
+    <a href="{{url_for('view.checkbook', year_id=year_id, month_id=month_id)}}">Back</a>
 </div>
 
 {% endblock %}

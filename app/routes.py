@@ -82,8 +82,8 @@ def checkbook(year_id:int, month_id:int):
         return render_template('checkbook.html', transactions=transactions, transactionType=transactionType, year_id=year_id, month_id=month_id, month_name=month_name, default_month=default_month, enumerate=enumerate)
     
 #route to delete a transaction
-@view.route('/checkbook/delete/<int:month_id>/<int:id>')
-def delete(month_id:int, id:int):
+@view.route('/checkbook/delete/<int:year_id>/<int:month_id>/<int:id>')
+def delete(year_id:int, month_id:int, id:int):
     #query the transaction we need to delete
     deleteTransaction = Transaction.query.get_or_404(id)
     #try, except block to handle errors
@@ -93,15 +93,15 @@ def delete(month_id:int, id:int):
         #commit the transaction to the db
         db.session.commit()
         #redirect the user to the checkbook page
-        return redirect(url_for('view.checkbook', month_id=month_id))
+        return redirect(url_for('view.checkbook', year_id=year_id, month_id=month_id))
     #ERROR
     except Exception as e:
         #return an ERROR and its error type
         return "ERROR:{}".format(e)
     
 #route to edit a transaction
-@view.route('/checkbook/edit/<int:month_id>/<int:id>', methods=["POST", "GET"])
-def edit(month_id:int, id:int):
+@view.route('/checkbook/edit/<int:year_id>/<int:month_id>/<int:id>', methods=["POST", "GET"])
+def edit(year_id:int, month_id:int, id:int):
     #query the transaction we need to edit by the id
     transaction = Transaction.query.get_or_404(id)
     #check if the method is POST
@@ -118,7 +118,7 @@ def edit(month_id:int, id:int):
             #connect to the db and update the transaction
             db.session.commit()
             #redirect the user to the checkbook page
-            return redirect(url_for('view.checkbook', month_id=month_id))
+            return redirect(url_for('view.checkbook', year_id=year_id, month_id=month_id))
         #ERROR
         except Exception as e:
             #return an ERROR and its error type
@@ -126,4 +126,4 @@ def edit(month_id:int, id:int):
     #otherwise we want to display a page where the user can edit their transaction
     else:
         #pass the transaction model to use its id in the edit.html page
-        return render_template('edit.html', transaction=transaction, month_id=month_id)
+        return render_template('edit.html', transaction=transaction, year_id=year_id, month_id=month_id)
