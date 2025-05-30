@@ -1,10 +1,14 @@
-#routes.py will setup all routes for the web app and handle logic for using the database model
+#routes.py will setup all routes for the web app and handle logic for adding and retrieving data (transactions) from the database
 
 #imports
-from flask import Blueprint, render_template, request, redirect, url_for
-from .models import Transaction
-from . import db
-from datetime import date, datetime
+#Core Flask imports
+from flask import Blueprint, render_template, request, redirect, url_for 
+#import the Transaction model from models.py
+from .models import Transaction 
+#import the db object from __init__.py to connect to the database
+from . import db 
+#for handling date and time features
+from datetime import date, datetime 
 
 #create the blueprint for the routes
 view = Blueprint('view', __name__)
