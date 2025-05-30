@@ -3,11 +3,29 @@ and select which month they would like to view transaction in -->
 <!-- This html file will use Jinja2 logic to loop through a list of months and pythons enumerate function to 
 get the appropriate month_id (1 = January, 2 = February, ...) to mimic the month_id culumn in the database
 and gather the appropriate data for a certain month -->
+<!-- Additionally dashboard.html offers users to select a specific year they would like to view transactions for -->
 <!-- This Template extends 'base.html' -->
 
 {% extends 'base.html' %}
 
 {% block content %}
+
+<!-- Create a div and class for a year selector -->
+<div class="yearSelector">
+   <h3>Select a Year</h3>
+   <form action="{{url_for('view.dashboard')}}" method="POST">
+        <label for="year">Year: </label>
+        <select name="year" id="year" required>
+            <!-- Loop through the years list and create an option for each year -->
+            {% for year in range (1950, 2100) %}
+                <!-- Use Jinja2 logic to default the selection to the current year -->
+                <option value="{{year}}" {% if year == current_year %}selected{% endif %}>{{year}}</option>
+            {% endfor %}
+        </select>
+        <input type="submit" value="Select Year">
+   </form>
+</div>
+
 <!-- Create a div and class for the main dashboard -->
 <div class="dashboard">
     <h1>Dashboard</h1>

@@ -1,7 +1,6 @@
 <!-- 'checkbook.html' sets up the main checkbook page for a specific months transactions. 
 This page has a main table that displays the users transaction data in columns of "Content", "Amount", "Type", and "Actions"
-There is also a form below the table which will allow users to input their transactions data
-<!-- Also handles the ability to filter by a specific year by using a form and input field to allow users to filter any year they'd like -->
+There is also a form below the table which will allow users to input their transactions data -->
 <!-- Lastly, there is a link back to the 'dashboard.html' page -->
 
 
@@ -11,16 +10,6 @@ There is also a form below the table which will allow users to input their trans
 
 <!-- Heading for the Check Register -->
 <h1>Check Register for {{mont_name}}</h1>
-
-<!-- Create a div and class for a year filterer -->
-<div class="yearFilter">
-   <h3>Filter by Year</h3>
-   <form action="{{url_for('view.checkbook', month_id=month_id)}}" method="GET">
-        <label for="year">Year: </label>
-        <input type="text" name="year_filter" id="year" value="{{request.args.get('year_filter', '')}}" placeholder="YYYY">
-        <input type="submit" value="Filter Year" id="btnYear">
-   </form>
-</div>
 
 <!-- Create a div and class for the checkbook table -->
 <div class="tableData">
