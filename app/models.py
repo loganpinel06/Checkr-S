@@ -3,6 +3,8 @@
 #imports
 from . import db
 from datetime import datetime
+#import flask_login to create a User model for authentication
+from flask_login import UserMixin
 
 #create the Transaction model
 #this model will be used to store the transactions in the database
