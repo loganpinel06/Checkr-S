@@ -103,6 +103,9 @@ def edit(month_id:int, id:int):
     #check if the method is POST
     if request.method == "POST":
         #update the attributes fo the transaction
+        transaction_date_string = request.form['date'] #this gets the date as a string
+        transaction_date_object = datetime.strptime(transaction_date_string, '%Y-%m-%d') #convert the string to a datetime object
+        transaction.date = transaction_date_object #update the date
         transaction.content = request.form['content']
         transaction.amount = request.form['amount']
         transaction.type = request.form['type']

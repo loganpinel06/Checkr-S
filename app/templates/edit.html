@@ -9,7 +9,7 @@ This page also has a link back to 'checkbook.html' incase accidentally clicked -
 <div class="userInput">
     <h1>Edit Your Transaction</h1>
     <form action="{{url_for('view.edit', month_id=month_id, id=transaction.id)}}" method="POST">
-        <input type="date" name="date" id="date" value="{{transaction.date}}" required>
+        <input type="date" name="date" id="date" value="{{transaction.date.strftime('%Y-%m-%d')}}" required>
         <input type="text" name="content" id="content" value="{{transaction.content}}" required>
         <input type="text" name="amount" id="amount" value="{{transaction.amount}}" required>
         <!-- Transaction Type selector -->
