@@ -5,6 +5,15 @@ will be gathered in 'auth.py' handling backend functions to approprately login t
 
 {% block content %}
 
+<!-- Jinja2 logic for flashing messages with flash -->
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        {% for message in messages %}
+            <p>{{message}}</p>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+
 <!-- Main header for the login page -->
 <h1>Login</h1>
 

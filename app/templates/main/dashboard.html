@@ -41,6 +41,8 @@ and gather the appropriate data for a certain month -->
             </a>
         {% endfor %}
     </div>
+    <!-- Link to logout -->
+    <a href="{{url_for('auth.logout')}}">Logout</a>
 </div>
 
 {% endblock %}

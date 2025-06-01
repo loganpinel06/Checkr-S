@@ -4,7 +4,7 @@
 #Core Flask imports
 from flask import Blueprint, render_template, request, redirect, url_for 
 #flak-login for user authentication
-from flask_login import login_required, logout_user, current_user
+from flask_login import login_required
 #import the Transaction model from models.py
 from .models import Transaction 
 #import the db object from __init__.py to connect to the database

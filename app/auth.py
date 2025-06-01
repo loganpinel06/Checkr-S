@@ -4,9 +4,9 @@
 
 #imports
 #Core Flask imports
-from flask import Blueprint, render_template, request, redirect, url_for
+from flask import Blueprint, render_template, request, redirect, url_for, flash
 #import Flask-Login for authentication
-from flask_login import login_user
+from flask_login import login_user, login_required, logout_user
 #import the user model from models.py
 from .models import User
 #import the db object from __init__.py to connect to the database
@@ -90,3 +90,12 @@ def login():
         return render_template('auth/login.html')
     
 #create a route for logout
+@view_auth.route('/logout', methods=["GET", "POST"])
+@login_required #cant logout if not logged in
+def logout():
+    #log out the user
+    logout_user()
+    #flash a message to the user
+    flash('You have been logged out!')
+    #redirect to the login page
+    return redirect(url_for('auth.login'))
