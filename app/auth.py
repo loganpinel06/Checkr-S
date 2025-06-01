@@ -38,7 +38,7 @@ def register():
         else:
             #create a new user object
             new_user = User(username=username)
-            #set the password for the new user
+            #set the password for the new user (HASHING THE PASSWORD)
             new_user.set_password(password)
             #add the new user to the database
             #try, except block to handle any database errors
