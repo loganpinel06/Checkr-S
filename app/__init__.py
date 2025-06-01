@@ -16,6 +16,8 @@ def createApp():
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False #disable modification tracking for performance inhancement
 
+    #secret key for the app (used for session management and CSRF protection)
+
     #initialize the database
     db.init_app(app)
 
