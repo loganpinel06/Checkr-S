@@ -4,11 +4,13 @@
 #imports
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from flask_login import LoginManager
 
 #initialize the database
 db = SQLAlchemy()
 
-#NEED TO ADD LOGIN MANAGER FOR AUTHENTICATION
+#create a login manager for user authentication
+login_manager = LoginManager()
 
 #function to create the app and return it
 def createApp():
@@ -19,9 +21,16 @@ def createApp():
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False #disable modification tracking for performance inhancement
 
     #secret key for the app (used for session management and CSRF protection)
+    app.config['SECRET_KEY'] = 'secret_key' # change this to a secure key in production
 
     #initialize the database
     db.init_app(app)
+
+    #initialize the login manager
+    login_manager.init_app(app)
+
+    #set the login view for the login manager
+    login_manager.login_view = 'auth.login' 
 
     #register the routes blueprint
     from .routes import view

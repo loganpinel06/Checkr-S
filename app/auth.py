@@ -10,10 +10,18 @@ from flask_login import login_user
 #import the user model from models.py
 from .models import User
 #import the db object from __init__.py to connect to the database
-from . import db
+#and import the login manager for user authentication
+from . import db, login_manager
 
 #create the blueprint for the auth routes
 view_auth = Blueprint('auth', __name__)
+
+#create a user loader function for Flask-Login
+@login_manager.user_loader
+def load_user(user_id):
+    #this function will be used by Flask-Login to load the user from the database
+    #it will return the user object if it exists, otherwise it will return None
+    return User.query.get(int(user_id))
 
 #create a route for the registration page
 @view_auth.route('/register', methods=["GET", "POST"])
@@ -58,7 +66,7 @@ def register():
         return render_template('auth/register.html')
 
 #create a route for the login page
-@view_auth.route('/login', methods=["GET", "POST"])
+@view_auth.route('/', methods=["GET", "POST"])
 def login():
     #check if the method is POST so we can get data from the form
     if request.method == "POST":
@@ -80,3 +88,5 @@ def login():
     else:
         #redner the login.html tempalte
         return render_template('auth/login.html')
+    
+#create a route for logout

@@ -3,6 +3,8 @@
 #imports
 #Core Flask imports
 from flask import Blueprint, render_template, request, redirect, url_for 
+#flak-login for user authentication
+from flask_login import login_required, logout_user, current_user
 #import the Transaction model from models.py
 from .models import Transaction 
 #import the db object from __init__.py to connect to the database
@@ -23,7 +25,8 @@ MONTHS = [
 CURRENT_YEAR = date.today().year
 
 #route for the dashboard
-@view.route('/', methods=["POST", "GET"])
+@view.route('/dashboard', methods=["POST", "GET"])
+@login_required #require a user to be logged in to access the dashboard
 def dashboard():
     #call the MONTHS and CURRENT_YEAR global variable
     global MONTHS, CURRENT_YEAR
@@ -44,6 +47,7 @@ def dashboard():
 
 #route for the main checkbook page
 @view.route('/checkbook/<int:year_id>/<int:month_id>', methods=["POST", "GET"])
+@login_required #require a user to be logged in to access the checkbook
 def checkbook(year_id:int, month_id:int):
     #use date from datetime to handle time and date features
     #create a default_month variable to use in the checkbook page so that the html date input will default to the selected month from dashboard.html
@@ -87,6 +91,7 @@ def checkbook(year_id:int, month_id:int):
     
 #route to delete a transaction
 @view.route('/checkbook/delete/<int:year_id>/<int:month_id>/<int:id>')
+@login_required #require a user to be logged in to access the delete route
 def delete(year_id:int, month_id:int, id:int):
     #query the transaction we need to delete
     deleteTransaction = Transaction.query.get_or_404(id)
@@ -105,6 +110,7 @@ def delete(year_id:int, month_id:int, id:int):
     
 #route to edit a transaction
 @view.route('/checkbook/edit/<int:year_id>/<int:month_id>/<int:id>', methods=["POST", "GET"])
+@login_required #require a user to be logged in to access the edit route
 def edit(year_id:int, month_id:int, id:int):
     #query the transaction we need to edit by the id
     transaction = Transaction.query.get_or_404(id)
