@@ -8,6 +8,8 @@ from flask_sqlalchemy import SQLAlchemy
 #initialize the database
 db = SQLAlchemy()
 
+#NEED TO ADD LOGIN MANAGER FOR AUTHENTICATION
+
 #function to create the app and return it
 def createApp():
     #create the app
@@ -24,6 +26,10 @@ def createApp():
     #register the routes blueprint
     from .routes import view
     app.register_blueprint(view)
+
+    #register the auth blueprint
+    from .auth import view_auth
+    app.register_blueprint(view_auth)
 
     #create the database using a context manager
     with app.app_context():
