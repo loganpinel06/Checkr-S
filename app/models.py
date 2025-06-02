@@ -24,6 +24,8 @@ class User(UserMixin, db.Model):
     password_hash = db.Column(db.String(150), nullable=False)
     #joined_date field
     joined_date = db.Column(db.DateTime, default=datetime.utcnow)
+    #define a relationship to the Transaction model
+    transactions = db.relationship('Transaction', backref='user', lazy=True)
 
     #override the __repr__ method to return a string representation of the object's id
     def __repr__(self):
@@ -51,6 +53,8 @@ class User(UserMixin, db.Model):
 #type: the type of the transaction (income or expense) (measured by user input of + or -)
 #date: the date of the transaction
 class Transaction(db.Model):
+    #create a user_id foreign key to link transactions to a specific user
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     #year_id field
     year_id = db.Column(db.Integer, nullable=False)
     #month_id field
