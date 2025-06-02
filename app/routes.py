@@ -3,6 +3,8 @@
 #imports
 #Core Flask imports
 from flask import Blueprint, render_template, request, redirect, url_for 
+#flak-login for user authentication
+from flask_login import login_required, current_user
 #import the Transaction model from models.py
 from .models import Transaction 
 #import the db object from __init__.py to connect to the database
@@ -23,7 +25,8 @@ MONTHS = [
 CURRENT_YEAR = date.today().year
 
 #route for the dashboard
-@view.route('/', methods=["POST", "GET"])
+@view.route('/dashboard', methods=["POST", "GET"])
+@login_required #require a user to be logged in to access the dashboard
 def dashboard():
     #call the MONTHS and CURRENT_YEAR global variable
     global MONTHS, CURRENT_YEAR
@@ -44,6 +47,7 @@ def dashboard():
 
 #route for the main checkbook page
 @view.route('/checkbook/<int:year_id>/<int:month_id>', methods=["POST", "GET"])
+@login_required #require a user to be logged in to access the checkbook
 def checkbook(year_id:int, month_id:int):
     #use date from datetime to handle time and date features
     #create a default_month variable to use in the checkbook page so that the html date input will default to the selected month from dashboard.html
@@ -58,7 +62,8 @@ def checkbook(year_id:int, month_id:int):
         amount = request.form['amount']
         type = request.form['type']
         #create a new transaction object
-        newTransaction = Transaction(date=transaction_date_object, content=content, amount=amount, type=type, year_id=year_id, month_id=month_id)
+        #make sure to set the user_id to the current user id so that we can link the transaction to the user
+        newTransaction = Transaction(date=transaction_date_object, content=content, amount=amount, type=type, year_id=year_id, month_id=month_id, user_id=current_user.id)
         #add the transaction to the database
         #try and except block to handle errors
         try:
@@ -78,7 +83,8 @@ def checkbook(year_id:int, month_id:int):
         #get the name of the month based on its id so we can use the name when displaying the checkbook.html page
         month_name = MONTHS[month_id-1] #do -1 because we enumerated the months in the dashboard.html page starting at 1
         #query all transactions from the db based on the month_id
-        transactions = Transaction.query.filter_by(year_id=year_id, month_id=month_id).all()
+        #make sure to filter by the current users id so that we only get the transactions for the current user
+        transactions = Transaction.query.filter_by(year_id=year_id, month_id=month_id, user_id=current_user.id).all()
         #define the transaction type as a seperate variable so we can format it on the web page
         transactionType = Transaction.type
 
@@ -87,9 +93,13 @@ def checkbook(year_id:int, month_id:int):
     
 #route to delete a transaction
 @view.route('/checkbook/delete/<int:year_id>/<int:month_id>/<int:id>')
+@login_required #require a user to be logged in to access the delete route
 def delete(year_id:int, month_id:int, id:int):
     #query the transaction we need to delete
     deleteTransaction = Transaction.query.get_or_404(id)
+    #make sure the transaction belongs to the current user
+    if deleteTransaction.user_id != current_user.id:
+        return "Unauthorized", 403 #return a 403 error
     #try, except block to handle errors
     try:
         #connect to the db and delete the transaction
@@ -105,9 +115,13 @@ def delete(year_id:int, month_id:int, id:int):
     
 #route to edit a transaction
 @view.route('/checkbook/edit/<int:year_id>/<int:month_id>/<int:id>', methods=["POST", "GET"])
+@login_required #require a user to be logged in to access the edit route
 def edit(year_id:int, month_id:int, id:int):
     #query the transaction we need to edit by the id
     transaction = Transaction.query.get_or_404(id)
+    #make sure the tranasction belongs to the current user
+    if transaction.user_id != current_user.id:
+        return "Unauthorized", 403
     #check if the method is POST
     if request.method == "POST":
         #update the attributes fo the transaction

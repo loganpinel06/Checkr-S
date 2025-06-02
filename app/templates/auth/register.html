@@ -1,0 +1,30 @@
+<!-- 'register.html' will handle all account registration for the checkbook app, this will be handled again in a simple HTML form that will be processed in the backend
+in auth.py -->
+
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!-- Main header for the register page -->
+<h1>Register</h1>
+
+<!-- register form -->
+<div class="registerForm">
+    <form action="{{url_for('auth.register')}}" method="POST">
+        <!-- Username -->
+        <label for="username">Username: </label>
+        <input type="text" name="username" id="username" required placeholder="Enter your username">
+        <!-- Password -->
+        <label for="password">Password: </label>
+        <input type="password" name="password" id="password" required placeholder="Enter your password">
+        <!-- Confirm Password -->
+        <label for="confirm_password">Confirm Password: </label>
+        <input type="password" name="confirm_password" id="confirm_password" required placeholder="Confirm your password">
+        <!-- Submit -->
+        <input type="submit" value="Register">
+        <!-- Link to login page -->
+        <p>Already have an account? <a href="{{url_for('auth.login')}}">Login here</a></p>
+    </form>
+</div>
+
+{% endblock %}
