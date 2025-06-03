@@ -1,2 +1,11 @@
 //This project uses SCSS (CSS Preprocessor) for styling to allow for variables, nesting, and other features
 
+//variables
+$background-color: #252321;
+$text-color: #f0f0f0;
+
+//body styles
+body {
+    background-color: $background-color;
+    color: $text-color;
+}
