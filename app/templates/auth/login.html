@@ -9,7 +9,12 @@ will be gathered in 'auth.py' handling backend functions to approprately login t
 {% with messages = get_flashed_messages() %}
     {% if messages %}
         {% for message in messages %}
-            <p>{{message}}</p>
+        <!-- Div for the flashed message so we can style and add a button to close the flash -->
+        <div class="flashedMessage">
+            {{message}}
+            <!-- Button with the HTML Entity for an X symbol -->
+            <button class="closeFlash" onclick="this.parentElement.style.display='none';">&times;</button> <!-- Use JavaScript to hide the flashed message (AI helped here as I dont know js yet) -->
+        </div>
         {% endfor %}
     {% endif %}
 {% endwith %}
