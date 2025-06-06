@@ -52,15 +52,21 @@ There is also a form below the table which will allow users to input their trans
 <!-- Create a Form for user input -->
 <div class="userInput">
     <form action="{{url_for('view.checkbook', year_id=year_id, month_id=month_id)}}" method="POST">
+        <!-- Date Input -->
         <input type="date" name="date" id="date" value="{{default_month}}" required>
-        <input type="text" name="content" id="content" required placeholder="Transaction Description">
-        <input type="text" name="amount" id="amount" required placeholder="Transaction Amount">
+        <!-- Content Input -->
+        <label for="content">Transaction Description: </label>
+        <input type="text" name="content" id="content" required>
+        <!-- Amount Input -->
+        <label for="amount">Transaction Amount: </label>
+        <input type="text" name="amount" id="amount" required>
         <!-- Create a select dropdown for the transaction type -->
         <label for="type">Transaction Type (+/-): </label>
-        <select name="type" id="type" required placeholder="Transaction Type (+/-)">
+        <select name="type" id="type" required>
             <option value="+">+</option>
             <option value="-">-</option>
         </select>
+        <!-- Submit Button -->
         <input type="submit" value="Add Transaction" id="btnAdd">
     </form>
 </div>

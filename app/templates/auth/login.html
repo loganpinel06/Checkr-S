@@ -14,23 +14,36 @@ will be gathered in 'auth.py' handling backend functions to approprately login t
     {% endif %}
 {% endwith %}
 
-<!-- Main header for the login page -->
-<h1>Login</h1>
+<!-- HEADER for 'login.html'-->
+<header>
+    <!-- Main header for login page -->
+    <h1>Checkbook App</h1>
+</header>
 
-<!-- login form -->
-<div class="loginForm">
-    <form action="{{url_for('auth.login')}}" method="POST">
-        <!-- Username -->
-        <label for="username">Username: </label>
-        <input type="text" name="username" id="username" required placeholder="Enter your username">
-        <!-- Password -->
-        <label for="password">Password: </label>
-        <input type="password" name="password" id="password" required placeholder="Enter your password">
-        <!-- Submit -->
-        <input type="submit" value="Login">
-        <!-- Link to register page -->
-        <p>Don't have an account? <a href="{{url_for('auth.register')}}">Register here</a></p>
-    </form>
-</div>
+<!-- MAIN element (semantic html) -->
+<main>
+    <!-- login form -->
+    <div class="loginForm">
+        <!-- Main h1 for the login page -->
+        <h2>Login</h2>
+        <!-- Login Form -->
+        <form action="{{url_for('auth.login')}}" method="POST">
+            <!-- Username -->
+            <label for="username">Username: </label>
+            <input type="text" name="username" id="username" required placeholder="Enter your username">
+            <br>
+            <!-- Password -->
+            <label for="password">Password: </label>
+            <input type="password" name="password" id="password" required placeholder="Enter your password">
+            <br>
+            <!-- Submit -->
+            <input type="submit" value="Login">
+            <!-- Link to register page -->
+            <p>Don't have an account? <a href="{{url_for('auth.register')}}">Register here</a></p>
+        </form>
+    </div>
+</main>
+
+<!-- FOOTER -->
 
 {% endblock %}
