@@ -5,6 +5,11 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
+import os
+from dotenv import load_dotenv
+
+#load environment variables from .env file
+load_dotenv()
 
 #initialize the database
 db = SQLAlchemy()
@@ -17,7 +22,7 @@ def createApp():
     #create the app
     app = Flask(__name__)
     #configure the app
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
+    app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('SUPABASE_CONNECTION_STRING') #use the environment variable for the database connection string
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False #disable modification tracking for performance inhancement
 
     #secret key for the app (used for session management and CSRF protection)
