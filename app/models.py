@@ -21,7 +21,7 @@ class User(UserMixin, db.Model):
     #username field
     username = db.Column(db.String(50), unique=True, nullable=False)
     #password field
-    password_hash = db.Column(db.String(150), nullable=False)
+    password_hash = db.Column(db.String(300), nullable=False)
     #joined_date field
     joined_date = db.Column(db.DateTime, default=datetime.utcnow)
     #define a relationship to the Transaction model
@@ -64,7 +64,7 @@ class Transaction(db.Model):
     #content field
     content = db.Column(db.String(100), nullable=False)
     #amount field
-    amount = db.Column(db.Integer, nullable=False)
+    amount = db.Column(db.Float, nullable=False)
     #type field
     type = db.Column(db.String(1), nullable=False)
     #date field
