@@ -35,7 +35,8 @@ def register():
         confirm_password = request.form['confirm_password']
         #check if the password and confirmation password match
         if password != confirm_password:
-            #if they do not match, redirect back to registration page with an error message
+            #if they do not match, redirect back to registration page with an error message and flash a message
+            flash('Passwords do not match', 'error')
             return redirect(url_for('auth.register', error='Passwords do not match'))
         #check if the user already exists in the database
         existing_user = User.query.filter_by(username=username).first()
@@ -82,7 +83,8 @@ def login():
             #redirect to the dashboard after successful login
             return redirect(url_for('view.dashboard'))
         else:
-            #if login fails, redirect back to login page with an error message
+            #if login fails, redirect back to login page with an error message and flash a message saying login failed
+            flash('Invalid username or password', 'error')
             return redirect(url_for('auth.login', error='Invalid username or password'))
     #else we want to render the login template
     else:

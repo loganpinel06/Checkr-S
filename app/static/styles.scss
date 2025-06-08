@@ -3,13 +3,29 @@
 //variables
 $background-color: #252321;
 $text-color: #EFDADD;
+$submit-button-color: #F08080;
 
 //body styles
 body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 16px;
     background-color: $background-color;
     color: $text-color;
 }
 //header styles
+header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    //font styles
+    font-size: 36px;
+    font-weight: 800;
+}
 
 //loginForm styles
 .loginForm {
@@ -17,4 +33,50 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+
+    //box model styles
+    border: 2px solid white;
+    border-radius: 5px;
+    margin-left: 35%;
+    margin-right: 35%;
+    padding: 20px;
+
+    //style the h2
+    h2 {
+        font-size: 36px;
+    }
+
+    //style the labels
+    label {
+        font-size: 18px;
+        font-weight: 800;
+    }
+
+    //style the input fields
+    input {
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        border: 2px solid black;
+        border-radius: 5px;
+        //default browser styling will mess up the submit button so change box-sizing
+        box-sizing: border-box; 
+    }
+
+    //more specific for the submit button
+    input[type="submit"] {
+        background-color: $submit-button-color;
+        border: 2px solid;
+        border-radius: 10px;
+
+        &:hover {
+            background-color: darken($submit-button-color, 5%);
+        }
+    }
+
+    //select the p tags anchor element
+    p > a {
+        color: darken($text-color, 20%);
+        font-weight: 400;
+    }
 }

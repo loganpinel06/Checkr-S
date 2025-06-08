@@ -6,7 +6,6 @@
 
 __pycache__/
 env/
-instance/
 .env
 
 #good practice to ignore .DS_Store (created by mac)
