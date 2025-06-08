@@ -4,7 +4,9 @@
 $background-color: #252321;
 $text-color: #E0B8BE;
 $submit-button-color: #F08080;
+$month-button-color: #5AB9B6;
 
+//BASE STYLES FOR EVERY PAGE
 //body styles
 body {
     width: 100%;
@@ -27,6 +29,7 @@ header {
     font-weight: 800;
 }
 
+//LOGIN AND REGISTER PAGE STYLES
 //loginForm and registerForm styles
 .loginForm, .registerForm {
     display: flex;
@@ -77,6 +80,83 @@ header {
     //select the p tags anchor element
     p > a {
         color: darken($text-color, 20%);
-        font-weight: 400;
+        font-weight: 600;
     }
+}
+
+//DASHBOARD PAGE STYLES
+//year selector styles
+.yearSelector {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    //style the h3
+    h3 {
+        font-size: 24px;
+        font-weight: 600;
+    }
+
+    //style the label element
+    label {
+        font-size: 18px;
+        font-weight: 800;
+    }
+
+    //style the select element
+    select {
+        width: 50%;
+        padding: 2px 0;
+        border: 2px solid black;
+        border-radius: 5px;
+    }
+
+    //style the submit input button
+    input[type="submit"] {
+        background-color: $submit-button-color;
+        width: 80%;
+        height: 30px;
+        border: 2px solid;
+        border-radius: 10px;
+        margin: 5px 0;
+
+        &:hover {
+            background-color: darken($submit-button-color, 5%);
+        }
+    }
+}
+
+//month button styles
+.monthButtonContainer {
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin: 20px;
+
+    //style the buttons
+    button {
+        background-color: $month-button-color;
+        width: 100%;
+        height: 60px;
+        border: 2px solid black;
+        border-radius: 5px;
+        font-size: 12px;
+
+        &:hover {
+            background-color: darken($month-button-color, 5%);
+        }
+    }
+}
+
+//logout link styles
+a#logoutlink {
+    color: darken($text-color, 20%);
+    font-weight: 600;
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

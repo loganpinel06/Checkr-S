@@ -10,8 +10,11 @@ and gather the appropriate data for a certain month -->
 
 {% block content %}
 
-<!-- Main Header for the page -->
-<h1>Dashboard</h1>
+<!-- HEADER for 'dashboard.html'-->
+<header>
+    <!-- Main header for dashboard page -->
+    <h1>Dashboard</h1>
+</header>
 
 <!-- Create a div and class for a year selector -->
 <div class="yearSelector">
@@ -29,20 +32,17 @@ and gather the appropriate data for a certain month -->
    </form>
 </div>
 
-<!-- Create a div and class for the main dashboard -->
-<div class="dashboard">
-    <!-- Create a div and class for all of the links to each month -->
-    <div class="monthButtonContainer">
-        {% for month_id, month in enumerate(months, start=1) %}
-            <!-- Create a link to the checkbook page for each month by giving it the url for the checkbook route and the month_id-->
-            <!-- NOTE making the monthButtons dependent on the yearSelector is NOT required as year_id always defaults to the current year ie: 2025 -->
-            <a href="{{url_for('view.checkbook', year_id=year_id, month_id=month_id)}}" class="monthButton"> 
-                <button>{{month}}</button> <!-- Create a link that looks like a button -->
-            </a>
-        {% endfor %}
-    </div>
-    <!-- Link to logout -->
-    <a href="{{url_for('auth.logout')}}">Logout</a>
+<!-- Create a div and class for all of the links to each month -->
+<div class="monthButtonContainer">
+    {% for month_id, month in enumerate(months, start=1) %}
+        <!-- Create a link to the checkbook page for each month by giving it the url for the checkbook route and the month_id-->
+        <!-- NOTE making the monthButtons dependent on the yearSelector is NOT required as year_id always defaults to the current year ie: 2025 -->
+        <a href="{{url_for('view.checkbook', year_id=year_id, month_id=month_id)}}" class="monthButton"> 
+            <button>{{month}}</button> <!-- Create a link that looks like a button -->
+        </a>
+    {% endfor %}
 </div>
+<!-- Link to logout -->
+<a href="{{url_for('auth.logout')}}" id="logoutlink">Logout</a>
 
 {% endblock %}
