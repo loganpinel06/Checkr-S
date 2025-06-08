@@ -27,20 +27,18 @@ will be gathered in 'auth.py' handling backend functions to approprately login t
 
 <!-- MAIN element (semantic html) -->
 <main>
-    <!-- login form -->
+    <!-- div for login form -->
     <div class="loginForm">
-        <!-- Main h1 for the login page -->
+        <!-- Main h2 for the login page -->
         <h2>Login</h2>
         <!-- Login Form -->
         <form action="{{url_for('auth.login')}}" method="POST">
             <!-- Username -->
             <label for="username">Username: </label>
             <input type="text" name="username" id="username" required placeholder="Enter your username">
-            <br>
             <!-- Password -->
             <label for="password">Password: </label>
             <input type="password" name="password" id="password" required placeholder="Enter your password">
-            <br>
             <!-- Submit -->
             <input type="submit" value="Login">
             <!-- Link to register page -->

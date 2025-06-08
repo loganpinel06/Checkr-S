@@ -2,7 +2,7 @@
 
 //variables
 $background-color: #252321;
-$text-color: #EFDADD;
+$text-color: #E0B8BE;
 $submit-button-color: #F08080;
 
 //body styles
@@ -27,8 +27,8 @@ header {
     font-weight: 800;
 }
 
-//loginForm styles
-.loginForm {
+//loginForm and registerForm styles
+.loginForm, .registerForm {
     display: flex;
     flex-direction: column;
     align-items: center;

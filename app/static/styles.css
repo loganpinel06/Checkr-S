@@ -6,7 +6,7 @@ body {
   font-family: "Open Sans", sans-serif;
   font-size: 16px;
   background-color: #252321;
-  color: #EFDADD;
+  color: #E0B8BE;
 }
 
 header {
@@ -17,7 +17,7 @@ header {
   font-weight: 800;
 }
 
-.loginForm {
+.loginForm, .registerForm {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -28,14 +28,14 @@ header {
   margin-right: 35%;
   padding: 20px;
 }
-.loginForm h2 {
+.loginForm h2, .registerForm h2 {
   font-size: 36px;
 }
-.loginForm label {
+.loginForm label, .registerForm label {
   font-size: 18px;
   font-weight: 800;
 }
-.loginForm input {
+.loginForm input, .registerForm input {
   width: 100%;
   padding: 10px;
   margin: 10px 0;
@@ -43,15 +43,15 @@ header {
   border-radius: 5px;
   box-sizing: border-box;
 }
-.loginForm input[type=submit] {
+.loginForm input[type=submit], .registerForm input[type=submit] {
   background-color: #F08080;
   border: 2px solid;
   border-radius: 10px;
 }
-.loginForm input[type=submit]:hover {
+.loginForm input[type=submit]:hover, .registerForm input[type=submit]:hover {
   background-color: #ed6969;
 }
-.loginForm p > a {
-  color: #d0939c;
+.loginForm p > a, .registerForm p > a {
+  color: #c1717d;
   font-weight: 400;
 }/*# sourceMappingURL=styles.css.map */

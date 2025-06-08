@@ -19,26 +19,37 @@ in auth.py -->
     {% endif %}
 {% endwith %}
 
-<!-- Main header for the register page -->
-<h1>Register</h1>
+<!-- Header for 'register.html' -->
+<header>
+    <!-- Main header for register page -->
+    <h1>Checkbook App</h1>
+</header>
 
-<!-- register form -->
-<div class="registerForm">
-    <form action="{{url_for('auth.register')}}" method="POST">
-        <!-- Username -->
-        <label for="username">Username: </label>
-        <input type="text" name="username" id="username" required placeholder="Enter your username">
-        <!-- Password -->
-        <label for="password">Password: </label>
-        <input type="password" name="password" id="password" required placeholder="Enter your password">
-        <!-- Confirm Password -->
-        <label for="confirm_password">Confirm Password: </label>
-        <input type="password" name="confirm_password" id="confirm_password" required placeholder="Confirm your password">
-        <!-- Submit -->
-        <input type="submit" value="Register">
-        <!-- Link to login page -->
-        <p>Already have an account? <a href="{{url_for('auth.login')}}">Login here</a></p>
-    </form>
-</div>
+<!-- MAIN element (semantic html) -->
+<main>
+    <!-- div for register form -->
+    <div class="registerForm">
+        <!-- Main h1 for the login page -->
+        <h2>Register</h2>
+        <!-- Register Form-->
+        <form action="{{url_for('auth.register')}}" method="POST">
+            <!-- Username -->
+            <label for="username">Username: </label>
+            <input type="text" name="username" id="username" required placeholder="Enter your username">
+            <!-- Password -->
+            <label for="password">Password: </label>
+            <input type="password" name="password" id="password" required placeholder="Enter your password">
+            <!-- Confirm Password -->
+            <label for="confirm_password">Confirm Password: </label>
+            <input type="password" name="confirm_password" id="confirm_password" required placeholder="Confirm your password">
+            <!-- Submit -->
+            <input type="submit" value="Register">
+            <!-- Link to login page -->
+            <p>Already have an account? <a href="{{url_for('auth.login')}}">Login here</a></p>
+        </form>
+    </div>
+</main>
+
+<!-- FOOTER -->
 
 {% endblock %}
