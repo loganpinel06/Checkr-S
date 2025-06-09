@@ -9,14 +9,16 @@ $month-button-color: #5AB9B6;
 //BASE STYLES FOR EVERY PAGE
 //body styles
 body {
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    padding: 0;
     font-family: 'Open Sans', sans-serif;
     font-size: 16px;
     background-color: $background-color;
     color: $text-color;
+
+    //box model styles
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
 }
 //header styles
 header {
@@ -29,9 +31,45 @@ header {
     font-weight: 800;
 }
 
+//style flashed messages
+.flashedMessage {
+    //flexbox styles
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    //box model styles
+    border: 2px solid white;
+    border-radius: 5px;
+    margin-top: 20px;
+    margin-left: 30%;
+    margin-right: 30%;
+    padding: 10px 0;
+
+    //background
+    background-color: lighten($background-color, 5%);
+
+    //style the button
+    button {
+        width: 1.5rem;
+        height: 1.5rem;
+        background-color: $submit-button-color;
+        border: 2px solid;
+        border-radius: 5px;
+        font-size: 12px;
+
+        &:hover {
+            background-color: darken($submit-button-color, 5%);
+        }
+    }
+}
+
 //LOGIN AND REGISTER PAGE STYLES
 //loginForm and registerForm styles
 .loginForm, .registerForm {
+    //flexbox stlyes
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -57,6 +95,7 @@ header {
 
     //style the input fields
     input {
+        //box model styles;
         width: 100%;
         padding: 10px;
         margin: 10px 0;
@@ -69,6 +108,8 @@ header {
     //more specific for the submit button
     input[type="submit"] {
         background-color: $submit-button-color;
+
+        //box model styles
         border: 2px solid;
         border-radius: 10px;
 
@@ -87,6 +128,7 @@ header {
 //DASHBOARD PAGE STYLES
 //year selector styles
 .yearSelector {
+    //flexbox stlyes
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -98,42 +140,51 @@ header {
         font-weight: 600;
     }
 
-    //style the label element
-    label {
-        font-size: 18px;
-        font-weight: 800;
-    }
+    //style the form
+    form {
+        //style the label element
+        label {
+            font-size: 18px;
+            font-weight: 800;
+        }
 
-    //style the select element
-    select {
-        width: 50%;
-        padding: 2px 0;
-        border: 2px solid black;
-        border-radius: 5px;
-    }
+        //style the select element
+        select {
+            //width: 50%;
+            padding: 2px 0;
+            border: 2px solid black;
+            border-radius: 5px;
+        }
 
-    //style the submit input button
-    input[type="submit"] {
-        background-color: $submit-button-color;
-        width: 80%;
-        height: 30px;
-        border: 2px solid;
-        border-radius: 10px;
-        margin: 5px 0;
+        //style the submit input button
+        input[type="submit"] {
+            background-color: $submit-button-color;
+            //width: 80%;
+            height: 30px;
 
-        &:hover {
-            background-color: darken($submit-button-color, 5%);
+            //box model styles
+            border: 2px solid;
+            border-radius: 10px;
+            margin: 5px 0;
+
+            //hover effect
+            &:hover {
+                background-color: darken($submit-button-color, 5%);
+            }
         }
     }
 }
 
 //month button styles
 .monthButtonContainer {
+    //grid styles
     display: grid;
     align-items: center;
     justify-content: center;
     grid-template-columns: repeat(3, 1fr);
     gap: 10px;
+
+    //box model styles
     margin: 20px;
 
     //style the buttons
@@ -156,6 +207,7 @@ a#logoutlink {
     color: darken($text-color, 20%);
     font-weight: 600;
     
+    //flexbox stlyes
     display: flex;
     align-items: center;
     justify-content: center;
