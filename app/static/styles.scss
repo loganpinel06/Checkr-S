@@ -111,7 +111,7 @@ header {
         background-color: $submit-button-color;
 
         //box model styles
-        border: 2px solid;
+        border: 2px solid white;
         border-radius: 10px;
 
         &:hover {
@@ -191,7 +191,7 @@ header {
             height: 30px;
 
             //box model styles
-            border: 2px solid;
+            border: 2px solid white;
             border-radius: 10px;
             margin: 5px 0;
 
@@ -245,4 +245,85 @@ a#logoutlink {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+//CHECKBOOK PAGE STYLES
+//style the user input form
+.userInput {
+    //flexbox styles
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    //form styles
+    form {
+        //flexbox styles
+        //puts each 'form-row' container in a column
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+
+        //box model styles
+        border: 2px solid white;
+        border-radius: 5px;
+        padding: 20px;
+
+        background-color: lighten($background-color, 2%);
+
+        //target the form-row class
+        .form-row {
+            //flexbox styles
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+
+            //target the label element
+            label {
+                font-size: 18px;
+                font-weight: 800;
+            }
+
+            //target the input elements 
+            input, select {
+                margin-left: auto;
+
+                background-color: lighten($background-color, 10%);
+                border: 2px solid white;
+                border-radius: 5px;
+                padding: 5px;
+                color: $text-color;
+                font-size: 14px;
+            }
+
+            //give the select element a cursor pointer on hover
+            select {
+                &:hover {
+                    cursor: pointer;
+                }
+            }
+
+            //target the submit button specifically
+            input[type="submit"] {
+                //center the submit button
+                margin: auto;
+
+                background-color: $submit-button-color;
+                color: black;
+                font-size: 16px;
+                height: 40px;
+                width: 150px;
+                
+                //box model styles
+                border: 2px solid white;
+                border-radius: 10px;
+
+                //hover effect
+                &:hover {
+                    background-color: darken($submit-button-color, 5%);
+                    cursor: pointer;
+                }
+            }
+        }
+    }
 }
