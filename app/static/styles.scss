@@ -5,6 +5,8 @@ $background-color: #252321;
 $text-color: #E0B8BE;
 $submit-button-color: #F08080;
 $month-button-color: #4FD1C5;
+$deposit-color: #8FCB9B;
+$withdraw-color: #D88383;
 
 //BASE STYLES FOR EVERY PAGE
 //body styles
@@ -236,18 +238,93 @@ header {
     }
 }
 
-//logout link styles
-a#logoutlink {
-    color: darken($text-color, 20%);
-    font-weight: 600;
-    
-    //flexbox stlyes
+//CHECKBOOK PAGE STYLES
+//style the table data container
+.tableData {
+    //flexbox styles
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
+
+    //style the placeholder message if there is no table
+    h3#tablePlaceholder {
+        font-size: 36px;
+        font-weight: 600;
+        color: darken($text-color, 20%);
+        margin: 20px;
+    }
+
+    //target the table element
+    table {
+        //box model styles
+        border: 2px solid white;
+        border-radius: 5px;
+        border-spacing: 0; //for removing gap between table cols
+        width: 80%;
+        padding: 20px;
+        margin-bottom: 40px;
+
+        background-color: lighten($background-color, 2%);
+        
+        //target the table header and its children
+        thead th{
+            //box model styles
+            border: 2px solid white;
+            padding: 10px;
+            margin: 0;
+
+            //text styles
+            font-size: 20px;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        //target the table row and table data
+        tr td {
+            //box model styles
+            border-left: 2px solid white;
+            border-right: 2px solid white;
+            border-bottom: 2px solid white;
+            padding: 10px;
+
+            //text styles
+            font-size: 18px;
+            text-align: center;
+
+            //target the specific td elements with classes deposit and withdwraw
+            &.deposit {
+                background-color: $deposit-color;
+            }
+            &.withdraw {
+                background-color: $withdraw-color;
+                width: 10%;
+            }
+
+            //target the buttons
+            button {
+                background-color: $submit-button-color;
+                //box model styles
+                width: 100%;
+                height: 30px;
+                margin: 0.2rem 0;
+                padding: 5px;
+                border: 2px solid white;
+                border-radius: 5px;
+
+                //text styles
+                font-size: 16px;
+
+                //hover effect
+                &:hover {
+                    background-color: darken($submit-button-color, 5%);
+                    cursor: pointer;
+                }
+            }
+        }
+    }
 }
 
-//CHECKBOOK PAGE STYLES
 //style the user input form
 .userInput {
     //flexbox styles
@@ -255,6 +332,9 @@ a#logoutlink {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+
+    //box model styles
+    margin-bottom: 20px;
 
     //form styles
     form {
@@ -326,4 +406,15 @@ a#logoutlink {
             }
         }
     }
+}
+
+//logout link, dashboard link, and back link styles
+a#logoutlink, a#dashboardlink{
+    color: darken($text-color, 20%);
+    font-weight: 600;
+    
+    //flexbox stlyes
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

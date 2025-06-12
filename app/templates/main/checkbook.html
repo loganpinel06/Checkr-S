@@ -17,33 +17,37 @@ There is also a form below the table which will allow users to input their trans
 <div class="tableData">
     <!-- Add Jinja2 logic -->
     {% if transactions | length < 1 %}
-        <h3>Add Your First Transaction!</h3>
+        <h3 id="tablePlaceholder">Add Your First Transaction!</h3>
     {% else %}
         <!-- Create the checkbook table -->
         <table>
             <thead>
+                <th>Type +/-</th>
                 <th>Date</th>
                 <th>About</th>
                 <th>Amount</th>
-                <th>Type +/-</th>
                 <th>Actions</th>
             </thead>
             <!-- Add looping logic to create the table from the database data -->
             {% for transaction in transactions %}
                 <tr>
+                    {% if transaction.type == "+" %}
+                        <td class="deposit"></td>
+                    {% elif transaction.type == "-" %}
+                        <td class="withdraw"></td>
+                    {% endif %}
                     <td>{{transaction.date.strftime("%Y-%m-%d")}}</td> <!-- Format the date to YYYY-MM-DD using strftime -->
                     <td>{{transaction.content}}</td>
                     <td>{{transaction.formatAmount}}</td>
-                    {% if transaction.type == "+" %}
-                        <td class="deposit">{{transaction.type}}</td>
-                    {% elif transaction.type == "-" %}
-                        <td class="withdraw">{{transaction.type}}</td>
-                    {% endif %}
                     <td>
                         <!-- Give edit and delete options in the table -->
-                        <a href="{{url_for('view.delete', year_id=year_id, month_id=month_id, id=transaction.id)}}">Delete</a>
+                        <a href="{{url_for('view.delete', year_id=year_id, month_id=month_id, id=transaction.id)}}">
+                            <button>Delete</button> <!-- Create a link that looks like a button -->
+                        </a>
                         <br>
-                        <a href="{{url_for('view.edit', year_id=year_id, month_id=month_id, id=transaction.id)}}">Edit</a>
+                        <a href="{{url_for('view.edit', year_id=year_id, month_id=month_id, id=transaction.id)}}">
+                            <button>Edit</button>
+                        </a>
                     </td>
                 </tr> 
             {% endfor %}
@@ -86,8 +90,6 @@ There is also a form below the table which will allow users to input their trans
 </div>
 
 <!-- Create a link back to the Dashboard-->
-<div>
-    <a href="{{url_for('view.dashboard')}}">Dashboard</a>
-</div>
+<a href="{{url_for('view.dashboard')}}" id="dashboardlink">Dashboard</a>
 
 {% endblock %}

@@ -159,12 +159,63 @@ header {
   cursor: pointer;
 }
 
-a#logoutlink {
-  color: #c1717d;
-  font-weight: 600;
+.tableData {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+.tableData h3#tablePlaceholder {
+  font-size: 36px;
+  font-weight: 600;
+  color: #c1717d;
+  margin: 20px;
+}
+.tableData table {
+  border: 2px solid white;
+  border-radius: 5px;
+  border-spacing: 0;
+  width: 80%;
+  padding: 20px;
+  margin-bottom: 40px;
+  background-color: #2a2826;
+}
+.tableData table thead th {
+  border: 2px solid white;
+  padding: 10px;
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+  text-align: center;
+}
+.tableData table tr td {
+  border-left: 2px solid white;
+  border-right: 2px solid white;
+  border-bottom: 2px solid white;
+  padding: 10px;
+  font-size: 18px;
+  text-align: center;
+}
+.tableData table tr td.deposit {
+  background-color: #8FCB9B;
+}
+.tableData table tr td.withdraw {
+  background-color: #D88383;
+  width: 10%;
+}
+.tableData table tr td button {
+  background-color: #F08080;
+  width: 100%;
+  height: 30px;
+  margin: 0.2rem 0;
+  padding: 5px;
+  border: 2px solid white;
+  border-radius: 5px;
+  font-size: 16px;
+}
+.tableData table tr td button:hover {
+  background-color: #ed6969;
+  cursor: pointer;
 }
 
 .userInput {
@@ -172,6 +223,7 @@ a#logoutlink {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  margin-bottom: 20px;
 }
 .userInput form {
   display: flex;
@@ -216,4 +268,12 @@ a#logoutlink {
 .userInput form .form-row input[type=submit]:hover {
   background-color: #ed6969;
   cursor: pointer;
+}
+
+a#logoutlink, a#dashboardlink {
+  color: #c1717d;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }/*# sourceMappingURL=styles.css.map */
