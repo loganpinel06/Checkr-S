@@ -4,7 +4,7 @@
 $background-color: #252321;
 $text-color: #E0B8BE;
 $submit-button-color: #F08080;
-$month-button-color: #5AB9B6;
+$month-button-color: #4FD1C5;
 
 //BASE STYLES FOR EVERY PAGE
 //body styles
@@ -62,6 +62,7 @@ header {
 
         &:hover {
             background-color: darken($submit-button-color, 5%);
+            cursor: pointer;
         }
     }
 }
@@ -115,7 +116,13 @@ header {
 
         &:hover {
             background-color: darken($submit-button-color, 5%);
+            cursor: pointer;
         }
+    }
+
+    //select the p tag 
+    p {
+        text-align: center;
     }
 
     //select the p tags anchor element
@@ -129,6 +136,7 @@ header {
 //year selector styles
 .yearSelector {
     //flexbox stlyes
+    //puts the h3 and the form elements in a column
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -142,24 +150,44 @@ header {
 
     //style the form
     form {
-        //style the label element
-        label {
-            font-size: 18px;
-            font-weight: 800;
-        }
+        //puts the .yearForm container and submit button in a column
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
 
-        //style the select element
-        select {
-            //width: 50%;
-            padding: 2px 0;
-            border: 2px solid black;
-            border-radius: 5px;
+        //target the yearForm class
+        .yearForm {
+            //flexbox styles
+            //puts the label and select elements in a row and a gap between them
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+
+            //style the label element
+            label {
+                font-size: 18px;
+                font-weight: 800;
+            }
+
+            //style the select element
+            select {
+                padding: 2px 0;
+                border: 2px solid darken($background-color, 5%);
+                border-radius: 5px;
+                background-color: lighten($background-color, 10%);
+                color: $text-color;
+                font-size: 16px;
+
+                //hover effect for pointer
+                &:hover {
+                    cursor: pointer;
+                }
+            }
         }
 
         //style the submit input button
         input[type="submit"] {
             background-color: $submit-button-color;
-            //width: 80%;
             height: 30px;
 
             //box model styles
@@ -170,6 +198,7 @@ header {
             //hover effect
             &:hover {
                 background-color: darken($submit-button-color, 5%);
+                cursor: pointer;
             }
         }
     }
@@ -186,7 +215,10 @@ header {
 
     //box model styles
     margin: 20px;
-
+    border: 2px solid white;
+    border-radius: 5px;
+    padding: 10px;
+    
     //style the buttons
     button {
         background-color: $month-button-color;
@@ -194,10 +226,12 @@ header {
         height: 60px;
         border: 2px solid black;
         border-radius: 5px;
-        font-size: 12px;
+        font-size: 18px;
+        font-weight: 600;
 
         &:hover {
-            background-color: darken($month-button-color, 5%);
+            background-color: darken($month-button-color, 10%);
+            cursor: pointer;
         }
     }
 }

@@ -41,6 +41,7 @@ header {
 }
 .flashedMessage button:hover {
   background-color: #ed6969;
+  cursor: pointer;
 }
 
 .loginForm, .registerForm {
@@ -76,6 +77,10 @@ header {
 }
 .loginForm input[type=submit]:hover, .registerForm input[type=submit]:hover {
   background-color: #ed6969;
+  cursor: pointer;
+}
+.loginForm p, .registerForm p {
+  text-align: center;
 }
 .loginForm p > a, .registerForm p > a {
   color: #c1717d;
@@ -92,14 +97,30 @@ header {
   font-size: 24px;
   font-weight: 600;
 }
-.yearSelector form label {
+.yearSelector form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.yearSelector form .yearForm {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.yearSelector form .yearForm label {
   font-size: 18px;
   font-weight: 800;
 }
-.yearSelector form select {
+.yearSelector form .yearForm select {
   padding: 2px 0;
-  border: 2px solid black;
+  border: 2px solid #181615;
   border-radius: 5px;
+  background-color: #403d39;
+  color: #E0B8BE;
+  font-size: 16px;
+}
+.yearSelector form .yearForm select:hover {
+  cursor: pointer;
 }
 .yearSelector form input[type=submit] {
   background-color: #F08080;
@@ -110,6 +131,7 @@ header {
 }
 .yearSelector form input[type=submit]:hover {
   background-color: #ed6969;
+  cursor: pointer;
 }
 
 .monthButtonContainer {
@@ -119,17 +141,22 @@ header {
   grid-template-columns: repeat(3, 1fr);
   gap: 10px;
   margin: 20px;
+  border: 2px solid white;
+  border-radius: 5px;
+  padding: 10px;
 }
 .monthButtonContainer button {
-  background-color: #5AB9B6;
+  background-color: #4FD1C5;
   width: 100%;
   height: 60px;
   border: 2px solid black;
   border-radius: 5px;
-  font-size: 12px;
+  font-size: 18px;
+  font-weight: 600;
 }
 .monthButtonContainer button:hover {
-  background-color: #4aafac;
+  background-color: #31bcaf;
+  cursor: pointer;
 }
 
 a#logoutlink {

@@ -18,18 +18,21 @@ and gather the appropriate data for a certain month -->
 
 <!-- Create a div and class for a year selector -->
 <div class="yearSelector">
-   <h3>Please Select a Year</h3>
-   <form action="{{url_for('view.dashboard')}}" method="POST">
-        <label for="year">Year: </label>
-        <select name="year" id="year" required>
-            <!-- Loop through the years list and create an option for each year -->
-            {% for year in range (1950, 2100) %}
-                <!-- Use Jinja2 logic to default the selection to the current year -->
-                <option value="{{year}}" {% if year == current_year %}selected{% endif %}>{{year}}</option>
-            {% endfor %}
-        </select>
-        <input type="submit" value="Select Year">
-   </form>
+    <h3>Selected Year: {{current_year}}</h3>
+    <form action="{{url_for('view.dashboard')}}" method="POST">
+         <!-- Create a div to seperate the label and selector from the submit button for styling purposes -->
+         <div class="yearForm">
+             <label for="year">Year: </label>
+             <select name="year" id="year" required>
+                 <!-- Loop through the years list and create an option for each year -->
+                 {% for year in range (1950, 2100) %}
+                     <!-- Use Jinja2 logic to default the selection to the current year -->
+                     <option value="{{year}}" {% if year == current_year %}selected{% endif %}>{{year}}</option>
+                 {% endfor %}
+             </select>
+         </div>
+         <input type="submit" value="Select Year">
+    </form>
 </div>
 
 <!-- Create a div and class for all of the links to each month -->
