@@ -5,26 +5,49 @@ This page also has a link back to 'checkbook.html' incase accidentally clicked -
 {% extends 'base.html' %}
 
 {% block content %}
+
+<!-- HEADER for 'dashboard.html'-->
+<header>
+    <!-- Heading for the edit page -->
+    <h1>Edit Your Transaction</h1>
+</header>
+
 <!-- Create a Form to allow users to edit the transaction -->
 <div class="userInput">
-    <h1>Edit Your Transaction</h1>
     <form action="{{url_for('view.edit', year_id=year_id, month_id=month_id, id=transaction.id)}}" method="POST">
-        <input type="date" name="date" id="date" value="{{transaction.date.strftime('%Y-%m-%d')}}" required>
-        <input type="text" name="content" id="content" value="{{transaction.content}}" required>
-        <input type="text" name="amount" id="amount" value="{{transaction.amount}}" required>
-        <!-- Transaction Type selector -->
-        <label for="type">Transaction Type (+/-): </label>
-        <select name="type" id="type" required>
-            <!-- Use Jinja2 logic to correctly display the pre-existing transaction type -->
-            <option value="+" {% if transaction.type == '+' %}selected{% endif %}>+</option>
-            <option value="-" {% if transaction.type == '-' %}selected{% endif %}>-</option>
-        </select>
-        <input type="submit" value="Edit Transaction" id="btnAdd">
+        <!-- Wrap each input field in a container called 'form-row' for styling purposes -->
+        <!-- Date Input -->
+        <div class="form-row">
+            <label for="date">Transaction Date: </label>
+            <input type="date" name="date" id="date" value="{{transaction.date.strftime('%Y-%m-%d')}}" required>
+        </div>
+        <!-- Content Input -->
+        <div class="form-row">
+            <label for="content">Transaction Description: </label>
+            <input type="text" name="content" id="content" value="{{transaction.content}}" required>
+        </div>
+        <!-- Amount Input -->
+        <div class="form-row">
+            <label for="amount">Transaction Amount: </label>
+            <input type="text" name="amount" id="amount" value="{{transaction.amount}}" required>
+        </div>
+        <!-- Create a select dropdown for the transaction type -->
+        <div class="form-row">
+            <!-- Transaction Type selector -->
+            <label for="type">Transaction Type (+/-): </label>
+            <select name="type" id="type" required>
+                <!-- Use Jinja2 logic to correctly display the pre-existing transaction type -->
+                <option value="+" {% if transaction.type == '+' %}selected{% endif %}>+</option>
+                <option value="-" {% if transaction.type == '-' %}selected{% endif %}>-</option>
+            </select>
+        </div>
+        <!-- Submit Button -->
+        <div class="form-row">
+            <input type="submit" value="Edit Transaction" id="btnAdd">
+        </div>
     </form>
 </div>
 <!-- Create a link back to the Checkbook page -->
-<div>
-    <a href="{{url_for('view.checkbook', year_id=year_id, month_id=month_id)}}">Back</a>
-</div>
+<a href="{{url_for('view.checkbook', year_id=year_id, month_id=month_id)}}" id="backlink">Back</a>
 
 {% endblock %}

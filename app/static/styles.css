@@ -270,7 +270,7 @@ header {
   cursor: pointer;
 }
 
-a#logoutlink, a#dashboardlink {
+a#logoutlink, a#dashboardlink, a#backlink {
   color: #c1717d;
   font-weight: 600;
   display: flex;

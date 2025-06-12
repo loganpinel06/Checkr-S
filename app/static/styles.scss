@@ -409,7 +409,7 @@ header {
 }
 
 //logout link, dashboard link, and back link styles
-a#logoutlink, a#dashboardlink{
+a#logoutlink, a#dashboardlink, a#backlink {
     color: darken($text-color, 20%);
     font-weight: 600;
     
