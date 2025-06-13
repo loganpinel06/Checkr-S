@@ -21,29 +21,34 @@ MONTHS = [
     "July", "August", "September", "October", "November", "December"
 ]
 
-#create a global variable to hold the current year which will be used in dashboard and checkbook routes as a default value
+#create a global variable SELECTED_YEAR which will be used in dashboard and checkbook routes to mark the selected year by the user
+#this variable will be set to whatever the computers current year is by default until it is changed by the user in the yearSelector form on the dashboard
+SELECTED_YEAR = date.today().year
+
+#create a similar global variable to store the current year based on the computer's date just like SELECTED_YEAR but this variable will not be modified ever
+#this variable will be used to set the max year in the yearSelector form on the dashboard as it doesnt make sense to allow users to select a year in the future
 CURRENT_YEAR = date.today().year
 
 #route for the dashboard
 @view.route('/dashboard', methods=["POST", "GET"])
 @login_required #require a user to be logged in to access the dashboard
 def dashboard():
-    #call the MONTHS and CURRENT_YEAR global variable
-    global MONTHS, CURRENT_YEAR
+    #call the MONTHS, SELECTED_YEAR, and CURRENT_YEAR global variables
+    global MONTHS, SELECTED_YEAR, CURRENT_YEAR
     #default the year_id to the current year
-    year_id = CURRENT_YEAR
+    year_id = SELECTED_YEAR
     #check if the method is POST (aka we are getting data from the form)
     if request.method == "POST":
         #get the year from the form
         year_id = int(request.form['year']) #make sure the variable is an int
-        #update the CURRENT_YEAR variable to the selected year
-        CURRENT_YEAR = year_id
+        #update the SELECTED_YEAR variable to the selected year
+        SELECTED_YEAR = year_id
         #redirect the user back to the dashboard with the selected year
         return redirect(url_for('view.dashboard', year_id=year_id))
     #else we want to display the dashboard page
     else:
         #render the dashboard template and pass the months list and enumerate python function to the template
-        return render_template('main/dashboard.html', months=MONTHS, current_year=CURRENT_YEAR, year_id=year_id, enumerate=enumerate)
+        return render_template('main/dashboard.html', months=MONTHS, selected_year=SELECTED_YEAR, current_year=CURRENT_YEAR, year_id=year_id, enumerate=enumerate)
 
 #route for the main checkbook page
 @view.route('/checkbook/<int:year_id>/<int:month_id>', methods=["POST", "GET"])
