@@ -55,9 +55,27 @@ There is also a form below the table which will allow users to input their trans
     {% endif %}
 </div>
 
+<!-- Create a Form for the users starting monthly balance -->
+<div class="startingBalance">
+    <form action="{{url_for('view.checkbook', year_id=year_id, month_id=month_id)}}" method="POST">
+        <!-- Make sure there are no transactions so this is the first thing the user does -->
+        {% if not balance %}
+            <!-- Hidden input field for backend purposes -->
+            <input type="hidden" name="form_id" value="balanceForm">
+            <label for="startingBalance">Starting Balance For {{month_name}} {{year_id}}: </label>
+            <input type="number" step="any" name="startingBalance" id="startingBalance" required>
+            <input type="submit" value="Set Starting Balance">
+        {% else %}
+            <p>Balance: ${{balance}}</p>
+        {% endif %}
+    </form>
+</div>
+
 <!-- Create a Form for user input -->
 <div class="userInput">
     <form action="{{url_for('view.checkbook', year_id=year_id, month_id=month_id)}}" method="POST">
+        <!-- Hidden input field for backend purposes -->
+        <input type="hidden" name="form_id" value="inputForm">
         <!-- Wrap each input field in a container called 'form-row' for styling purposes -->
         <!-- Date Input -->
         <div class="form-row">
@@ -72,7 +90,7 @@ There is also a form below the table which will allow users to input their trans
         <!-- Amount Input -->
         <div class="form-row">
             <label for="amount">Transaction Amount: </label>
-            <input type="text" name="amount" id="amount" required>
+            <input type="number" step="any" name="amount" id="amount" required>
         </div>
         <!-- Create a select dropdown for the transaction type -->
         <div class="form-row">

@@ -45,6 +45,7 @@ class User(UserMixin, db.Model):
 #create the Transaction model
 #this model will be used to store the transactions in the database
 #it will have the following fields:
+#user_id: the id of the user who made the transaction (foreign key)
 #year_id: the id of the year for the transaction
 #month_id: the id of the month for the transaction
 #id: the id of the transaction
@@ -79,3 +80,29 @@ class Transaction(db.Model):
     @property   #allow this method to be used as a property and called on the object
     def formatAmount(self):
         return "${}".format(self.amount)
+    
+#create the balance model
+#this model will be used to store a user's balance for a given month in a year
+#this model will start with the user's starting balance for the month then update with each transaction that is added
+#this means that there is only one balance entry per month in a year for a unique user
+#user_id: the id of the user (foreign key)
+#year_id: the id of the year for the starting balance
+#month_id: the id of the month for the starting balance
+#id: the id of the starting balance
+#starting_balance: the starting balance for the month
+class Balance(db.Model):
+    #create a user_id foreign key to link transactions to a specific user
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    #year_id field
+    year_id = db.Column(db.Integer, nullable=False)
+    #month_id field
+    month_id = db.Column(db.Integer, nullable=False)
+    #id field
+    id = db.Column(db.Integer, primary_key=True)
+    #starting_balance field
+    balance = db.Column(db.Float, nullable=False)
+
+    #override the __repr__ method to return a string representation of the object's id
+    def __repr__(self):
+        #show the task id
+        return "Task {}".format(self.id)
