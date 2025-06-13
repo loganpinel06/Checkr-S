@@ -79,6 +79,24 @@ def checkbook(year_id:int, month_id:int):
             except Exception as e:
                 #return an ERROR and its error type
                 return "ERROR:{}".format(e)
+        #if the form_id is the reset balance form
+        elif form_id == 'resetBalanceForm':
+            #get the balance object from the Balance model
+            balance_object = Balance.query.filter_by(year_id=year_id, month_id=month_id, user_id=current_user.id).first()
+            #try and except block to handle errors
+            try:
+                #delete the balance object if it exists
+                if balance_object:
+                    db.session.delete(balance_object)
+                    db.session.commit()
+                    #redirect the user to the checkbook page
+                    return redirect(url_for('view.checkbook', year_id=year_id, month_id=month_id))
+                else:
+                    return "No balance to reset", 404
+            #ERROR
+            except Exception as e:
+                #return an ERROR and its error type
+                return "ERROR:{}".format(e)
         #if the form_id is the userInput form
         elif form_id == 'inputForm':
             #get the data from the html form

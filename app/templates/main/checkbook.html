@@ -73,6 +73,14 @@ There is also a form below the table which will allow users to input their trans
                 </div>
             {% else %}
                 <p>Balance: ${{balance}}</p>
+                <!-- Create a new form to reset the users balance -->
+                <form action="{{url_for('view.checkbook', year_id=year_id, month_id=month_id)}}" method="POST">
+                    <!-- Hidden input field for backend purposes-->
+                    <input type="hidden" name="form_id" value="resetBalanceForm">
+                    <div class="form-row">
+                        <input type="submit" id="resetBalanceSubmit" value="Reset Balance">
+                    </div>
+                </form>
             {% endif %}
         </form>
     </div>
