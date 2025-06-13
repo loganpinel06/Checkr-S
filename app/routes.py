@@ -144,6 +144,18 @@ def delete(year_id:int, month_id:int, id:int):
         return "Unauthorized", 403 #return a 403 error
     #try, except block to handle errors
     try:
+        #update the balance for the deleted transaction
+        #get the balance object from the model
+        balance_object = Balance.query.filter_by(year_id=year_id, month_id=month_id, user_id=current_user.id).first()
+        #update the balance based on the transaction type and the amount
+        #make sure to do the opposite operation because we are 'undoing' the transaction
+        if deleteTransaction.type == '+':
+            #add the amount to the balance
+            balance_object.balance -= float(deleteTransaction.amount)
+        elif deleteTransaction.type == '-':
+            #subtract the amount from the balance
+            balance_object.balance += float(deleteTransaction.amount)
+        #delete the transaction from database
         #connect to the db and delete the transaction
         db.session.delete(deleteTransaction)
         #commit the transaction to the db
