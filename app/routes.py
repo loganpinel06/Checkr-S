@@ -2,7 +2,7 @@
 
 #imports
 #Core Flask imports
-from flask import Blueprint, render_template, request, redirect, url_for
+from flask import Blueprint, render_template, request, redirect, url_for, flash
 #flak-login for user authentication
 from flask_login import login_required, current_user
 #import the Transaction model from models.py
@@ -99,39 +99,48 @@ def checkbook(year_id:int, month_id:int):
                 return "ERROR:{}".format(e)
         #if the form_id is the userInput form
         elif form_id == 'inputForm':
-            #get the data from the html form
-            transaction_date_string = request.form['date'] #this gets the date as a string
-            transaction_date_object = datetime.strptime(transaction_date_string, '%Y-%m-%d') #convert the string to a datetime object
-            content = request.form['content']
-            amount = request.form['amount']
-            type = request.form['type']
-
-            #Handle balance logic
-            #get the balance from the Balance model
+            #ENSURE THE STARTING BALANCE IS SET FIRST
+            #get the balance object for flashing a message (OBJECT SHOULD BE NONE)
             balance_object = Balance.query.filter_by(year_id=year_id, month_id=month_id, user_id=current_user.id).first()
-            #update the balance based on the transaction type and the amount
-            if type == '+':
-                #add the amount to the balance
-                balance_object.balance += float(amount)
-            elif type == '-':
-                #subtract the amount from the balance
-                balance_object.balance -= float(amount)
-
-            #create a new transaction object
-            #make sure to set the user_id to the current user id so that we can link the transaction to the user
-            newTransaction = Transaction(date=transaction_date_object, content=content, amount=amount, type=type, year_id=year_id, month_id=month_id, user_id=current_user.id)
-            #add the transaction to the database
-            #try and except block to handle errors
-            try:
-                #connect to the db and add the transaction
-                db.session.add(newTransaction)
-                #commit the transaction to the db
-                db.session.commit()
-                #redirect the user to the checkbook page
+            #if the object is None, we need to flash a message and redirect the user to the checkbook page
+            if balance_object is None:
+                flash("Please set a starting balance first.", "warning")
                 return redirect(url_for('view.checkbook', year_id=year_id, month_id=month_id))
-            except Exception as e:
-                #return an ERROR and its error type
-                return "ERROR:{}".format(e)
+            #else there is a balance object so we can proceed with adding the transaction
+            else:
+                #get the data from the html form
+                transaction_date_string = request.form['date'] #this gets the date as a string
+                transaction_date_object = datetime.strptime(transaction_date_string, '%Y-%m-%d') #convert the string to a datetime object
+                content = request.form['content']
+                amount = request.form['amount']
+                type = request.form['type']
+
+                #Handle balance logic
+                #get the balance from the Balance model
+                balance_object = Balance.query.filter_by(year_id=year_id, month_id=month_id, user_id=current_user.id).first()
+                #update the balance based on the transaction type and the amount
+                if type == '+':
+                    #add the amount to the balance
+                    balance_object.balance += float(amount)
+                elif type == '-':
+                    #subtract the amount from the balance
+                    balance_object.balance -= float(amount)
+
+                #create a new transaction object
+                #make sure to set the user_id to the current user id so that we can link the transaction to the user
+                newTransaction = Transaction(date=transaction_date_object, content=content, amount=amount, type=type, year_id=year_id, month_id=month_id, user_id=current_user.id)
+                #add the transaction to the database
+                #try and except block to handle errors
+                try:
+                    #connect to the db and add the transaction
+                    db.session.add(newTransaction)
+                    #commit the transaction to the db
+                    db.session.commit()
+                    #redirect the user to the checkbook page
+                    return redirect(url_for('view.checkbook', year_id=year_id, month_id=month_id))
+                except Exception as e:
+                    #return an ERROR and its error type
+                    return "ERROR:{}".format(e)
         #else return an error
         else:
             return "Invalid form submission"
