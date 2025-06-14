@@ -10,6 +10,14 @@ This page also has a link back to 'checkbook.html' incase accidentally clicked -
 <header>
     <!-- Heading for the edit page -->
     <h1>Edit Your Transaction</h1>
+    <!-- Nav Bar -->
+    <nav class="navbar">
+        <ul>
+            <li><a href="{{url_for('view.checkbook', year_id=year_id, month_id=month_id)}}" id="backlink">Back</a></li>
+            <li><a href="{{url_for('view.dashboard')}}" id="dashboardlink">Dashboard</a></li>
+            <li><a href="{{url_for('auth.logout')}}" id="logoutlink">Logout</a></li>
+        </ul>
+    </nav>
 </header>
 
 <!-- Create a Form to allow users to edit the transaction -->
@@ -47,7 +55,5 @@ This page also has a link back to 'checkbook.html' incase accidentally clicked -
         </div>
     </form>
 </div>
-<!-- Create a link back to the Checkbook page -->
-<a href="{{url_for('view.checkbook', year_id=year_id, month_id=month_id)}}" id="backlink">Back</a>
 
 {% endblock %}
