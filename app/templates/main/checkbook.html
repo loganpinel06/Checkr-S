@@ -11,6 +11,13 @@ There is also a form below the table which will allow users to input their trans
 <header>
     <!-- Heading for the Check Register -->
     <h1>Check Register for {{month_name}} {{year_id}}</h1>
+    <!-- Nav Bar -->
+    <nav class="navbar">
+        <ul>
+            <li><a href="{{url_for('view.dashboard')}}" id="dashboardlink">Dashboard</a></li>
+            <li><a href="{{url_for('auth.logout')}}" id="logoutlink">Logout</a></li>
+        </ul>
+    </nav>
 </header>
 
 <!-- Create a div and class for the checkbook table -->
@@ -65,7 +72,7 @@ There is also a form below the table which will allow users to input their trans
                 <!-- Hidden input field for backend purposes -->
                 <input type="hidden" name="form_id" value="balanceForm">
                 <div class="form-row">
-                    <label for="startingBalance">Starting Balance For {{month_name}} {{year_id}}: </label>
+                    <label for="startingBalance">Starting Balance <br> {{month_name}} {{year_id}}: </label>
                     <input type="number" step="any" name="startingBalance" id="startingBalance" required>
                 </div>
                 <div class="form-row">

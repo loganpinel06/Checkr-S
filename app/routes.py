@@ -2,7 +2,7 @@
 
 #imports
 #Core Flask imports
-from flask import Blueprint, render_template, request, redirect, url_for, session
+from flask import Blueprint, render_template, request, redirect, url_for
 #flak-login for user authentication
 from flask_login import login_required, current_user
 #import the Transaction model from models.py

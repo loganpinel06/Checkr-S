@@ -25,12 +25,51 @@ body {
 //header styles
 header {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
 
     //font styles
     font-size: 36px;
     font-weight: 800;
+
+    //target the nav bar
+    nav.navbar {
+        //flexbox styles
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+
+        //target the ul
+        ul {
+            //remove the default list styles
+            list-style-type: none;
+
+            //flexbox styles
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+
+            //box model stlyes
+            margin-top: 0;
+
+            //target the links
+            //logout link, dashboard link, and back link styles
+            a#logoutlink, a#dashboardlink, a#backlink {
+                color: darken($text-color, 20%);
+                font-size: 24px;
+                font-weight: 600;
+
+                //flexbox stlyes
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+        }
+    }
 }
 
 //style flashed messages
@@ -423,13 +462,3 @@ header {
     }
 }
 
-//logout link, dashboard link, and back link styles
-a#logoutlink, a#dashboardlink, a#backlink {
-    color: darken($text-color, 20%);
-    font-weight: 600;
-    
-    //flexbox stlyes
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
