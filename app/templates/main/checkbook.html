@@ -80,9 +80,9 @@ There is also a form below the table which will allow users to input their trans
 <div class="checkbookForms">
     <!-- Create a Form for the users starting monthly balance -->
     <div class="startingBalance">
-        <form action="{{url_for('view.checkbook', year_id=year_id, month_id=month_id)}}" method="POST">
-            <!-- Make sure there are no transactions so this is the first thing the user does -->
-            {% if not balance %}
+        <!-- Make sure there are no transactions so this is the first thing the user does -->
+        {% if not starting_balance %}
+            <form action="{{url_for('view.checkbook', year_id=year_id, month_id=month_id)}}" method="POST">
                 <!-- Hidden input field for backend purposes -->
                 <input type="hidden" name="form_id" value="balanceForm">
                 <div class="form-row">
@@ -92,18 +92,20 @@ There is also a form below the table which will allow users to input their trans
                 <div class="form-row">
                     <input type="submit" id="startingBalanceSubmit" value="Set Starting Balance">
                 </div>
-            {% else %}
-                <p>Balance: ${{balance}}</p>
-                <!-- Create a new form to reset the users balance -->
-                <form action="{{url_for('view.checkbook', year_id=year_id, month_id=month_id)}}" method="POST">
-                    <!-- Hidden input field for backend purposes-->
-                    <input type="hidden" name="form_id" value="resetBalanceForm">
-                    <div class="form-row">
-                        <input type="submit" id="resetBalanceSubmit" value="Reset Balance">
-                    </div>
-                </form>
-            {% endif %}
-        </form>
+            </form>
+        {% else %}
+            <!-- Create a new form to reset the users balance -->
+            <form action="{{url_for('view.checkbook', year_id=year_id, month_id=month_id)}}" method="POST">
+                <!-- p tags -->
+                <p>Starting Balance: <span>${{starting_balance}}</span></p>
+                <p>This Months Balance: <span>${{total_balance}}</span></p>
+                <!-- Hidden input field for backend purposes-->
+                <input type="hidden" name="form_id" value="resetBalanceForm">
+                <div class="form-row">
+                    <input type="submit" id="resetBalanceSubmit" value="Reset Balance">
+                </div>
+            </form>
+        {% endif %}
     </div>
 
     <!-- Create a Form for user input -->

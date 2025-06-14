@@ -275,6 +275,16 @@ header nav.navbar ul a#logoutlink:hover, header nav.navbar ul a#dashboardlink:ho
   padding: 20px;
   background-color: #2a2826;
 }
+.checkbookForms .userInput form p, .checkbookForms .startingBalance form p {
+  font-size: 18px;
+  font-weight: 600;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+}
+.checkbookForms .userInput form p span, .checkbookForms .startingBalance form p span {
+  color: #c1717d;
+}
 .checkbookForms .userInput form .form-row, .checkbookForms .startingBalance form .form-row {
   display: flex;
   align-items: center;

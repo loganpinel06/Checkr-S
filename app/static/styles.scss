@@ -410,6 +410,20 @@ header {
 
             background-color: lighten($background-color, 2%);
 
+            //target p tags
+            p {
+                font-size: 18px;
+                font-weight: 600;
+                text-align: center;
+                margin: 0;
+                padding: 0;
+
+                //target the nested span
+                span {
+                    color: darken($text-color, 20%);
+                }
+            }
+
             //target the form-row class
             .form-row {
                 //flexbox styles

@@ -67,7 +67,7 @@ def checkbook(year_id:int, month_id:int):
             #get the starting balance from the form
             balance = request.form['startingBalance']
             #create a new Balance object
-            newBalance = Balance(user_id=current_user.id, year_id=year_id, month_id=month_id, balance=float(balance))
+            newBalance = Balance(user_id=current_user.id, year_id=year_id, month_id=month_id, starting_balance=float(balance), total_balance=float(balance))
             #try and except block to handle errors
             try:
                 #add and commit the new starting balance to the database
@@ -116,15 +116,15 @@ def checkbook(year_id:int, month_id:int):
                 type = request.form['type']
 
                 #Handle balance logic
-                #get the balance from the Balance model
+                #get the balance object from the Balance model
                 balance_object = Balance.query.filter_by(year_id=year_id, month_id=month_id, user_id=current_user.id).first()
-                #update the balance based on the transaction type and the amount
+                #update the total_balance based on the transaction type and the amount
                 if type == '+':
                     #add the amount to the balance
-                    balance_object.balance += float(amount)
+                    balance_object.total_balance += float(amount)
                 elif type == '-':
                     #subtract the amount from the balance
-                    balance_object.balance -= float(amount)
+                    balance_object.total_balance -= float(amount)
 
                 #create a new transaction object
                 #make sure to set the user_id to the current user id so that we can link the transaction to the user
@@ -158,7 +158,7 @@ def checkbook(year_id:int, month_id:int):
         #get the balance from the Balance model
         balance_object = Balance.query.filter_by(year_id=year_id, month_id=month_id, user_id=current_user.id).first()
         #return the rendered template and pass transactions to the html page
-        return render_template('main/checkbook.html', transactions=transactions, transactionType=transactionType, year_id=year_id, month_id=month_id, month_name=month_name, default_month=default_month, enumerate=enumerate, balance=balance_object.balance if balance_object else None)
+        return render_template('main/checkbook.html', transactions=transactions, transactionType=transactionType, year_id=year_id, month_id=month_id, month_name=month_name, default_month=default_month, enumerate=enumerate, starting_balance=f"{balance_object.starting_balance:,.2f}" if balance_object else None, total_balance=f"{balance_object.total_balance:,.2f}" if balance_object else None)
     
 #route to delete a transaction
 @view.route('/checkbook/delete/<int:year_id>/<int:month_id>/<int:id>')

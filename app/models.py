@@ -90,6 +90,7 @@ class Transaction(db.Model):
 #month_id: the id of the month for the starting balance
 #id: the id of the starting balance
 #starting_balance: the starting balance for the month
+#total_balance: the total balance for the month (updated with each transaction)
 class Balance(db.Model):
     #create a user_id foreign key to link transactions to a specific user
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
@@ -100,7 +101,9 @@ class Balance(db.Model):
     #id field
     id = db.Column(db.Integer, primary_key=True)
     #starting_balance field
-    balance = db.Column(db.Float, nullable=False)
+    starting_balance = db.Column(db.Float, nullable=False)
+    #total_balance field
+    total_balance = db.Column(db.Float, nullable=False)
 
     #override the __repr__ method to return a string representation of the object's id
     def __repr__(self):
