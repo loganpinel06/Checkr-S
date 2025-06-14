@@ -24,14 +24,10 @@ body {
 }
 //header styles
 header {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-
     //font styles
     font-size: 36px;
     font-weight: 800;
+    text-align: center;
 
     //target the nav bar
     nav.navbar {
@@ -55,18 +51,33 @@ header {
 
             //box model stlyes
             margin-top: 0;
+            padding: 10px 0;
+            border: 2px solid white;
+            border-radius: 5px;
 
+            //style
+            width: 80%;
+
+            //target the list items
+            li {
+                margin: 0;
+                padding: 5px 0;
+                display: flex;
+                align-items: center;
+            }
             //target the links
             //logout link, dashboard link, and back link styles
             a#logoutlink, a#dashboardlink, a#backlink {
                 color: darken($text-color, 20%);
                 font-size: 24px;
                 font-weight: 600;
+                text-align: center;
+                text-decoration: none;
 
-                //flexbox stlyes
-                display: flex;
-                align-items: center;
-                justify-content: center;
+                &:hover {
+                    color: darken($text-color, 30%);
+                    cursor: pointer;
+                }
             }
         }
     }
