@@ -14,6 +14,12 @@ and gather the appropriate data for a certain month -->
 <header>
     <!-- Main header for dashboard page -->
     <h1>Dashboard</h1>
+    <!-- Nav Bar -->
+    <nav class="navbar">
+        <ul>
+            <li><a href="{{url_for('auth.logout')}}" id="logoutlink">Logout</a></li>
+        </ul>
+    </nav>
 </header>
 
 <!-- Create a div and class for a year selector -->
@@ -45,7 +51,5 @@ and gather the appropriate data for a certain month -->
         </a>
     {% endfor %}
 </div>
-<!-- Link to logout -->
-<a href="{{url_for('auth.logout')}}" id="logoutlink">Logout</a>
 
 {% endblock %}
