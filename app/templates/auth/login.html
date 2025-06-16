@@ -32,7 +32,7 @@ will be gathered in 'auth.py' handling backend functions to approprately login t
     <!-- Login Form -->
     <form action="{{url_for('auth.login')}}" method="POST">
         <!-- CSRF Token for security and other hidden elements -->
-        {{ form.hidden_tag() }}
+        {{form.hidden_tag()}}
         <!-- Username -->
         {{form.username.label}} 
         {{form.username(placeholder="Enter your username")}}
