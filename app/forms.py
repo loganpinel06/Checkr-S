@@ -3,7 +3,7 @@
 #imports
 from flask import Flask
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, FloatField, SelectField, PasswordField, HiddenField
+from wtforms import StringField, SubmitField, IntegerField, SelectField, PasswordField, HiddenField
 from wtforms.validators import DataRequired
 from datetime import datetime
 
@@ -25,9 +25,19 @@ class RegisterForm(FlaskForm):
     confirm_password = PasswordField('Confirm Password: ', validators=[DataRequired()])
     submit = SubmitField('Register')
 
-#creat a form class for the YearForm
+#create a form class for the YearForm
 class YearForm(FlaskForm):
     #create the fields
     #coerce=int is used to convert the string value to an integer so we can set a default value in the backend
     year = SelectField('Year: ', choices=[(str(i), str(i)) for i in range(2000, current_year + 1)], coerce=int, validators=[DataRequired()])
+    submit = SubmitField('Submit')
+
+#create a form for the StartingBalanceForm
+class StartingBalanceForm(FlaskForm):
+    #create the fields
+    field_id = HiddenField(render_kw={"value": "balanceForm"})
+    #pass additional HTML keywords with render_kw
+    #use to set the step to any to accept float values
+    #additionally we will create a custom label in HTML since we need to inject variables
+    starting_balance = IntegerField(validators=[DataRequired()], render_kw={"step": "any"})
     submit = SubmitField('Submit')

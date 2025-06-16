@@ -83,14 +83,14 @@ There is also a form below the table which will allow users to input their trans
         <!-- Make sure there are no transactions so this is the first thing the user does -->
         {% if not starting_balance %}
             <form action="{{url_for('view.checkbook', year_id=year_id, month_id=month_id)}}" method="POST">
-                <!-- Hidden input field for backend purposes -->
-                <input type="hidden" name="form_id" value="balanceForm">
+                <!-- CSRF Token for security and other hidden elements -->
+                {{starting_balance_form.hidden_tag()}}
                 <div class="form-row">
-                    <label for="startingBalance">Starting Balance <br> {{month_name}} {{year_id}}: </label>
-                    <input type="number" step="any" name="startingBalance" id="startingBalance" required>
+                    <label for="{{starting_balance_form.starting_balance.id}}">Starting Balance <br> {{month_name}} {{year_id}}: </label>
+                    {{starting_balance_form.starting_balance()}}
                 </div>
                 <div class="form-row">
-                    <input type="submit" id="startingBalanceSubmit" value="Set Starting Balance">
+                    {{starting_balance_form.submit()}}
                 </div>
             </form>
         {% else %}

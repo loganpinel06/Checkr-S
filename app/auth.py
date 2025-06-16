@@ -34,10 +34,10 @@ def register():
     #but use the built in Flask-WTF method to also validate the form and check for CSRF token
     if form.validate_on_submit():
         #get the username and password from the form
-        username = request.form['username']
-        password = request.form['password']
+        username = form.username.data
+        password = form.password.data
         #confimation password
-        confirm_password = request.form['confirm_password']
+        confirm_password = form.confirm_password.data
         #check if the password and confirmation password match
         if password != confirm_password:
             #if they do not match, redirect back to registration page with an error message and flash a message

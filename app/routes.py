@@ -10,7 +10,7 @@ from .models import Transaction, Balance
 #import the db object from __init__.py to connect to the database
 from . import db 
 #import the Flask-WTF forms from forms.py
-from .forms import YearForm
+from .forms import YearForm, StartingBalanceForm
 #for handling date and time features
 from datetime import date, datetime 
 
@@ -45,7 +45,7 @@ def dashboard():
     #check if the method is POST (call the form.validate_on_submit() method to check if the form is valid)
     if form.validate_on_submit():
         #get the year from the form
-        year_id = int(request.form['year']) #make sure the variable is an int
+        year_id = int(form.year.data) #make sure the variable is an int
         #update the SELECTED_YEAR variable to the selected year
         SELECTED_YEAR = year_id
         #redirect the user back to the dashboard with the selected year
@@ -62,18 +62,20 @@ def dashboard():
 @view.route('/checkbook/<int:year_id>/<int:month_id>', methods=["POST", "GET"])
 @login_required #require a user to be logged in to access the checkbook
 def checkbook(year_id:int, month_id:int):
+    #create the form instance for the StartingBalanceForm
+    starting_balance_form = StartingBalanceForm()
     #use date from datetime to handle time and date features
     #create a default_month variable to use in the checkbook page so that the html date input will default to the selected month from dashboard.html
     default_month = date(year_id, month_id, 1).strftime('%Y-%m-%d')
     #add a task to the checkbook
-    #make sure the method is "POST"
-    if request.method == "POST":
+    #check if the method is POST (call the form.validate_on_submit() method to check if the form is valid)
+    if starting_balance_form.validate_on_submit():
         #check which form was submitted
-        form_id = request.form.get('form_id')
+        form_id = starting_balance_form.field_id.data
         #if form_id is the starting balance form
         if form_id == 'balanceForm':
             #get the starting balance from the form
-            balance = request.form['startingBalance']
+            balance = starting_balance_form.starting_balance.data
             #create a new Balance object
             newBalance = Balance(user_id=current_user.id, year_id=year_id, month_id=month_id, starting_balance=float(balance), total_balance=float(balance))
             #try and except block to handle errors
@@ -166,7 +168,7 @@ def checkbook(year_id:int, month_id:int):
         #get the balance from the Balance model
         balance_object = Balance.query.filter_by(year_id=year_id, month_id=month_id, user_id=current_user.id).first()
         #return the rendered template and pass transactions to the html page
-        return render_template('main/checkbook.html', transactions=transactions, transactionType=transactionType, year_id=year_id, month_id=month_id, month_name=month_name, default_month=default_month, enumerate=enumerate, starting_balance=f"{balance_object.starting_balance:,.2f}" if balance_object else None, total_balance=f"{balance_object.total_balance:,.2f}" if balance_object else None)
+        return render_template('main/checkbook.html', transactions=transactions, transactionType=transactionType, year_id=year_id, month_id=month_id, month_name=month_name, default_month=default_month, enumerate=enumerate, starting_balance=f"{balance_object.starting_balance:,.2f}" if balance_object else None, total_balance=f"{balance_object.total_balance:,.2f}" if balance_object else None, starting_balance_form=starting_balance_form)
     
 #route to delete a transaction
 @view.route('/checkbook/delete/<int:year_id>/<int:month_id>/<int:id>')
