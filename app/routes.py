@@ -10,7 +10,7 @@ from .models import Transaction, Balance
 #import the db object from __init__.py to connect to the database
 from . import db 
 #import the Flask-WTF forms from forms.py
-#from .forms import
+from .forms import YearForm
 #for handling date and time features
 from datetime import date, datetime 
 
@@ -35,12 +35,15 @@ CURRENT_YEAR = date.today().year
 @view.route('/dashboard', methods=["POST", "GET"])
 @login_required #require a user to be logged in to access the dashboard
 def dashboard():
+    #create the YearForm instance
+    form = YearForm()
     #call the MONTHS, SELECTED_YEAR, and CURRENT_YEAR global variables
     global MONTHS, SELECTED_YEAR, CURRENT_YEAR
     #default the year_id to the current year
     year_id = SELECTED_YEAR
-    #check if the method is POST (aka we are getting data from the form)
-    if request.method == "POST":
+
+    #check if the method is POST (call the form.validate_on_submit() method to check if the form is valid)
+    if form.validate_on_submit():
         #get the year from the form
         year_id = int(request.form['year']) #make sure the variable is an int
         #update the SELECTED_YEAR variable to the selected year
@@ -49,8 +52,11 @@ def dashboard():
         return redirect(url_for('view.dashboard', year_id=year_id))
     #else we want to display the dashboard page
     else:
+        #workaround for allowing the Flask-WTF form to auto select the SELECTED_YEAR in the select field
+        #check if the method is GET and set the form data to the SELECTED_YEAR
+        form.year.data = SELECTED_YEAR
         #render the dashboard template and pass the months list and enumerate python function to the template
-        return render_template('main/dashboard.html', months=MONTHS, selected_year=SELECTED_YEAR, current_year=CURRENT_YEAR, year_id=year_id, enumerate=enumerate)
+        return render_template('main/dashboard.html', months=MONTHS, selected_year=SELECTED_YEAR, current_year=CURRENT_YEAR, year_id=year_id, enumerate=enumerate, form=form)
 
 #route for the main checkbook page
 @view.route('/checkbook/<int:year_id>/<int:month_id>', methods=["POST", "GET"])
