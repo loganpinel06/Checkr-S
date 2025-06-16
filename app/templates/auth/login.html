@@ -25,27 +25,26 @@ will be gathered in 'auth.py' handling backend functions to approprately login t
     <h1>Checkbook App</h1>
 </header>
 
-<!-- MAIN element (semantic html) -->
-<main>
-    <!-- div for login form -->
-    <div class="loginForm">
-        <!-- Main h2 for the login page -->
-        <h2>Login</h2>
-        <!-- Login Form -->
-        <form action="{{url_for('auth.login')}}" method="POST">
-            <!-- Username -->
-            <label for="username">Username: </label>
-            <input type="text" name="username" id="username" required placeholder="Enter your username">
-            <!-- Password -->
-            <label for="password">Password: </label>
-            <input type="password" name="password" id="password" required placeholder="Enter your password">
-            <!-- Submit -->
-            <input type="submit" value="Login">
-            <!-- Link to register page -->
-            <p>Don't have an account? <a href="{{url_for('auth.register')}}">Register here</a></p>
-        </form>
-    </div>
-</main>
+ <!-- div for login form -->
+ <div class="loginForm">
+    <!-- Main h2 for the login page -->
+    <h2>Login</h2>
+    <!-- Login Form -->
+    <form action="{{url_for('auth.login')}}" method="POST">
+        <!-- CSRF Token for security and other hidden elements -->
+        {{ form.hidden_tag() }}
+        <!-- Username -->
+        {{form.username.label}} 
+        {{form.username(placeholder="Enter your username")}}
+        <!-- Password -->
+        {{form.password.label}}
+        {{form.password(placeholder="Enter your password")}}
+        <!-- Submit -->
+        {{form.submit()}}
+        <!-- Link to register page -->
+        <p>Don't have an account? <a href="{{url_for('auth.register')}}">Register here</a></p>
+    </form>
+</div>
 
 <!-- FOOTER -->
 

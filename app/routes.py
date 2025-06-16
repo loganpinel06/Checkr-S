@@ -9,6 +9,8 @@ from flask_login import login_required, current_user
 from .models import Transaction, Balance
 #import the db object from __init__.py to connect to the database
 from . import db 
+#import the Flask-WTF forms from forms.py
+#from .forms import
 #for handling date and time features
 from datetime import date, datetime 
 

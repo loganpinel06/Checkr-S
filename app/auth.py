@@ -9,6 +9,8 @@ from flask import Blueprint, render_template, request, redirect, url_for, flash
 from flask_login import login_user, login_required, logout_user
 #import the user model from models.py
 from .models import User
+#import the Flask-WTF forms from forms.py
+from .forms import LoginForm
 #import the db object from __init__.py to connect to the database
 #and import the login manager for user authentication
 from . import db, login_manager
@@ -69,11 +71,13 @@ def register():
 #create a route for the login page
 @view_auth.route('/', methods=["GET", "POST"])
 def login():
-    #check if the method is POST so we can get data from the form
-    if request.method == "POST":
-        #get the username and password from the form
-        username = request.form['username']
-        password = request.form['password']
+    #create the login form
+    form = LoginForm()
+    #validate the form
+    if form.validate_on_submit():
+        #if the form is valid, get the username and password from the form
+        username = form.username.data
+        password = form.password.data
         #query the database for the user with the given username
         user = User.query.filter_by(username=username).first()
         #check if the user exists and if the password is correct
@@ -86,10 +90,27 @@ def login():
             #if login fails, redirect back to login page with an error message and flash a message saying login failed
             flash('Invalid username or password', 'error')
             return redirect(url_for('auth.login', error='Invalid username or password'))
+    #check if the method is POST so we can get data from the form
+    #if request.method == "POST":
+    #    #get the username and password from the form
+    #    username = request.form['username']
+    #    password = request.form['password']
+    #    #query the database for the user with the given username
+    #    user = User.query.filter_by(username=username).first()
+    #    #check if the user exists and if the password is correct
+    #    if user and user.check_password(password):
+    #        #log in the user
+    #        login_user(user)
+    #        #redirect to the dashboard after successful login
+    #        return redirect(url_for('view.dashboard'))
+    #    else:
+    #        #if login fails, redirect back to login page with an error message and flash a message saying login failed
+    #        flash('Invalid username or password', 'error')
+    #        return redirect(url_for('auth.login', error='Invalid username or password'))
     #else we want to render the login template
     else:
         #redner the login.html tempalte
-        return render_template('auth/login.html')
+        return render_template('auth/login.html', form=form)
     
 #create a route for logout
 @view_auth.route('/logout', methods=["GET", "POST"])
