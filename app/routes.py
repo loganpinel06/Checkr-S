@@ -164,35 +164,43 @@ def checkbook(year_id:int, month_id:int):
 @view.route('/checkbook/delete/<int:year_id>/<int:month_id>/<int:id>')
 @login_required #require a user to be logged in to access the delete route
 def delete(year_id:int, month_id:int, id:int):
-    #query the transaction we need to delete
-    deleteTransaction = Transaction.query.get_or_404(id)
-    #make sure the transaction belongs to the current user
-    if deleteTransaction.user_id != current_user.id:
-        return "Unauthorized", 403 #return a 403 error
-    #try, except block to handle errors
-    try:
-        #update the balance for the deleted transaction
-        #get the balance object from the model
-        balance_object = Balance.query.filter_by(year_id=year_id, month_id=month_id, user_id=current_user.id).first()
-        #update the balance based on the transaction type and the amount
-        #make sure to do the opposite operation because we are 'undoing' the transaction
-        if deleteTransaction.type == '+':
-            #add the amount to the balance
-            balance_object.balance -= float(deleteTransaction.amount)
-        elif deleteTransaction.type == '-':
-            #subtract the amount from the balance
-            balance_object.balance += float(deleteTransaction.amount)
-        #delete the transaction from database
-        #connect to the db and delete the transaction
-        db.session.delete(deleteTransaction)
-        #commit the transaction to the db
-        db.session.commit()
-        #redirect the user to the checkbook page
+    #we need to have a balance_object in order to delete a transaction so we need to check if it exists
+    #and if it doesn't exist, we need to flash a message and redirect the user to the checkbook page
+    balance_object = Balance.query.filter_by(year_id=year_id, month_id=month_id, user_id=current_user.id).first()
+    if balance_object is None:
+        flash("Please set a starting balance first.", "warning")
         return redirect(url_for('view.checkbook', year_id=year_id, month_id=month_id))
-    #ERROR
-    except Exception as e:
-        #return an ERROR and its error type
-        return "ERROR:{}".format(e)
+    #else we can proceed with deleting the transaction
+    else:
+        #query the transaction we need to delete
+        deleteTransaction = Transaction.query.get_or_404(id)
+        #make sure the transaction belongs to the current user
+        if deleteTransaction.user_id != current_user.id:
+            return "Unauthorized", 403 #return a 403 error
+        #try, except block to handle errors
+        try:
+            #update the balance for the deleted transaction
+            #get the balance object from the model
+            balance_object = Balance.query.filter_by(year_id=year_id, month_id=month_id, user_id=current_user.id).first()
+            #update the balance based on the transaction type and the amount
+            #make sure to do the opposite operation because we are 'undoing' the transaction
+            if deleteTransaction.type == '+':
+                #subtract the amount to the total_balance
+                balance_object.total_balance -= float(deleteTransaction.amount)
+            elif deleteTransaction.type == '-':
+                #add the amount from the total_balance
+                balance_object.total_balance += float(deleteTransaction.amount)
+            #delete the transaction from database
+            #connect to the db and delete the transaction
+            db.session.delete(deleteTransaction)
+            #commit the transaction to the db
+            db.session.commit()
+            #redirect the user to the checkbook page
+            return redirect(url_for('view.checkbook', year_id=year_id, month_id=month_id))
+        #ERROR
+        except Exception as e:
+            #return an ERROR and its error type
+            return "ERROR:{}".format(e)
     
 #route to edit a transaction
 @view.route('/checkbook/edit/<int:year_id>/<int:month_id>/<int:id>', methods=["POST", "GET"])
@@ -200,18 +208,50 @@ def delete(year_id:int, month_id:int, id:int):
 def edit(year_id:int, month_id:int, id:int):
     #query the transaction we need to edit by the id
     transaction = Transaction.query.get_or_404(id)
+    #store the original amount in a variable for balance logic later
+    original_amount = transaction.amount
+    #store the original type incase it is changed (for balance logic later)
+    original_type = transaction.type
     #make sure the tranasction belongs to the current user
     if transaction.user_id != current_user.id:
         return "Unauthorized", 403
     #check if the method is POST
     if request.method == "POST":
-        #update the attributes fo the transaction
+        #update the attributes for the transaction
         transaction_date_string = request.form['date'] #this gets the date as a string
         transaction_date_object = datetime.strptime(transaction_date_string, '%Y-%m-%d') #convert the string to a datetime object
         transaction.date = transaction_date_object #update the date
         transaction.content = request.form['content']
         transaction.amount = request.form['amount']
         transaction.type = request.form['type']
+
+        #Handle balance logic
+        #get the balance object from the Balance model
+        balance_object = Balance.query.filter_by(year_id=year_id, month_id=month_id, user_id=current_user.id).first()
+        #update the total_balance based on the transaction type and the amount
+        if transaction.type == '+':
+            #check if the type was changed from the original
+            if transaction.type != original_type:
+                #we need to add the original amount back to the balance
+                balance_object.total_balance += float(original_amount)
+            #else is only changing the amount
+            else:
+                #remove the original amount from the balance
+                balance_object.total_balance -= float(original_amount)
+            #add the NEW amount to the balance
+            balance_object.total_balance += float(transaction.amount)
+        elif transaction.type == '-':
+            #check if the type was changed from the original
+            if transaction.type != original_type:
+                #we need to subtract the original amount back from the balance
+                balance_object.total_balance -= float(original_amount)
+            #else is only changing the amount
+            else:
+                #remove the original amount from the balance
+                balance_object.total_balance += float(original_amount)
+            #subtract the NEW amount from the balance
+            balance_object.total_balance -= float(transaction.amount)
+
         #try, except block to handle errors
         try:
             #connect to the db and update the transaction
