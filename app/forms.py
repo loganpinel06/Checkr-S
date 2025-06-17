@@ -3,7 +3,7 @@
 #imports
 from flask import Flask
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, IntegerField, SelectField, PasswordField, DateField, HiddenField
+from wtforms import StringField, SubmitField, FloatField, SelectField, PasswordField, DateField, HiddenField
 from wtforms.validators import DataRequired
 from datetime import datetime
 
@@ -30,7 +30,7 @@ class YearForm(FlaskForm):
     #create the fields
     #coerce=int is used to convert the string value to an integer so we can set a default value in the backend
     year = SelectField('Year: ', choices=[(str(i), str(i)) for i in range(2000, current_year + 1)], coerce=int, validators=[DataRequired()])
-    submit = SubmitField('Submit')
+    submit = SubmitField('Select Year')
 
 #create a form for the StartingBalanceForm
 class StartingBalanceForm(FlaskForm):
@@ -39,7 +39,7 @@ class StartingBalanceForm(FlaskForm):
     #pass additional HTML keywords with render_kw
     #use to set the step to any to accept float values
     #additionally we will create a custom label in HTML since we need to inject variables
-    starting_balance = IntegerField(validators=[DataRequired()], render_kw={"step": "any"})
+    starting_balance = FloatField(validators=[DataRequired()])
     submit = SubmitField('Submit')
 
 #create a form for the ResetBalanceForm
@@ -51,16 +51,30 @@ class ResetBalanceForm(FlaskForm):
 
 #create a form for the UserInputForm
 class UserInputForm(FlaskForm):
+    #create the fields
     #hidden field
     field_id = HiddenField(render_kw={"value": "inputForm"})
-    #create the fields
-    #date field and pass in the injected variable with additional HTML keywords
+    #date field
     date = DateField('Transaction Date: ', format='%Y-%m-%d', validators=[DataRequired()])
     #content field
     content = StringField('Transaction Description: ', validators=[DataRequired()])
     #amount field
-    amount = IntegerField('Transaction Amount: ', validators=[DataRequired()], render_kw={"step": "any"})
+    amount = FloatField('Transaction Amount: ', validators=[DataRequired()])
     #transaction type field
     type = SelectField('Transaction Type: ', choices=['+', '-'], validators=[DataRequired()])
     #submit field
     submit = SubmitField('Add Transaction')
+
+#create a form for the EditTransactionForm
+class EditTransactionForm(FlaskForm):
+    #create the fields
+    #date field
+    date = DateField('Transaction Date: ', format='%Y-%m-%d', validators=[DataRequired()])
+    #content field
+    content = StringField('Transaction Description: ', validators=[DataRequired()])
+    #amount field
+    amount = FloatField('Transaction Amount: ', validators=[DataRequired()], render_kw={"step": "any"})
+    #type field
+    type = SelectField('Transaction Type: ', choices=['+', '-'], validators=[DataRequired()])
+    #submit field
+    submit = SubmitField('Edit Transaction')

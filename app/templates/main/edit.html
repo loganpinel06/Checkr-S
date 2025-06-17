@@ -24,35 +24,33 @@ This page also has a link back to 'checkbook.html' incase accidentally clicked -
 <div class="checkbookForms">
     <div class="userInput">
         <form action="{{url_for('view.edit', year_id=year_id, month_id=month_id, id=transaction.id)}}" method="POST">
+            <!-- CSRF Token for security and other hidden elements -->
+            {{form.hidden_tag()}}
             <!-- Wrap each input field in a container called 'form-row' for styling purposes -->
             <!-- Date Input -->
             <div class="form-row">
-                <label for="date">Transaction Date: </label>
-                <input type="date" name="date" id="date" value="{{transaction.date.strftime('%Y-%m-%d')}}" required>
+                {{form.date.label}}
+                {{form.date()}}
             </div>
             <!-- Content Input -->
             <div class="form-row">
-                <label for="content">Transaction Description: </label>
-                <input type="text" name="content" id="content" value="{{transaction.content}}" required>
+                {{form.content.label}}
+                {{form.content()}}
             </div>
             <!-- Amount Input -->
             <div class="form-row">
-                <label for="amount">Transaction Amount: </label>
-                <input type="text" name="amount" id="amount" value="{{transaction.amount}}" required>
+                {{form.amount.label}}
+                {{form.amount()}}
             </div>
             <!-- Create a select dropdown for the transaction type -->
             <div class="form-row">
                 <!-- Transaction Type selector -->
-                <label for="type">Transaction Type (+/-): </label>
-                <select name="type" id="type" required>
-                    <!-- Use Jinja2 logic to correctly display the pre-existing transaction type -->
-                    <option value="+" {% if transaction.type == '+' %}selected{% endif %}>+</option>
-                    <option value="-" {% if transaction.type == '-' %}selected{% endif %}>-</option>
-                </select>
+                {{form.type.label}}
+                {{form.type()}}
             </div>
             <!-- Submit Button -->
             <div class="form-row">
-                <input type="submit" value="Edit Transaction" id="btnAdd">
+                {{form.submit()}}
             </div>
         </form>
     </div>

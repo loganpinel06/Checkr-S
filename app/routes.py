@@ -10,7 +10,7 @@ from .models import Transaction, Balance
 #import the db object from __init__.py to connect to the database
 from . import db 
 #import the Flask-WTF forms from forms.py
-from .forms import YearForm, StartingBalanceForm, ResetBalanceForm, UserInputForm
+from .forms import YearForm, StartingBalanceForm, ResetBalanceForm, UserInputForm, EditTransactionForm
 #for handling date and time features
 from datetime import date, datetime 
 
@@ -218,24 +218,26 @@ def delete(year_id:int, month_id:int, id:int):
 @view.route('/checkbook/edit/<int:year_id>/<int:month_id>/<int:id>', methods=["POST", "GET"])
 @login_required #require a user to be logged in to access the edit route
 def edit(year_id:int, month_id:int, id:int):
+    #create the UserInputForm instance
+    form = EditTransactionForm()
     #query the transaction we need to edit by the id
     transaction = Transaction.query.get_or_404(id)
     #store the original amount in a variable for balance logic later
     original_amount = transaction.amount
     #store the original type incase it is changed (for balance logic later)
     original_type = transaction.type
+
     #make sure the tranasction belongs to the current user
     if transaction.user_id != current_user.id:
         return "Unauthorized", 403
-    #check if the method is POST
-    if request.method == "POST":
+    #check if the method is POST (call the form.validate_on_submit() method to check if the form is valid)
+    if form.validate_on_submit():
         #update the attributes for the transaction
-        transaction_date_string = request.form['date'] #this gets the date as a string
-        transaction_date_object = datetime.strptime(transaction_date_string, '%Y-%m-%d') #convert the string to a datetime object
+        transaction_date_object = form.date.data #this gets the date as a string
         transaction.date = transaction_date_object #update the date
-        transaction.content = request.form['content']
-        transaction.amount = request.form['amount']
-        transaction.type = request.form['type']
+        transaction.content = form.content.data
+        transaction.amount = form.amount.data
+        transaction.type = form.type.data
 
         #Handle balance logic
         #get the balance object from the Balance model
@@ -276,5 +278,12 @@ def edit(year_id:int, month_id:int, id:int):
             return "ERROR:{}".format(e)
     #otherwise we want to display a page where the user can edit their transaction
     else:
+        #check if the method is GET so we can prepopulate the form with the transaction data
+        if request.method == 'GET':
+            #use the queried transaction to set default values for the form fields so the form will display the transactions original values
+            form.date.data = transaction.date
+            form.content.data = transaction.content
+            form.amount.data = transaction.amount
+            form.type.data = transaction.type
         #pass the transaction model to use its id in the edit.html page
-        return render_template('main/edit.html', transaction=transaction, year_id=year_id, month_id=month_id)
+        return render_template('main/edit.html', transaction=transaction, year_id=year_id, month_id=month_id, form=form)
