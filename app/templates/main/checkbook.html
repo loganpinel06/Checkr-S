@@ -96,13 +96,14 @@ There is also a form below the table which will allow users to input their trans
         {% else %}
             <!-- Create a new form to reset the users balance -->
             <form action="{{url_for('view.checkbook', year_id=year_id, month_id=month_id)}}" method="POST">
+                <!-- CSRF Token for security and other hidden elements -->
+                {{reset_balance_form.hidden_tag()}}
                 <!-- p tags -->
                 <p>Starting Balance: <span>${{starting_balance}}</span></p>
                 <p>This Months Balance: <span>${{total_balance}}</span></p>
-                <!-- Hidden input field for backend purposes-->
-                <input type="hidden" name="form_id" value="resetBalanceForm">
+                <!-- Submit Button -->
                 <div class="form-row">
-                    <input type="submit" id="resetBalanceSubmit" value="Reset Balance">
+                    {{reset_balance_form.submit()}}
                 </div>
             </form>
         {% endif %}
@@ -111,35 +112,32 @@ There is also a form below the table which will allow users to input their trans
     <!-- Create a Form for user input -->
     <div class="userInput">
         <form action="{{url_for('view.checkbook', year_id=year_id, month_id=month_id)}}" method="POST">
-            <!-- Hidden input field for backend purposes -->
-            <input type="hidden" name="form_id" value="inputForm">
+            <!-- CSRF Token for security and other hidden elements -->
+            {{user_input_form.hidden_tag()}}
             <!-- Wrap each input field in a container called 'form-row' for styling purposes -->
             <!-- Date Input -->
             <div class="form-row">
-                <label for="date">Transaction Date: </label>
-                <input type="date" name="date" id="date" value="{{default_month}}" required>
+                {{user_input_form.date.label}}
+                {{user_input_form.date()}}
             </div>
             <!-- Content Input -->
             <div class="form-row">
-                <label for="content">Transaction Description: </label>
-                <input type="text" name="content" id="content" required>
+                {{user_input_form.content.label}}
+                {{user_input_form.content()}}
             </div>
             <!-- Amount Input -->
             <div class="form-row">
-                <label for="amount">Transaction Amount: </label>
-                <input type="number" step="any" name="amount" id="amount" required>
+                {{user_input_form.amount.label}}
+                {{user_input_form.amount()}}
             </div>
             <!-- Create a select dropdown for the transaction type -->
             <div class="form-row">
-                <label for="type">Transaction Type (+/-): </label>
-                <select name="type" id="type" required>
-                    <option value="+">+</option>
-                    <option value="-">-</option>
-                </select>
+                {{user_input_form.type.label}}
+                {{user_input_form.type()}}
             </div>
             <!-- Submit Button -->
             <div class="form-row">
-                <input type="submit" value="Add Transaction" id="btnAdd">
+                {{user_input_form.submit()}}
             </div>
         </form>
     </div>

@@ -3,7 +3,7 @@
 #imports
 from flask import Flask
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, IntegerField, SelectField, PasswordField, HiddenField
+from wtforms import StringField, SubmitField, IntegerField, SelectField, PasswordField, DateField, HiddenField
 from wtforms.validators import DataRequired
 from datetime import datetime
 
@@ -34,10 +34,33 @@ class YearForm(FlaskForm):
 
 #create a form for the StartingBalanceForm
 class StartingBalanceForm(FlaskForm):
-    #create the fields
-    field_id = HiddenField(render_kw={"value": "balanceForm"})
+    #hidden field
+    field_id = HiddenField(id="field_id", render_kw={"value": "balanceForm"})
     #pass additional HTML keywords with render_kw
     #use to set the step to any to accept float values
     #additionally we will create a custom label in HTML since we need to inject variables
     starting_balance = IntegerField(validators=[DataRequired()], render_kw={"step": "any"})
     submit = SubmitField('Submit')
+
+#create a form for the ResetBalanceForm
+class ResetBalanceForm(FlaskForm):
+    #hidden field
+    field_id = HiddenField(render_kw={"value": "resetBalanceForm"})
+    #create the fields
+    submit = SubmitField('Reset Balance')
+
+#create a form for the UserInputForm
+class UserInputForm(FlaskForm):
+    #hidden field
+    field_id = HiddenField(render_kw={"value": "inputForm"})
+    #create the fields
+    #date field and pass in the injected variable with additional HTML keywords
+    date = DateField('Transaction Date: ', format='%Y-%m-%d', validators=[DataRequired()])
+    #content field
+    content = StringField('Transaction Description: ', validators=[DataRequired()])
+    #amount field
+    amount = IntegerField('Transaction Amount: ', validators=[DataRequired()], render_kw={"step": "any"})
+    #transaction type field
+    type = SelectField('Transaction Type: ', choices=['+', '-'], validators=[DataRequired()])
+    #submit field
+    submit = SubmitField('Add Transaction')

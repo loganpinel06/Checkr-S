@@ -10,7 +10,7 @@ from .models import Transaction, Balance
 #import the db object from __init__.py to connect to the database
 from . import db 
 #import the Flask-WTF forms from forms.py
-from .forms import YearForm, StartingBalanceForm
+from .forms import YearForm, StartingBalanceForm, ResetBalanceForm, UserInputForm
 #for handling date and time features
 from datetime import date, datetime 
 
@@ -62,98 +62,97 @@ def dashboard():
 @view.route('/checkbook/<int:year_id>/<int:month_id>', methods=["POST", "GET"])
 @login_required #require a user to be logged in to access the checkbook
 def checkbook(year_id:int, month_id:int):
-    #create the form instance for the StartingBalanceForm
+    #create the form instance for the StartingBalanceForm, ResetBalanceForm, and UserInputForm
     starting_balance_form = StartingBalanceForm()
+    reset_balance_form = ResetBalanceForm()
+    user_input_form = UserInputForm()
     #use date from datetime to handle time and date features
     #create a default_month variable to use in the checkbook page so that the html date input will default to the selected month from dashboard.html
     default_month = date(year_id, month_id, 1).strftime('%Y-%m-%d')
-    #add a task to the checkbook
+    
+    #update the default date value for the user_input_form
+    user_input_form.date.data = datetime.strptime(default_month, '%Y-%m-%d') #convert the string to a datetime object
+    
+    #gather the forms hidden field value
+    field_id = request.form.get('field_id')
     #check if the method is POST (call the form.validate_on_submit() method to check if the form is valid)
-    if starting_balance_form.validate_on_submit():
-        #check which form was submitted
-        form_id = starting_balance_form.field_id.data
-        #if form_id is the starting balance form
-        if form_id == 'balanceForm':
-            #get the starting balance from the form
-            balance = starting_balance_form.starting_balance.data
-            #create a new Balance object
-            newBalance = Balance(user_id=current_user.id, year_id=year_id, month_id=month_id, starting_balance=float(balance), total_balance=float(balance))
-            #try and except block to handle errors
-            try:
-                #add and commit the new starting balance to the database
-                db.session.add(newBalance)
+    #since we have multiple forms in this route we need to also check the submit fields data
+    #STARTING BALANCE FORM
+    if starting_balance_form.validate_on_submit() and field_id=="balanceForm":
+        #get the starting balance from the form
+        balance = starting_balance_form.starting_balance.data
+        #create a new Balance object
+        newBalance = Balance(user_id=current_user.id, year_id=year_id, month_id=month_id, starting_balance=float(balance), total_balance=float(balance))
+        #try and except block to handle errors
+        try:
+            #add and commit the new starting balance to the database
+            db.session.add(newBalance)
+            db.session.commit()
+            #redirect the user to the checkbook page
+            return redirect(url_for('view.checkbook', year_id=year_id, month_id=month_id))
+        #ERROR
+        except Exception as e:
+            #return an ERROR and its error type
+            return "ERROR:{}".format(e)
+    #RESET BALANCE FORM
+    elif reset_balance_form.validate_on_submit() and field_id=="resetBalanceForm":
+        #get the balance object from the Balance model
+        balance_object = Balance.query.filter_by(year_id=year_id, month_id=month_id, user_id=current_user.id).first()
+        #try and except block to handle errors
+        try:
+            #delete the balance object if it exists
+            if balance_object:
+                db.session.delete(balance_object)
                 db.session.commit()
                 #redirect the user to the checkbook page
                 return redirect(url_for('view.checkbook', year_id=year_id, month_id=month_id))
-            #ERROR
-            except Exception as e:
-                #return an ERROR and its error type
-                return "ERROR:{}".format(e)
-        #if the form_id is the reset balance form
-        elif form_id == 'resetBalanceForm':
+            else:
+                return "No balance to reset", 404
+        #ERROR
+        except Exception as e:
+            #return an ERROR and its error type
+            return "ERROR:{}".format(e)
+    #USER INPUT FORM
+    elif user_input_form.validate_on_submit() and field_id=="inputForm":
+        #ENSURE THE STARTING BALANCE IS SET FIRST
+        #get the balance object for flashing a message (OBJECT SHOULD BE NONE)
+        balance_object = Balance.query.filter_by(year_id=year_id, month_id=month_id, user_id=current_user.id).first()
+        #if the object is None, we need to flash a message and redirect the user to the checkbook page
+        if balance_object is None:
+            flash("Please set a starting balance first.", "warning")
+            return redirect(url_for('view.checkbook', year_id=year_id, month_id=month_id))
+        #else there is a balance object so we can proceed with adding the transaction
+        else:
+            #get the data from the html form
+            transaction_date_object = user_input_form.date.data #this gets the date, which is already a datetime object see line 74
+            content = user_input_form.content.data
+            amount = user_input_form.amount.data
+            type = user_input_form.type.data
+            #Handle balance logic
             #get the balance object from the Balance model
             balance_object = Balance.query.filter_by(year_id=year_id, month_id=month_id, user_id=current_user.id).first()
+            #update the total_balance based on the transaction type and the amount
+            if type == '+':
+                #add the amount to the balance
+                balance_object.total_balance += float(amount)
+            elif type == '-':
+                #subtract the amount from the balance
+                balance_object.total_balance -= float(amount)
+            #create a new transaction object
+            #make sure to set the user_id to the current user id so that we can link the transaction to the user
+            newTransaction = Transaction(date=transaction_date_object, content=content, amount=amount, type=type, year_id=year_id, month_id=month_id, user_id=current_user.id)
+            #add the transaction to the database
             #try and except block to handle errors
             try:
-                #delete the balance object if it exists
-                if balance_object:
-                    db.session.delete(balance_object)
-                    db.session.commit()
-                    #redirect the user to the checkbook page
-                    return redirect(url_for('view.checkbook', year_id=year_id, month_id=month_id))
-                else:
-                    return "No balance to reset", 404
-            #ERROR
+                #connect to the db and add the transaction
+                db.session.add(newTransaction)
+                #commit the transaction to the db
+                db.session.commit()
+                #redirect the user to the checkbook page
+                return redirect(url_for('view.checkbook', year_id=year_id, month_id=month_id))
             except Exception as e:
                 #return an ERROR and its error type
                 return "ERROR:{}".format(e)
-        #if the form_id is the userInput form
-        elif form_id == 'inputForm':
-            #ENSURE THE STARTING BALANCE IS SET FIRST
-            #get the balance object for flashing a message (OBJECT SHOULD BE NONE)
-            balance_object = Balance.query.filter_by(year_id=year_id, month_id=month_id, user_id=current_user.id).first()
-            #if the object is None, we need to flash a message and redirect the user to the checkbook page
-            if balance_object is None:
-                flash("Please set a starting balance first.", "warning")
-                return redirect(url_for('view.checkbook', year_id=year_id, month_id=month_id))
-            #else there is a balance object so we can proceed with adding the transaction
-            else:
-                #get the data from the html form
-                transaction_date_string = request.form['date'] #this gets the date as a string
-                transaction_date_object = datetime.strptime(transaction_date_string, '%Y-%m-%d') #convert the string to a datetime object
-                content = request.form['content']
-                amount = request.form['amount']
-                type = request.form['type']
-
-                #Handle balance logic
-                #get the balance object from the Balance model
-                balance_object = Balance.query.filter_by(year_id=year_id, month_id=month_id, user_id=current_user.id).first()
-                #update the total_balance based on the transaction type and the amount
-                if type == '+':
-                    #add the amount to the balance
-                    balance_object.total_balance += float(amount)
-                elif type == '-':
-                    #subtract the amount from the balance
-                    balance_object.total_balance -= float(amount)
-
-                #create a new transaction object
-                #make sure to set the user_id to the current user id so that we can link the transaction to the user
-                newTransaction = Transaction(date=transaction_date_object, content=content, amount=amount, type=type, year_id=year_id, month_id=month_id, user_id=current_user.id)
-                #add the transaction to the database
-                #try and except block to handle errors
-                try:
-                    #connect to the db and add the transaction
-                    db.session.add(newTransaction)
-                    #commit the transaction to the db
-                    db.session.commit()
-                    #redirect the user to the checkbook page
-                    return redirect(url_for('view.checkbook', year_id=year_id, month_id=month_id))
-                except Exception as e:
-                    #return an ERROR and its error type
-                    return "ERROR:{}".format(e)
-        #else return an error
-        else:
-            return "Invalid form submission"
     #else we want to display all transactions (GET method)
     else:
         #call the global MONTHS variable
@@ -168,7 +167,10 @@ def checkbook(year_id:int, month_id:int):
         #get the balance from the Balance model
         balance_object = Balance.query.filter_by(year_id=year_id, month_id=month_id, user_id=current_user.id).first()
         #return the rendered template and pass transactions to the html page
-        return render_template('main/checkbook.html', transactions=transactions, transactionType=transactionType, year_id=year_id, month_id=month_id, month_name=month_name, default_month=default_month, enumerate=enumerate, starting_balance=f"{balance_object.starting_balance:,.2f}" if balance_object else None, total_balance=f"{balance_object.total_balance:,.2f}" if balance_object else None, starting_balance_form=starting_balance_form)
+        return render_template('main/checkbook.html', transactions=transactions, transactionType=transactionType, year_id=year_id, month_id=month_id, month_name=month_name, default_month=default_month, enumerate=enumerate,
+                               starting_balance=f"{balance_object.starting_balance:,.2f}" if balance_object else None, #balance variables
+                               total_balance=f"{balance_object.total_balance:,.2f}" if balance_object else None, 
+                               starting_balance_form=starting_balance_form, reset_balance_form=reset_balance_form, user_input_form=user_input_form) #FlaskForms
     
 #route to delete a transaction
 @view.route('/checkbook/delete/<int:year_id>/<int:month_id>/<int:id>')
