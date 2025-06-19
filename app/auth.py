@@ -36,13 +36,6 @@ def register():
         #get the username and password from the form
         username = form.username.data
         password = form.password.data
-        #confimation password
-        confirm_password = form.confirm_password.data
-        #check if the password and confirmation password match
-        if password != confirm_password:
-            #if they do not match, redirect back to registration page with an error message and flash a message
-            flash('Passwords do not match', 'error')
-            return redirect(url_for('auth.register', error='Passwords do not match'))
         #check if the user already exists in the database
         existing_user = User.query.filter_by(username=username).first()
         if existing_user:

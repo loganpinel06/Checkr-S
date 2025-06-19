@@ -119,6 +119,24 @@ header {
     }
 }
 
+//style the forms error messages
+span#formErrors {
+    //flexbox styles
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    //box model styles
+    width: 100%;
+    margin: 10px 0;
+
+    //text styles
+    color: red;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+}
+
 //LOGIN AND REGISTER PAGE STYLES
 //loginForm and registerForm styles
 .loginForm, .registerForm {

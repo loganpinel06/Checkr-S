@@ -4,7 +4,7 @@
 from flask import Flask
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, FloatField, SelectField, PasswordField, DateField, HiddenField
-from wtforms.validators import DataRequired
+from wtforms.validators import DataRequired, Length, EqualTo, Regexp
 from datetime import datetime
 
 #create a variable for the current year for YearForm purposes
@@ -21,8 +21,8 @@ class LoginForm(FlaskForm):
 class RegisterForm(FlaskForm):
     #create the fields
     username = StringField('Username: ', validators=[DataRequired()])
-    password = PasswordField('Password: ', validators=[DataRequired()])
-    confirm_password = PasswordField('Confirm Password: ', validators=[DataRequired()])
+    password = PasswordField('Password: ', validators=[DataRequired(), Length(min=6, message='Password must be at least 6 characters long')])
+    confirm_password = PasswordField('Confirm Password: ', validators=[DataRequired(), EqualTo('password', message='Passwords must match')])
     submit = SubmitField('Register')
 
 #create a form class for the YearForm

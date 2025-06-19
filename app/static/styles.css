@@ -78,6 +78,18 @@ header nav.navbar ul a#logoutlink:hover, header nav.navbar ul a#dashboardlink:ho
   cursor: pointer;
 }
 
+span#formErrors {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin: 10px 0;
+  color: red;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: center;
+}
+
 .loginForm, .registerForm {
   display: flex;
   flex-direction: column;

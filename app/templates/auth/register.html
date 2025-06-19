@@ -30,18 +30,27 @@ in auth.py -->
     <!-- Main h1 for the login page -->
     <h2>Register</h2>
     <!-- Register Form-->
-    <form action="{{url_for('auth.register')}}" method="POST">
+    <form action="{{url_for('auth.register')}}" method="POST" novalidate>
         <!-- CSRF Token for security and other hidden elements -->
         {{form.hidden_tag()}}
         <!-- Username -->
         {{form.username.label}}
         {{form.username(placeholder="Enter your username")}}
+        {% for error in form.username.errors %}
+            <span id="formErrors">{{ error }} <br> </span>
+        {% endfor %}
         <!-- Password -->
         {{form.password.label}}
         {{form.password(placeholder="Enter your password")}}
+        {% for error in form.password.errors %}
+            <span id="formErrors">{{ error }} <br> </span>
+        {% endfor %}
         <!-- Confirm Password -->
         {{form.confirm_password.label}}
         {{form.confirm_password(placeholder="Confirm your password")}}
+        {% for error in form.confirm_password.errors %}
+            <span id="formErrors">{{ error }} <br> </span>
+        {% endfor %}
         <!-- Submit -->
         {{form.submit()}}
         <!-- Link to login page -->
