@@ -20,8 +20,10 @@ class LoginForm(FlaskForm):
 #create a form class for the RegisterForm
 class RegisterForm(FlaskForm):
     #create the fields
-    username = StringField('Username: ', validators=[DataRequired()])
-    password = PasswordField('Password: ', validators=[DataRequired(), Length(min=6, message='Password must be at least 6 characters long')])
+    username = StringField('Username: ', validators=[DataRequired(), Length(min=6, max=30, message='Username must be between 6 and 30 characters long'), 
+                                                     Regexp(regex=r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$', message='Username must contain upper and lower case letters, and at least one number')])
+    password = PasswordField('Password: ', validators=[DataRequired(), Length(min=6, message='Password must be at least 6 characters long'), 
+                                                       Regexp(regex=r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\w\s]).+$', message='Password must contain upper and lower case letters, at least one number, and one special character')])
     confirm_password = PasswordField('Confirm Password: ', validators=[DataRequired(), EqualTo('password', message='Passwords must match')])
     submit = SubmitField('Register')
 
