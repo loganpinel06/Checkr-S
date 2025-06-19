@@ -1,4 +1,5 @@
-#forms.py will...
+#forms.py will create Flask-WTF forms for the application to ensure the forms are more secure and have
+#CSRF protection!!!
 
 #imports
 from flask import Flask
@@ -20,6 +21,7 @@ class LoginForm(FlaskForm):
 #create a form class for the RegisterForm
 class RegisterForm(FlaskForm):
     #create the fields
+    #see message parameter in validators to see what is required for username and password
     username = StringField('Username: ', validators=[DataRequired(), Length(min=6, max=30, message='Username must be between 6 and 30 characters long'), 
                                                      Regexp(regex=r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$', message='Username must contain upper and lower case letters, and at least one number')])
     password = PasswordField('Password: ', validators=[DataRequired(), Length(min=6, message='Password must be at least 6 characters long'), 
