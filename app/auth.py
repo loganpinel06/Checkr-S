@@ -13,7 +13,7 @@ from .models import User
 from .forms import LoginForm, RegisterForm
 #import the db object from __init__.py to connect to the database
 #and import the login manager for user authentication
-from . import db, login_manager, logger
+from . import db, login_manager, logger, limiter
 
 #create the blueprint for the auth routes
 view_auth = Blueprint('auth', __name__)
@@ -72,6 +72,8 @@ def register():
 
 #create a route for the login page
 @view_auth.route('/', methods=["GET", "POST"])
+#add the decorator to limit the rate of requests to this route
+@limiter.limit("3 per 5 minutes", methods=["POST"])  # Limit to 5 requests per minute, POST methods only
 def login():
     #create the login form
     form = LoginForm()

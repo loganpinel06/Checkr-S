@@ -6,8 +6,11 @@
 from flask import Flask
 #impor flask_sqlalchemy for database management
 from flask_sqlalchemy import SQLAlchemy
-#impor flask_login for user authentication
+#import flask_login for user authentication
 from flask_login import LoginManager
+#import flask_limiter for rate limiting
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
 #import os and dotenv to load environment variables
 import os
 from dotenv import load_dotenv
@@ -36,6 +39,11 @@ file_handler.setFormatter(log_formatter)
 #add the handler to the app's logger
 logger.addHandler(file_handler)
 
+#setup the rate limiter for the app
+#we will use deferred initialization here so we can modularize the app and import the limiter into the auth route
+#the limiter wll be bound to the app in the createApp function just like the db and login_manager
+limiter = Limiter(key_func=get_remote_address)
+
 #function to create the app and return it
 def createApp():
     #create the app
@@ -52,6 +60,9 @@ def createApp():
 
     #initialize the login manager
     login_manager.init_app(app)
+    
+    #initialize the rate limiter
+    limiter.init_app(app)
 
     #set the login view for the login manager
     login_manager.login_view = 'auth.login' 
