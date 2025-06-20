@@ -159,8 +159,11 @@ def checkbook(year_id:int, month_id:int):
                 #redirect the user to the checkbook page
                 return redirect(url_for('view.checkbook', year_id=year_id, month_id=month_id))
             except Exception as e:
-                #return an ERROR and its error type
-                return "ERROR:{}".format(e)
+                #log the error to the logger
+                logger.error(f"Error adding transaction: {e}")
+                #flash a message to let the user know there was an error and redirect back to the checkbook page
+                flash("There was an error adding the transaction, please try again")
+                return redirect(url_for('view.checkbook', year_id=year_id, month_id=month_id))
     #else we want to display all transactions (GET method)
     else:
         #call the global MONTHS variable
