@@ -85,10 +85,21 @@ def login():
         user = User.query.filter_by(username=username).first()
         #check if the user exists and if the password is correct
         if user and user.check_password(password):
-            #log in the user
-            login_user(user)
-            #redirect to the dashboard after successful login
-            return redirect(url_for('view.dashboard'))
+            #try except block to handle any errors during login
+            try:
+                #log in the user
+                login_user(user)
+                #redirect to the dashboard after successful login
+                return redirect(url_for('view.dashboard'))
+            #ERROR
+            except Exception as e:
+                #log the error to the logger
+                logger.error(f"Error logging in user: {e}")
+                #flash a message to the user
+                flash("There was an error logging you in, please try again")
+                #redirect back to the login page
+                return redirect(url_for('auth.login'))
+        #incorrect username or password
         else:
             #if login fails, redirect back to login page with an error message and flash a message saying login failed
             flash('Invalid username or password', 'error')
