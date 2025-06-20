@@ -8,7 +8,7 @@ from flask_login import login_required, current_user
 #import the Transaction model from models.py
 from .models import Transaction, Balance
 #import the db object from __init__.py to connect to the database
-from . import db 
+from . import db, logger
 #import the Flask-WTF forms from forms.py
 from .forms import YearForm, StartingBalanceForm, ResetBalanceForm, UserInputForm, EditTransactionForm
 #for handling date and time features
@@ -92,8 +92,11 @@ def checkbook(year_id:int, month_id:int):
             return redirect(url_for('view.checkbook', year_id=year_id, month_id=month_id))
         #ERROR
         except Exception as e:
-            #return an ERROR and its error type
-            return "ERROR:{}".format(e)
+            #log the error to the logger
+            logger.error(f"Error adding starting balance: {e}")
+            #flash a message to let the user know there was an error and redirect back to the checkbook page
+            flash("There was an error adding the starting balance, please try again")
+            return redirect(url_for('view.checkbook', year_id=year_id, month_id=month_id))
     #RESET BALANCE FORM
     elif reset_balance_form.validate_on_submit() and field_id=="resetBalanceForm":
         #get the balance object from the Balance model
