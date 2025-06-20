@@ -288,8 +288,11 @@ def edit(year_id:int, month_id:int, id:int):
             return redirect(url_for('view.checkbook', year_id=year_id, month_id=month_id))
         #ERROR
         except Exception as e:
-            #return an ERROR and its error type
-            return "ERROR:{}".format(e)
+            #log the error to the logger
+            logger.error(f"Error editing transaction: {e}")
+            #flash a message to let the user know there was an error and redirect back to the checkbook page
+            flash("There was an error editing the transaction, please try again")
+            return redirect(url_for('view.checkbook', year_id=year_id, month_id=month_id))
     #otherwise we want to display a page where the user can edit their transaction
     else:
         #check if the method is GET so we can prepopulate the form with the transaction data
