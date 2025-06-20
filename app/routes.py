@@ -110,11 +110,16 @@ def checkbook(year_id:int, month_id:int):
                 #redirect the user to the checkbook page
                 return redirect(url_for('view.checkbook', year_id=year_id, month_id=month_id))
             else:
-                return "No balance to reset", 404
+                #flash a message to let the user know there is no balance to reset
+                flash("No balance to reset")
+                return redirect(url_for('view.checkbook', year_id=year_id, month_id=month_id))
         #ERROR
         except Exception as e:
-            #return an ERROR and its error type
-            return "ERROR:{}".format(e)
+            #log the error to the logger
+            logger.error(f"Error resetting balance: {e}")
+            #flash a message to let the user know there was an error and redirect back to the checkbook page
+            flash("There was an error resetting the balance, please try again")
+            return redirect(url_for('view.checkbook', year_id=year_id, month_id=month_id))
     #USER INPUT FORM
     elif user_input_form.validate_on_submit() and field_id=="inputForm":
         #ENSURE THE STARTING BALANCE IS SET FIRST
