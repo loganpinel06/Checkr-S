@@ -13,7 +13,7 @@ from .models import User
 from .forms import LoginForm, RegisterForm
 #import the db object from __init__.py to connect to the database
 #and import the login manager for user authentication
-from . import db, login_manager
+from . import db, login_manager, logger
 
 #create the blueprint for the auth routes
 view_auth = Blueprint('auth', __name__)
@@ -53,12 +53,18 @@ def register():
                 #connect to the database and commit the new user
                 db.session.add(new_user)
                 db.session.commit()
+                #flash a success message to the user
+                flash("Registration successful! You can now log in")
+                #if registration is successful, redirect to the login page
+                return redirect(url_for('auth.login'))
             #ERROR
             except Exception as e:
-                #if there is an error, redirect back to registration page with an error message
-                return "ERROR:{}".format(e)
-            #if registration is successful, redirect to the login page
-            return redirect(url_for('auth.login'))
+                #log the errror to the logger
+                logger.error(f"Error registering user: {e}")
+                #flash a message to the user
+                flash("There was an error registering your account, please try again")
+                #redirect back to the registration page
+                return redirect(url_for('auth.register'))
     #else we want to render the registration template
     else:
         #render the registration.html template
