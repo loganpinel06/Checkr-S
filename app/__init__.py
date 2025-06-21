@@ -64,6 +64,11 @@ def createApp():
     app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('SUPABASE_CONNECTION_STRING') #use the environment variable for the database connection string
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False #disable modification tracking for performance inhancement
 
+    #add session and cookie security
+    app.config['SESSION_COOKIE_SECURE'] = True #Ensure cookies are only sent over HTTPS
+    app.config['SESSION_COOKIE_HTTPONLY'] = True #Prevent XSS attacks by making cookies inaccessible to JavaScript
+    app.config['SESSION_COOKIE_SAMESITE'] = 'Lax' #Help prevent CSRF attacks
+
     #secret key for the app (used for session management and CSRF protection)
     app.config['SECRET_KEY'] = 'secret_key' # change this to a secure key in production
 
