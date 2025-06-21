@@ -7,6 +7,8 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
 #import Flask-Login for authentication
 from flask_login import login_user, login_required, logout_user
+#import flask_limiters RateLimiterExceeded function to handle rate limiting and how it is displayed to the user
+from flask_limiter.errors import RateLimitExceeded
 #import the user model from models.py
 from .models import User
 #import the Flask-WTF forms from forms.py
@@ -119,5 +121,14 @@ def logout():
     logout_user()
     #flash a message to the user
     flash('You have been logged out!')
+    #redirect to the login page
+    return redirect(url_for('auth.login'))
+
+#add a error handler for 429 errors (Rate Limiter on login route)
+#this will be used to flash a message to the user when they hit the rate limit instead of rendering a basic html page
+@view_auth.errorhandler(RateLimitExceeded)
+def ratelimit_exceeded(e):
+    #flash a message to the user
+    flash('Too many login attempts. Please try again in 5 minutes', 'error')
     #redirect to the login page
     return redirect(url_for('auth.login'))
