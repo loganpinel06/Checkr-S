@@ -17,6 +17,8 @@ from dotenv import load_dotenv
 #import logging for logging errors to a .log file
 import logging
 from logging.handlers import RotatingFileHandler
+#import sys for logging errors to the console for Render deployment
+import sys
 
 #load environment variables from .env file
 load_dotenv()
@@ -30,14 +32,23 @@ login_manager = LoginManager()
 #setup the logger for the app
 logger = logging.getLogger('app_logger') #create a logger for the app
 logger.setLevel(logging.ERROR) #set the logging level to ERROR
-#setup the file handler for the logger
-#note that Flask automatically creates a logger for the app accessible via app.logger
+
+#setup a rotating file handler to log errors to a file
+#FOR LOCAL DEVELOPMENT
 file_handler = RotatingFileHandler('logs/app.log', maxBytes=10240, backupCount=2) #Max file size = 10KB, and keeps 2 backups before deleting logs
 file_handler.setLevel(logging.ERROR) #set the handler level to ERROR
 log_formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s') #set the format for the log messages
 file_handler.setFormatter(log_formatter)
 #add the handler to the app's logger
 logger.addHandler(file_handler)
+
+#SETUPT A StreamHadnler to log errors to the console
+#THIS IS NEEDED FOR DEPLOYMENT ON REDNER
+stream_handler = logging.StreamHandler(sys.stdout)
+stream_handler.setLevel(logging.ERROR) #set the handler level to ERROR
+stream_handler.setFormatter(log_formatter) #set the format for the log messages
+#add the handler to the app's logger
+logger.addHandler(stream_handler)
 
 #setup the rate limiter for the app
 #we will use deferred initialization here so we can modularize the app and import the limiter into the auth route
