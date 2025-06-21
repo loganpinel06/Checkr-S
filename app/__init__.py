@@ -42,7 +42,8 @@ logger.addHandler(file_handler)
 #setup the rate limiter for the app
 #we will use deferred initialization here so we can modularize the app and import the limiter into the auth route
 #the limiter wll be bound to the app in the createApp function just like the db and login_manager
-limiter = Limiter(key_func=get_remote_address)
+limiter = Limiter(key_func=get_remote_address, 
+                  storage_uri=os.getenv('REDIS_URI')) #connect to Upstash Redis to store rate limiting data in-memory
 
 #function to create the app and return it
 def createApp():
