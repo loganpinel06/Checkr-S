@@ -19,6 +19,8 @@ import logging
 from logging.handlers import RotatingFileHandler
 #import sys for logging errors to the console for Render deployment
 import sys
+#import datetime for session lifetime management
+from datetime import timedelta
 
 #load environment variables from .env file
 load_dotenv()
@@ -28,6 +30,8 @@ db = SQLAlchemy()
 
 #create a login manager for user authentication
 login_manager = LoginManager()
+#customize the message displayed when a user tries to access a protected route without being logged in
+login_manager.login_message = "Invalid Session. Please log in to continue."
 
 #setup the logger for the app
 logger = logging.getLogger('app_logger') #create a logger for the app
@@ -68,6 +72,10 @@ def createApp():
     app.config['SESSION_COOKIE_SECURE'] = True #Ensure cookies are only sent over HTTPS
     app.config['SESSION_COOKIE_HTTPONLY'] = True #Prevent XSS attacks by making cookies inaccessible to JavaScript
     app.config['SESSION_COOKIE_SAMESITE'] = 'Lax' #Help prevent CSRF attacks
+
+    #configure a Session Lifetime
+    #sessions will expire after 30 minutes of inactivity
+    app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=30)
 
     #secret key for the app (used for session management and CSRF protection)
     app.config['SECRET_KEY'] = 'secret_key' # change this to a secure key in production

@@ -4,7 +4,7 @@
 
 #imports
 #Core Flask imports
-from flask import Blueprint, render_template, request, redirect, url_for, flash
+from flask import Blueprint, render_template, session, redirect, url_for, flash
 #import Flask-Login for authentication
 from flask_login import login_user, login_required, logout_user
 #import flask_limiters RateLimiterExceeded function to handle rate limiting and how it is displayed to the user
@@ -93,6 +93,8 @@ def login():
             try:
                 #log in the user
                 login_user(user)
+                #set the session as permanent to enable to session lifetime management
+                session.permanent = True
                 #redirect to the dashboard after successful login
                 return redirect(url_for('view.dashboard'))
             #ERROR
