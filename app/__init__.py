@@ -37,14 +37,16 @@ login_manager.login_message = "Invalid Session. Please log in to continue."
 logger = logging.getLogger('app_logger') #create a logger for the app
 logger.setLevel(logging.ERROR) #set the logging level to ERROR
 
-#setup a rotating file handler to log errors to a file
-#FOR LOCAL DEVELOPMENT
-file_handler = RotatingFileHandler('logs/app.log', maxBytes=10240, backupCount=2) #Max file size = 10KB, and keeps 2 backups before deleting logs
-file_handler.setLevel(logging.ERROR) #set the handler level to ERROR
+#setu a formatter for the log messages
 log_formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s') #set the format for the log messages
-file_handler.setFormatter(log_formatter)
-#add the handler to the app's logger
-logger.addHandler(file_handler)
+
+##setup a rotating file handler to log errors to a file
+##FOR LOCAL DEVELOPMENT
+#file_handler = RotatingFileHandler('logs/app.log', maxBytes=10240, backupCount=2) #Max file size = 10KB, and keeps 2 backups before deleting logs
+#file_handler.setLevel(logging.ERROR) #set the handler level to ERROR
+#file_handler.setFormatter(log_formatter)
+##add the handler to the app's logger
+#logger.addHandler(file_handler)
 
 #SETUPT A StreamHadnler to log errors to the console
 #THIS IS NEEDED FOR DEPLOYMENT ON REDNER
