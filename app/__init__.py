@@ -2,9 +2,9 @@
 #this script will setup the flask app and database, register the blueprints, and configure the app / database
 
 #imports
-#impor flask
+#import flask
 from flask import Flask
-#impor flask_sqlalchemy for database management
+#import flask_sqlalchemy for database management
 from flask_sqlalchemy import SQLAlchemy
 #import flask_login for user authentication
 from flask_login import LoginManager
@@ -78,7 +78,7 @@ def createApp():
     app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=30)
 
     #secret key for the app (used for session management and CSRF protection)
-    app.config['SECRET_KEY'] = 'secret_key' # change this to a secure key in production
+    app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
 
     #initialize the database
     db.init_app(app)
@@ -102,8 +102,6 @@ def createApp():
 
     #create the database using a context manager
     with app.app_context():
-        #make sure the correct model is being imported
-        from .models import Transaction
         #create the database
         db.create_all()
 
