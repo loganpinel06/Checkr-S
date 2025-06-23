@@ -13,8 +13,11 @@ and gather the appropriate data for a certain month -->
 
 <!-- HEADER for 'dashboard.html'-->
 <header>
-    <!-- Main header for dashboard page -->
-    <h1>Dashboard</h1>
+    <!-- create a div to store the apps logo and title for page -->
+    <div class="banner">
+        <img src="{{ url_for('static', filename='images/app-logo.png') }}" alt="Checkbook Logo" id="appLogo">
+        <h1>Dashboard</h1>
+    </div>
     <!-- Nav Bar -->
     <nav class="navbar">
         <ul>
