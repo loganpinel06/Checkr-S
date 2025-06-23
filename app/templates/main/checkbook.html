@@ -1,7 +1,9 @@
 <!-- 'checkbook.html' sets up the main checkbook page for a specific months transactions. 
 This page has a main table that displays the users transaction data in columns of "Content", "Amount", "Type", and "Actions"
 There is also a form below the table which will allow users to input their transactions data -->
-<!-- Lastly, there is a link back to the 'dashboard.html' page -->
+<!-- Additionally, there is a special form that is required to be filled out first which has the user set a starting balance
+for the month just like how a real checkbook tracks total progress, this form is required and will disable the transaction form until it is filled out -->
+<!-- See 'StartingBalanceForm', 'ResetBalanceForm', and 'UserInputForm' in 'forms.py' for more information about the forms structure -->
 
 {% extends 'base.html' %}
 

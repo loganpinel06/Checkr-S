@@ -1,10 +1,11 @@
 <!-- 'dashboard.html' will serve as the main dashboard where users can select the current year or previous ones
-and select which month they would like to view transaction in -->
-<!-- This html file will use Jinja2 logic to loop through a list of months and pythons enumerate function to 
+and select which month they would like to view and create transactions in -->
+<!-- See 'YearForm' in 'forms.py' for more information about the form structure -->
+<!-- This html file will use Jinja2 logic to loop through a list of months and pythons enumerate function to
 get the appropriate month_id (1 = January, 2 = February, ...) to mimic the month_id culumn in the database
 and gather the appropriate data for a certain month -->
 <!-- Additionally dashboard.html offers users to select a specific year they would like to view transactions for -->
-<!-- This Template extends 'base.html' -->
+
 
 {% extends 'base.html' %}
 
