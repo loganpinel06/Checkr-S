@@ -1,6 +1,8 @@
 #auth.py will handle user authentication using Flask-Login by managing the routes necessary for login and registration
-#the User model which handles data for users can be found in models.py
-#finally, the auth blueprint will be registered in the __init__.py file of the app package
+#this file uses the Users model from models.py to create and manage user accounts
+#it will also use Flask-WTF forms from forms.py to create the login and registration forms for better security
+#additionally the file uses the limiter created in __init__.py to limit the rate of requests to the login route so people cannot brute force the login
+#lastly, the file sets the session to be permanent when a user is logged in so that the session will expire if the user is inactive for a certain amount of time
 
 #imports
 #Core Flask imports

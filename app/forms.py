@@ -1,5 +1,5 @@
-#forms.py will create Flask-WTF forms for the application to ensure the forms are more secure and have
-#CSRF protection!!!
+#forms.py uses the Flask-WTF extension to create forms that will be used inside the applications templates.
+#this is designed to create stronger more secure forms compared to a traditional HTML form and protect agains CSRF attacks.
 
 #imports
 from flask import Flask

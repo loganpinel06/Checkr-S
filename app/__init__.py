@@ -1,7 +1,10 @@
 #__init__.py initializes the app package to be used in main.py
-#this script will setup the flask app and database, register the blueprints, and configure the app / database
+#this script will setup the flask app, database, login manager for auth, limiter for rate limiting, and a 
+#logger for logging errors server side or to Renders console in deployment.
+#this script also register the blueprints for the apps routes, and configure the app to connect to a Supabase
+#PostgreSQL database, and adding session / cookie security features.
 
-#imports
+#IMPORTS
 #import flask
 from flask import Flask
 #import flask_sqlalchemy for database management
@@ -16,7 +19,7 @@ import os
 from dotenv import load_dotenv
 #import logging for logging errors to a .log file
 import logging
-from logging.handlers import RotatingFileHandler
+#from logging.handlers import RotatingFileHandler #!!UNCOMMENT THIS LINE IF RUNNING LOCALLY AND HAVE READ COMMENT ON LINE 46!!
 #import sys for logging errors to the console for Render deployment
 import sys
 #import datetime for session lifetime management
@@ -40,6 +43,7 @@ logger.setLevel(logging.ERROR) #set the logging level to ERROR
 #setu a formatter for the log messages
 log_formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s') #set the format for the log messages
 
+#!!UNCOMMENT LINES 47-53 IF RUNNING LOCALLY AND WANT ERRORS LOGGED TO A FILE!!
 ##setup a rotating file handler to log errors to a file
 ##FOR LOCAL DEVELOPMENT
 #file_handler = RotatingFileHandler('logs/app.log', maxBytes=10240, backupCount=2) #Max file size = 10KB, and keeps 2 backups before deleting logs

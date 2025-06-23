@@ -1,4 +1,11 @@
-#routes.py will setup all routes for the web app and handle logic for adding and retrieving data (transactions) from the database
+#routes.py will setup all routes for the checkbook app
+#this file handles the following routes: dashboard, checkbook, delete, and edit
+    #the dashboard route will display the dashboard page with a year selector form and a list of months as buttons to choose from
+    #the checkbook route will display the checkbook page where users can enter their starting balance and log transactions for the selected month and year
+    #the delete route will handle deleting a transaction from the checkbook
+    #the edit route will handle editing a transaction from the checkbook
+#this file uses Flask's Blueprint feature to create a modular structure for the app, ensures routes are require a user to be logged in to access them, logs
+#any errors to a logger, use Flask-WTF forms for user input validation and CSRF protection, and lastly handles database interactions using SQLAlchemy.
 
 #imports
 #Core Flask imports

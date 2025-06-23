@@ -1,4 +1,9 @@
-#models.py will setup the main model for the apps Transactions
+#models.py will setup all SQLAlchemy models for the application that will be used to store data in the projects
+#PostgreSQL database hosted through Supabase.
+#this file creates the following models:
+    #User: to store user information for authentication
+    #Transaction: to store transactions made by users
+    #Balance: to store a user's balance for a given month in a year
 
 #imports
 from . import db
