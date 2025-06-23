@@ -21,8 +21,11 @@
 
 <!-- HEADER for 'login.html'-->
 <header>
-    <!-- Main header for login page -->
-    <h1>Checkbook App</h1>
+    <!-- create a div to store the apps logo and title for page -->
+    <div class="banner">
+        <img src="{{ url_for('static', filename='images/app-logo.png') }}" alt="Checkbook Logo" id="appLogo">
+        <h1>Checkbook App</h1>
+    </div>
 </header>
 
  <!-- div for login form -->
