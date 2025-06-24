@@ -85,6 +85,46 @@ Explore Checkr S here: ----
 ```
 git clone https://github.com/loganpinel06/CheckBook-App
 ```
+### Create a Python Virtual Environment in the local repository
+macOS:
+```
+python3 -m venv env
+```
+Windows:
+```
+python -m venv env
+```
+### Activate the Virtual Environment
+macOS:
+```
+source env/bin/activate
+```
+Windows:
+```
+env\Scripts\activate
+```
+### Install Dependencies
+```
+pip install -r requirements.txt
+```
+### Setup a .env File With:
+```
+SECRET_KEY=your-secret-key
+SUPABASE_CONNECTION_STRING=your-supabase-uri
+REDIS_URI=your-redis-uri
+```
+1. Create a Secret Key which ensures session security and protection from attacks
+    - Checkout this Article by [GeeksForGeeks](https://www.geeksforgeeks.org/python/secrets-python-module-generate-secure-random-numbers/) (see the section titled "Generating tokens")
+2. Head over to [Supabase](https://supabase.com/) and create an account
+    - Create a **FREE** project and follow the steps, **MAKE SURE TO SAVE PROJECT PASSWORD** can store it in the .env file if you'd like
+    - Next click on the **CONNECT** button at the top of the projects dashboard. Make sure the type is **URI** and copy the connection string into the .env
+    - Lastly, replace the **'[YOUR-PASSWORD]'** part of the string with the password you saved earlier
+3. Lastly head over to [Upstash](https://upstash.com/) and create an account
+    - Create a Database and select the **FREE TIER**
+    - Once on your new databases dashboard copy the url that starts with `redis://default:` and set it to the REDIS_URI in the .env file
+    - Now replace the group of *'s with your databases token which can be copied from the same place as the uri string
+### Now Youre all Set
+Navigate to main.py in the codebase and run the app!
 
 # What I Learned
 
