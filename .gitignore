@@ -8,7 +8,6 @@ __pycache__/
 env/
 .env
 logs/
-readme-images/
 
 #good practice to ignore .DS_Store (created by mac)
 .DS_Store
