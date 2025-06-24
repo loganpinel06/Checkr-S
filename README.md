@@ -45,6 +45,7 @@ Built primarily with Flask, the app features strong authentication, session secu
     - Redis hosted on Upstash (used for storing rate limiting data which is constantly being updated)
 
 # Project Structure
+```bash
 ├── README.md
 ├── app/
 │   ├── __init__.py
@@ -70,6 +71,7 @@ Built primarily with Flask, the app features strong authentication, session secu
 │           └── edit.html
 ├── main.py
 └── requirements.txt
+```
 
 7 directories, 19 files
 
