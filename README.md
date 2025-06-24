@@ -45,6 +45,34 @@ Built primarily with Flask, the app features strong authentication, session secu
     - Redis hosted on Upstash (used for storing rate limiting data which is constantly being updated)
 
 # Project Structure
+├── README.md
+├── app/
+│   ├── __init__.py
+│   ├── auth.py
+│   ├── forms.py
+│   ├── models.py
+│   ├── routes.py
+│   ├── static/
+│   │   ├── images
+│   │   │   ├── app-logo.PNG
+│   │   │   └── banner.svg
+│   │   ├── styles.css
+│   │   ├── styles.css.map
+│   │   └── styles.scss
+│   └── templates/
+│       ├── auth/
+│       │   ├── login.html
+│       │   └── register.html
+│       ├── base.html
+│       └── main/
+│           ├── checkbook.html
+│           ├── dashboard.html
+│           └── edit.html
+├── main.py
+└── requirements.txt
+
+7 directories, 19 files
+
 
 # Deployment
 
