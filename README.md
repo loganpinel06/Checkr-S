@@ -124,7 +124,7 @@ REDIS_URI=your-redis-uri
     - Once on your new databases dashboard copy the url that starts with `redis://default:` and set it to the REDIS_URI in the .env file
     - Now replace the group of *'s with your databases token which can be copied from the same place as the uri string
 ### Run the Application
-Navigate to main.py in the codebase and run the app!
+Navigate to main.py in the codebase and run the file!
 
 # What I Learned
 
