@@ -1,4 +1,5 @@
-# CheckBook-App
+# <img src="readme-images/banner.svg" width="100%" height="500px">
+
 
 # How to setup the application on your own machine
 ```
