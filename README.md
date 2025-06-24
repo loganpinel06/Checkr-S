@@ -6,6 +6,18 @@ This project aims to provide more than just a basic CRUD application that works 
 Built primarily with Flask, the app features strong authentication, session security, CSRF protection, rate limiting, and a clean user interface.
 
 # Tech Stack
+- **Core Technologies:**
+    - Flask
+    - HTML
+    - SCSS
+- **Flask Extensions:**
+    - Flask-SQLAlchemy (ORM to create database models written in python)
+    - Flask-WTF (create secure HTML form with CSRF protection)
+    - Flask-Login (handle authentication logic)
+    - Flask-Limiter (handle rate limiting to prevent brute force attacks)
+- **Databases:**
+    - PostgreSQL hosted on Supabase (stores all user, transaction, and balance data)
+    - Redis hosted on Upstash (used for storing rate limiting data which is constantly being updated)
 
 # Run the Project Locally
 ```
