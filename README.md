@@ -6,7 +6,7 @@ This project aims to provide more than just a basic CRUD application by digging 
 Built primarily with Flask, the app features strong authentication, session security, CSRF protection, rate limiting, and a clean user interface.
 
 # Features
-- **Secure User Authentication**
+- ### **Secure User Authentication**
     - Username and Password validation with Flask-WTF and Regepx to force strong inputs
     - Flask-Login for secure session handling
     - Configured Session Lifetime to ensure users are logged out after 30 minutes of inactivity
@@ -81,12 +81,8 @@ Checkr S is deployed via Render with the following production configurations:
 Explore Checkr S here: ----
 
 # Run the Project Locally
-```
-#mac
-python3 -m venv env
-#windows
-python -m venv env
-```
+### Clone the Repository
+`git clone https://github.com/loganpinel06/CheckBook-App`
 
 # What I Learned
 
