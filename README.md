@@ -5,6 +5,8 @@ Checkr S is a secure and intuitive web application that is designed to allow use
 This project aims to provide more than just a basic CRUD application that works but to ensure that user information is safe and secure.
 Built primarily with Flask, the app features strong authentication, session security, CSRF protection, rate limiting, and a clean user interface.
 
+# Features
+
 # Tech Stack
 - **Core Technologies:**
     - Flask
@@ -19,6 +21,10 @@ Built primarily with Flask, the app features strong authentication, session secu
     - PostgreSQL hosted on Supabase (stores all user, transaction, and balance data)
     - Redis hosted on Upstash (used for storing rate limiting data which is constantly being updated)
 
+# Project Structure
+
+# Deployment
+
 # Run the Project Locally
 ```
 #mac
@@ -26,4 +32,6 @@ python3 -m venv env
 #windows
 python -m venv env
 ```
+
+# What I Learned
 
