@@ -127,4 +127,24 @@ REDIS_URI=your-redis-uri
 Navigate to main.py in the codebase and run the file!
 
 # What I Learned
+This was my first attempt at building a full-stack application and I personally learned a ton!
+I learned Flask from the ground up, how to write HTML and CSS to structure and style my webpages. I also learned how to manage my time and plan out a full-stack project effectively while keeping the code and codebase clean and understandable. This included keeping my app modular and maintaining a good structure to my project. I also learned many important general skill like how to learn new technologies, read documentation, and use AI as an effective learning tool when stuck. Creating this app has taught me a lot about what it means to be a software developer and how take a problem and leverage my skills in order to create a solution.
 
+Listed here are some bullet points about general topics or features I learned throughout development:
+- Flask Routing
+    - Route variables, links, methods
+- HTTP methods like "GET" & "POST"
+- Jinja2 Templating
+    - Variables, conditionals, loops
+- Building custom database models with Flask-SQLAlchemy
+- How to handle basic authentication with Flask-Login
+- How to create secure forms with Flask-WTF to protect against CSRF attacks
+- How to handle Rate Limiting with Flask-Limiter
+- How to flash messages to the user with Flask's flash function
+- How to log errors server-side instead of potentially displaying them to the user
+- A number of security skills like protecting session cookies, adding session lifetime, secret keys
+- How to connect to and use external cloud database providers
+    - This includes Supabase and Upstash Redis
+- How to build a MODULAR app and maintain structure and cleanliness in my code
+
+# Future Development
