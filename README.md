@@ -28,7 +28,7 @@ Built primarily with Flask, the app features strong authentication, session secu
 - **Error Logging**
     - Additionally, this app uses pythons logging module to log errors server-side to the console on Render (stdout)
     - This ensures that users dont obtain access to sensitive information from any potential errors and that errors are logged so they can be fixed
-    - (if running the application locally, see the comment on lines 22 & 46 of `__init__.py` to log errors to a .log file)
+    - (if running the application locally, see the comments on lines 22 & 46 in `__init__.py` to log errors to a .log file using a RotatingFileHandler)
 
 # Tech Stack
 - **Core Technologies:**
