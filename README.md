@@ -54,7 +54,7 @@ Built primarily with Flask, the app features strong authentication, session secu
 │   ├── models.py
 │   ├── routes.py
 │   ├── static/
-│   │   ├── images
+│   │   ├── images/
 │   │   │   ├── app-logo.PNG
 │   │   │   └── banner.svg
 │   │   ├── styles.css
@@ -73,10 +73,12 @@ Built primarily with Flask, the app features strong authentication, session secu
 └── requirements.txt
 ```
 
-7 directories, 19 files
-
-
 # Deployment
+Checkr S is deployed via Render with the following production configurations:
+- HTTPS enabled automatically with Render
+- Gunicorn as the production WSGI server
+- Logging to stdout for monitoring errors via Render Logs
+Explore Checkr S here: ----
 
 # Run the Project Locally
 ```
