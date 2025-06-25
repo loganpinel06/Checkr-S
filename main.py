@@ -10,4 +10,4 @@ app = createApp()
 
 #run the app using a main guard
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()
