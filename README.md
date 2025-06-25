@@ -148,3 +148,9 @@ Listed here are some bullet points about general topics or features I learned th
 - How to build a MODULAR app and maintain structure and cleanliness in my code
 
 # Future Development
+Since this is my first attempt at a full-stack application there is a lot that could be added and developed moving forward both for the app and my personal learning.
+These include:
+- Adding JavaScript for a better front-end experience
+- Using a JavaScript front-end framework like React
+- Using a better authentication tool like OAuth or JWTokens
+- Containerizing the app with Docker to learn more about DevOps and job-ready practices
