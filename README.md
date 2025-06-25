@@ -1,36 +1,36 @@
 # <img src="app/static/images/banner.svg" width="100%" height="350px">
 
-# About the App
+# 💵 About the App
 Checkr S is a secure and intuitive web application that is designed to allow users to track monthly transactions with ease.
 This project aims to provide more than just a basic CRUD application by digging deeper and ensuring best security practices.
 Built primarily with Flask, the app features strong authentication, session security, CSRF protection, rate limiting, and a clean user interface.
 
-# Features
-- ### **Secure User Authentication**
+# 💡 Features
+- ### 🔐 **Secure User Authentication**
     - Username and Password validation with Flask-WTF and Regepx to force strong inputs
     - Flask-Login for secure session handling
     - Configured Session Lifetime to ensure users are logged out after 30 minutes of inactivity
-- ### **Month and Year Selection**
+- ### 🗓 **Month and Year Selection**
     - Users can choose a specific year to log transactions in
         - Selections go from the year 2000 to whatever the current year is (future proof)
     - Users can choose a specific month to log transactions in to maintain an organized checkbook
-- ### **Starting Balance Tracker**
+- ### 💰 **Starting Balance Tracker**
     - Users a required to enter a starting balance for each month before they can begin entering transactions
     - This helps users keep track of their total balance just like a real checkbook does
     - After setting a starting balance for a given month, the amount is then updated each time a user creates, edits, or deletes a transaction
     and is marked as 'this months balance'.
-- ### **Transaction Management**
+- ### 🧾 **Transaction Management**
     - Users can create, edit, and delete transactions
     - Transactions have fields for type (deposit or withdrawal), date, description, and amount
-- ### **Rate Limiting**
+- ### 🚦 **Rate Limiting**
     - This app manages rate limiting using Flask-Limiter and Redis hosted on Upstash to store rate limit data in-memory
     - The addition of rate limiting helps protect the login route from brute-force attacks by limiting the number of requests an individual ip address can make at a time before getting locked for 5 minutes
-- ### **Error Logging**
+- ### 📄 **Error Logging**
     - Additionally, this app uses pythons logging module to log errors server-side to the console on Render (stdout)
     - This ensures that users dont obtain access to sensitive information from any potential errors and that errors are logged so they can be fixed
     - (if running the application locally, see the comments on lines 22 & 46 in `__init__.py` to log errors to a .log file using a RotatingFileHandler)
 
-# Tech Stack
+# ⚙️ Tech Stack
 - ### **Core Technologies:**
     - Flask
     - HTML
@@ -44,7 +44,7 @@ Built primarily with Flask, the app features strong authentication, session secu
     - PostgreSQL hosted on Supabase (stores all user, transaction, and balance data)
     - Redis hosted on Upstash (used for storing rate limiting data which is constantly being updated)
 
-# Project Structure
+# 📁 Project Structure
 ```bash
 ├── README.md
 ├── app/
@@ -73,14 +73,14 @@ Built primarily with Flask, the app features strong authentication, session secu
 └── requirements.txt
 ```
 
-# Deployment
+# 🌐 Deployment
 Checkr S is deployed via Render with the following production configurations:
 - HTTPS enabled automatically with Render
 - Gunicorn as the production WSGI server
 - Logging to stdout for monitoring errors via Render Logs
 Explore Checkr S here: ----
 
-# Run the Project Locally
+# 💾 Run the Project Locally
 ### Clone the Repository
 ```
 git clone https://github.com/loganpinel06/CheckBook-App
@@ -126,7 +126,7 @@ REDIS_URI=your-redis-uri
 ### Run the Application
 Navigate to main.py in the codebase and run the file!
 
-# What I Learned
+# 🧠 What I Learned
 This was my first attempt at building a full-stack application and I personally learned a ton!
 I learned Flask from the ground up, how to write HTML and CSS to structure and style my webpages. I also learned how to manage my time and plan out a full-stack project effectively while keeping the code and codebase clean and understandable. This included keeping my app modular and maintaining a good structure to my project. I also learned many important general skill like how to learn new technologies, read documentation, and use AI as an effective learning tool when stuck. Creating this app has taught me a lot about what it means to be a software developer and how take a problem and leverage my skills in order to create a solution.
 
@@ -147,7 +147,7 @@ Listed here are some bullet points about general topics or features I learned th
     - This includes Supabase and Upstash Redis
 - How to build a MODULAR app and maintain structure and cleanliness in my code
 
-# Future Development
+# 📌 Future Development
 Since this is my first attempt at a full-stack application there is a lot that could be added and developed moving forward both for the app and my personal learning.
 These include:
 - Adding JavaScript for a better front-end experience
