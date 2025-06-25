@@ -5,6 +5,8 @@ Checkr S is a secure and intuitive web application that is designed to allow use
 This project aims to provide more than just a basic CRUD application by digging deeper and ensuring best security practices.
 Built primarily with Flask, the app features strong authentication, session security, CSRF protection, rate limiting, and a clean user interface.
 
+This app was created by Logan Pinel and completed on June 24th, 2025
+
 # 💡 Features
 - ### 🔐 **Secure User Authentication**
     - Username and Password validation with Flask-WTF and Regepx to force strong inputs
