@@ -128,7 +128,7 @@ Navigate to main.py in the codebase and run the file!
 
 # 🧠 What I Learned
 This was my first attempt at building a full-stack application and I personally learned a ton!
-I learned Flask from the ground up, how to write HTML and CSS to structure and style my webpages. I also learned how to manage my time and plan out a full-stack project effectively while keeping the code and codebase clean and understandable. This included keeping my app modular and maintaining a good structure to my project. I also learned many important general skill like how to learn new technologies, read documentation, and use AI as an effective learning tool when stuck. Creating this app has taught me a lot about what it means to be a software developer and how take a problem and leverage my skills in order to create a solution.
+I learned Flask from the ground up, and how to write HTML and CSS to structure and style my webpages. I also learned how to manage my time and plan out a full-stack project effectively while keeping the code and codebase clean and understandable. This included keeping my app modular and maintaining a good structure to my project. I also learned many important general skill like how to learn new technologies, read documentation, and use AI as an effective learning tool when stuck. Creating this app has taught me a lot about what it means to be a software developer and how take a problem and leverage my skills in order to create a solution.
 
 Listed here are some bullet points about general topics or features I learned throughout development:
 - Flask Routing
