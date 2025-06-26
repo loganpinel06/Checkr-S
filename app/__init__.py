@@ -55,7 +55,7 @@ log_formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s') #
 #SETUPT A StreamHadnler to log errors to the console
 #THIS IS NEEDED FOR DEPLOYMENT ON REDNER
 stream_handler = logging.StreamHandler(sys.stdout)
-stream_handler.setLevel(logging.ERROR) #set the handler level to ERROR
+stream_handler.setLevel(logging.INFO) #set the handler level to info
 stream_handler.setFormatter(log_formatter) #set the format for the log messages
 #add the handler to the app's logger
 logger.addHandler(stream_handler)
