@@ -138,6 +138,7 @@ Listed here are some bullet points about general topics or features I learned th
 - HTTP methods like "GET" & "POST"
 - Jinja2 Templating
     - Variables, conditionals, loops
+- Modularized routes with Blueprints
 - Building custom database models with Flask-SQLAlchemy
 - How to handle basic authentication with Flask-Login
 - How to create secure forms with Flask-WTF to protect against CSRF attacks
