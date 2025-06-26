@@ -15,9 +15,9 @@ This app was created by Logan Pinel and completed on June 24th, 2025
 - ### 🗓 **Month and Year Selection**
     - Users can choose a specific year to log transactions in
         - Selections go from the year 2000 to whatever the current year is (future proof)
-    - Users can choose a specific month to log transactions in to maintain an organized checkbook
+    - Users can choose a specific month to log transactions to maintain an organized checkbook
 - ### 💰 **Starting Balance Tracker**
-    - Users a required to enter a starting balance for each month before they can begin entering transactions
+    - Users are required to enter a starting balance for each month before they can begin entering transactions
     - This helps users keep track of their total balance just like a real checkbook does
     - After setting a starting balance for a given month, the amount is then updated each time a user creates, edits, or deletes a transaction
     and is marked as 'this months balance'.
@@ -80,7 +80,7 @@ Checkr S is deployed via Render with the following production configurations:
 - HTTPS enabled automatically with Render
 - Gunicorn as the production WSGI server
 - Logging to stdout for monitoring errors via Render Logs
-Explore Checkr S here: ----
+Explore Checkr S here: https://checkr-s.onrender.com
 
 # 💾 Run the Project Locally
 ### Clone the Repository
@@ -120,7 +120,7 @@ REDIS_URI=your-redis-uri
 2. Head over to [Supabase](https://supabase.com/) and create an account
     - Create a **FREE** project and follow the steps, **MAKE SURE TO SAVE PROJECT PASSWORD**, can store it in the .env file if you'd like
     - Next click on the **CONNECT** button at the top of the projects dashboard. Make sure the type is **URI** and copy the connection string into the .env
-    - Lastly, replace the **'[YOUR-PASSWORD]'** part of the string with the password you saved earlier
+    - Now, replace the **'[YOUR-PASSWORD]'** part of the string with the password you saved earlier
 3. Lastly head over to [Upstash](https://upstash.com/) and create an account
     - Create a Database and select the **FREE TIER**
     - Once on your new databases dashboard copy the url that starts with `redis://default:` and set it to the REDIS_URI in the .env file
@@ -130,7 +130,7 @@ Navigate to main.py in the codebase and run the file!
 
 # 🧠 What I Learned
 This was my first attempt at building a full-stack application and I personally learned a ton!
-I learned Flask from the ground up, and how to write HTML and CSS to structure and style my webpages. I also learned how to manage my time and plan out a full-stack project effectively while keeping the code and codebase clean and understandable. This included keeping my app modular and maintaining a good structure to my project. I also learned many important general skill like how to learn new technologies, read documentation, and use AI as an effective learning tool when stuck. Creating this app has taught me a lot about what it means to be a software developer and how take a problem and leverage my skills in order to create a solution.
+I learned Flask from the ground up, and how to write HTML and CSS to structure and style my webpages. I also learned how to manage my time and plan out a full-stack project effectively while keeping the code and codebase clean and understandable. This included keeping my app modular and maintaining a good structure to my project. I also learned many important general skills like how to learn new technologies, read documentation, and use AI as an effective learning tool when stuck. Creating this app has taught me a lot about what it means to be a software developer and how take a problem and leverage my skills in order to create a solution.
 
 Listed here are some bullet points about general topics or features I learned throughout development:
 - Flask Routing
@@ -153,6 +153,6 @@ Listed here are some bullet points about general topics or features I learned th
 Since this is my first attempt at a full-stack application there is a lot that could be added and developed moving forward both for the app and my personal learning.
 These include:
 - Adding JavaScript for a better front-end experience
-- Using a JavaScript front-end framework like React
-- Using a better authentication tool like OAuth or JWTokens
+- Incorporating a JavaScript front-end framework like React
+- Leveraging a better authentication tool like OAuth or JWTokens
 - Containerizing the app with Docker to learn more about DevOps and job-ready practices
