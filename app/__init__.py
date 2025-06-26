@@ -108,8 +108,16 @@ def createApp():
 
     #create the database using a context manager
     with app.app_context():
-        #create the database
-        db.create_all()
+        #check if we are in production or development
+        #if development, we wil create the database, otherwise there is no need since it already exists in production
+        #THIS WAS ADDED TO SAVE TIME FOR RENDER BOOTUPS
+        if os.getenv('FLASK_ENV') == 'development':
+            #create the database
+            db.create_all()
+        #log a simple message indicating the database is in production
+        else:
+            #log that we are in production and the database already exists
+            logger.info("Production environment detected. Skipping database creation.")
 
     #return the app
     return app
