@@ -181,7 +181,7 @@ def checkbook(year_id:int, month_id:int):
         month_name = MONTHS[month_id-1] #do -1 because we enumerated the months in the dashboard.html page starting at 1
         #query all transactions from the db based on the month_id
         #make sure to filter by the current users id so that we only get the transactions for the current user
-        transactions = Transaction.query.filter_by(year_id=year_id, month_id=month_id, user_id=current_user.id).all()
+        transactions = Transaction.query.filter_by(year_id=year_id, month_id=month_id, user_id=current_user.id).order_by(Transaction.date.asc()).all()
         #define the transaction type as a seperate variable so we can format it on the web page
         transactionType = Transaction.type 
         #get the balance from the Balance model
