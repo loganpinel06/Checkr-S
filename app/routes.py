@@ -78,7 +78,9 @@ def checkbook(year_id:int, month_id:int):
     default_month = date(year_id, month_id, 1).strftime('%Y-%m-%d')
     
     #update the default date value for the user_input_form
-    user_input_form.date.data = datetime.strptime(default_month, '%Y-%m-%d') #convert the string to a datetime object
+    #only set the date to the default_month value if the method is fixed so the users inputed date is not overwritten
+    if request.method == 'GET':
+        user_input_form.date.data = datetime.strptime(default_month, '%Y-%m-%d') #convert the string to a datetime object
     
     #gather the forms hidden field value
     field_id = request.form.get('field_id')
@@ -139,7 +141,7 @@ def checkbook(year_id:int, month_id:int):
         #else there is a balance object so we can proceed with adding the transaction
         else:
             #get the data from the html form
-            transaction_date_object = user_input_form.date.data #this gets the date, which is already a datetime object see line 74
+            transaction_date_object = user_input_form.date.data #this gets the date, which is already a datetime object see line 81
             content = user_input_form.content.data
             amount = user_input_form.amount.data
             type = user_input_form.type.data
