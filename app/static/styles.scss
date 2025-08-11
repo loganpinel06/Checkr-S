@@ -6,7 +6,7 @@
 $background-color: #252321;
 $text-color: #E0B8BE;
 $submit-button-color: #F08080;
-$month-button-color: #4FD1C5;
+$month-button-color: #C8A2C8;
 $deposit-color: #8FCB9B;
 $withdraw-color: #D88383;
 
@@ -17,12 +17,16 @@ body {
     font-size: 16px;
     background-color: $background-color;
     color: $text-color;
+    line-height: 1.6;
 
     //box model styles
     width: 100%;
-    height: 100%;
+    min-height: 100vh;
     margin: 0;
     padding: 0;
+    
+    //smooth transitions for better UX
+    transition: all 0.3s ease;
 }
 //header styles
 header {
@@ -38,6 +42,11 @@ header {
         font-size: 36px;
         font-weight: 800;
         text-align: center;
+        margin-bottom: 20px;
+        padding: 20px 0;
+        
+        //subtle text shadow for depth
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 
         //target the image
         img {
@@ -45,6 +54,13 @@ header {
             width: 100px;
             height: 100px;
             margin-right: 20px; //space between the image and the text
+            
+            //smooth hover effect
+            transition: transform 0.3s ease;
+            
+            &:hover {
+                transform: scale(1.05);
+            }
         }
     }
 
@@ -70,19 +86,27 @@ header {
 
             //box model stlyes
             margin-top: 0;
-            padding: 10px 0;
-            border: 2px solid white;
-            border-radius: 5px;
+            padding: 15px 0;
+            border: 2px solid rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 
             //style
             width: 80%;
+            background: linear-gradient(135deg, lighten($background-color, 3%), lighten($background-color, 1%));
 
             //target the list items
             li {
                 margin: 0;
-                padding: 5px 0;
+                padding: 8px 15px;
                 display: flex;
                 align-items: center;
+                border-radius: 8px;
+                transition: background-color 0.3s ease;
+                
+                &:hover {
+                    background-color: rgba(255, 255, 255, 0.1);
+                }
             }
             //target the links
             //logout link, dashboard link, and back link styles
@@ -92,10 +116,15 @@ header {
                 font-weight: 600;
                 text-align: center;
                 text-decoration: none;
+                transition: all 0.3s ease;
+                padding: 5px 10px;
+                border-radius: 5px;
 
                 &:hover {
-                    color: darken($text-color, 30%);
+                    color: $text-color;
                     cursor: pointer;
+                    transform: translateY(-2px);
+                    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
                 }
             }
         }
@@ -112,29 +141,46 @@ header {
     gap: 10px;
 
     //box model styles
-    border: 2px solid white;
-    border-radius: 5px;
-    margin-top: 20px;
-    margin-left: 30%;
-    margin-right: 30%;
-    padding: 10px 0;
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+    margin: 20px auto;
+    max-width: 600px;
+    padding: 15px 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 
-    //background
-    background-color: lighten($background-color, 5%);
+    //background with gradient
+    background: linear-gradient(135deg, lighten($background-color, 8%), lighten($background-color, 5%));
+    
+    //smooth animations
+    animation: slideIn 0.5s ease-out;
 
     //style the button
     button {
-        width: 1.5rem;
-        height: 1.5rem;
+        width: 1.8rem;
+        height: 1.8rem;
         background-color: $submit-button-color;
-        border: 2px solid;
-        border-radius: 5px;
-        font-size: 12px;
+        border: 2px solid rgba(255, 255, 255, 0.8);
+        border-radius: 50%;
+        font-size: 14px;
+        font-weight: bold;
+        transition: all 0.3s ease;
 
         &:hover {
-            background-color: darken($submit-button-color, 5%);
+            background-color: darken($submit-button-color, 10%);
             cursor: pointer;
+            transform: scale(1.1);
         }
+    }
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }
 
@@ -166,58 +212,99 @@ span#formErrors {
     justify-content: center;
 
     //box model styles
-    border: 2px solid white;
-    border-radius: 5px;
-    margin-left: 35%;
-    margin-right: 35%;
-    padding: 20px;
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    border-radius: 15px;
+    margin: 40px auto;
+    max-width: 500px;
+    padding: 30px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    
+    //enhanced background
+    background: linear-gradient(135deg, lighten($background-color, 5%), lighten($background-color, 2%));
 
     //style the h2
     h2 {
         font-size: 36px;
+        margin-bottom: 25px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
     }
 
     //style the labels
     label {
         font-size: 18px;
         font-weight: 800;
+        margin-bottom: 5px;
+        align-self: flex-start;
     }
 
     //style the input fields
     input {
         //box model styles;
         width: 100%;
-        padding: 10px;
-        margin: 10px 0;
-        border: 2px solid black;
-        border-radius: 5px;
+        padding: 12px 15px;
+        margin: 8px 0 15px 0;
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        border-radius: 8px;
+        background-color: lighten($background-color, 8%);
+        color: $text-color;
+        font-size: 16px;
         //default browser styling will mess up the submit button so change box-sizing
-        box-sizing: border-box; 
+        box-sizing: border-box;
+        transition: all 0.3s ease;
+        
+        &:focus {
+            outline: none;
+            border-color: $submit-button-color;
+            box-shadow: 0 0 0 3px rgba($submit-button-color, 0.2);
+        }
+        
+        &::placeholder {
+            color: darken($text-color, 30%);
+        }
     }
 
     //more specific for the submit button
     input[type="submit"] {
-        background-color: $submit-button-color;
+        background: linear-gradient(135deg, $submit-button-color, darken($submit-button-color, 5%));
+        color: white;
+        font-weight: 600;
+        margin-top: 10px;
 
         //box model styles
-        border: 2px solid white;
+        border: 2px solid rgba(255, 255, 255, 0.8);
         border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease;
 
         &:hover {
-            background-color: darken($submit-button-color, 5%);
+            background: linear-gradient(135deg, darken($submit-button-color, 5%), darken($submit-button-color, 10%));
             cursor: pointer;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        }
+        
+        &:active {
+            transform: translateY(0);
         }
     }
 
     //select the p tag 
     p {
         text-align: center;
+        margin-top: 20px;
     }
 
     //select the p tags anchor element
     p > a {
-        color: darken($text-color, 20%);
+        color: darken($text-color, 10%);
         font-weight: 600;
+        text-decoration: none;
+        transition: color 0.3s ease;
+        
+        &:hover {
+            color: $text-color;
+            text-decoration: underline;
+        }
     }
 }
 
@@ -300,27 +387,55 @@ span#formErrors {
     align-items: center;
     justify-content: center;
     grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
+    gap: 15px;
 
     //box model styles
-    margin: 20px;
-    border: 2px solid white;
-    border-radius: 5px;
-    padding: 10px;
+    margin: 30px 20px;
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+    background: linear-gradient(135deg, lighten($background-color, 3%), lighten($background-color, 1%));
     
     //style the buttons
     button {
-        background-color: $month-button-color;
+        background: linear-gradient(135deg, $month-button-color, darken($month-button-color, 5%));
         width: 100%;
-        height: 60px;
-        border: 2px solid black;
-        border-radius: 5px;
+        height: 70px;
+        border: 2px solid rgba(255, 255, 255, 0.6);
+        border-radius: 10px;
         font-size: 18px;
         font-weight: 600;
+        color: darken($background-color, 10%);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+
+        &:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
 
         &:hover {
-            background-color: darken($month-button-color, 10%);
+            background: linear-gradient(135deg, lighten($month-button-color, 5%), $month-button-color);
             cursor: pointer;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+            
+            &:before {
+                left: 100%;
+            }
+        }
+        
+        &:active {
+            transform: translateY(-1px);
         }
     }
 }
@@ -344,67 +459,101 @@ span#formErrors {
     //target the table element
     table {
         //box model styles
-        border: 2px solid white;
-        border-radius: 5px;
+        border: 2px solid rgba(255, 255, 255, 0.8);
+        border-radius: 12px;
         border-spacing: 0; //for removing gap between table cols
-        width: 80%;
-        padding: 20px;
+        width: 90%;
+        padding: 0;
         margin-bottom: 40px;
+        overflow: hidden;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
 
-        background-color: lighten($background-color, 2%);
+        background: linear-gradient(135deg, lighten($background-color, 4%), lighten($background-color, 2%));
         
         //target the table header and its children
         thead th{
             //box model styles
-            border: 2px solid white;
-            padding: 10px;
+            border-bottom: 3px solid rgba(255, 255, 255, 0.6);
+            padding: 15px 10px;
             margin: 0;
+            background: linear-gradient(135deg, lighten($background-color, 8%), lighten($background-color, 6%));
 
             //text styles
             font-size: 20px;
-            font-weight: 600;
+            font-weight: 700;
             text-align: center;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+            
+            &:first-child {
+                border-top-left-radius: 10px;
+            }
+            
+            &:last-child {
+                border-top-right-radius: 10px;
+            }
         }
 
         //target the table row and table data
-        tr td {
-            //box model styles
-            border-left: 2px solid white;
-            border-right: 2px solid white;
-            border-bottom: 2px solid white;
-            padding: 10px;
-
-            //text styles
-            font-size: 18px;
-            text-align: center;
-
-            //target the specific td elements with classes deposit and withdwraw
-            &.deposit {
-                background-color: $deposit-color;
+        tr {
+            transition: background-color 0.3s ease;
+            
+            &:hover {
+                background-color: rgba(255, 255, 255, 0.05);
             }
-            &.withdraw {
-                background-color: $withdraw-color;
-                width: 10%;
-            }
-
-            //target the buttons
-            button {
-                background-color: $submit-button-color;
+            
+            td {
                 //box model styles
-                width: 100%;
-                height: 30px;
-                margin: 0.2rem 0;
-                padding: 5px;
-                border: 2px solid white;
-                border-radius: 5px;
+                border-left: 1px solid rgba(255, 255, 255, 0.3);
+                border-right: 1px solid rgba(255, 255, 255, 0.3);
+                border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+                padding: 12px 10px;
 
                 //text styles
-                font-size: 16px;
+                font-size: 18px;
+                text-align: center;
 
-                //hover effect
-                &:hover {
-                    background-color: darken($submit-button-color, 5%);
-                    cursor: pointer;
+                //target the specific td elements with classes deposit and withdraw
+                &.deposit {
+                    background: linear-gradient(135deg, $deposit-color, darken($deposit-color, 5%));
+                    color: darken($background-color, 20%);
+                    font-weight: 600;
+                }
+                &.withdraw {
+                    background: linear-gradient(135deg, $withdraw-color, darken($withdraw-color, 5%));
+                    color: darken($background-color, 20%);
+                    font-weight: 600;
+                    width: 10%;
+                }
+
+                //target the buttons
+                button {
+                    background: linear-gradient(135deg, $submit-button-color, darken($submit-button-color, 5%));
+                    //box model styles
+                    width: 100%;
+                    height: 35px;
+                    margin: 0.2rem 0;
+                    padding: 5px;
+                    border: 2px solid rgba(255, 255, 255, 0.8);
+                    border-radius: 8px;
+                    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+
+                    //text styles
+                    font-size: 16px;
+                    font-weight: 600;
+                    color: white;
+                    transition: all 0.3s ease;
+
+                    //hover effect
+                    &:hover {
+                        background: linear-gradient(135deg, darken($submit-button-color, 5%), darken($submit-button-color, 10%));
+                        cursor: pointer;
+                        transform: translateY(-1px);
+                        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+                    }
+                    
+                    &:active {
+                        transform: translateY(0);
+                    }
                 }
             }
         }
@@ -437,26 +586,29 @@ span#formErrors {
             //puts each 'form-row' container in a column
             display: flex;
             flex-direction: column;
-            gap: 1rem;
+            gap: 1.5rem;
 
             //box model styles
-            border: 2px solid white;
-            border-radius: 5px;
-            padding: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.8);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
 
-            background-color: lighten($background-color, 2%);
+            background: linear-gradient(135deg, lighten($background-color, 5%), lighten($background-color, 2%));
 
             //target p tags
             p {
-                font-size: 18px;
-                font-weight: 600;
+                font-size: 20px;
+                font-weight: 700;
                 text-align: center;
-                margin: 0;
+                margin: 0 0 10px 0;
                 padding: 0;
+                text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
 
                 //target the nested span
                 span {
-                    color: darken($text-color, 20%);
+                    color: darken($text-color, 10%);
+                    font-weight: 600;
                 }
             }
 
@@ -465,57 +617,85 @@ span#formErrors {
                 //flexbox styles
                 display: flex;
                 align-items: center;
-                gap: 1rem;
+                gap: 1.5rem;
+                padding: 10px;
+                border-radius: 8px;
+                transition: background-color 0.3s ease;
+
+                &:hover {
+                    background-color: rgba(255, 255, 255, 0.05);
+                }
 
                 //target the label element
                 label {
                     font-size: 18px;
                     font-weight: 800;
+                    min-width: 120px;
                 }
 
                 //target the input elements 
                 input, select {
                     margin-left: auto;
+                    min-width: 180px;
 
-                    background-color: lighten($background-color, 10%);
-                    border: 2px solid white;
-                    border-radius: 5px;
-                    padding: 5px;
+                    background: linear-gradient(135deg, lighten($background-color, 12%), lighten($background-color, 8%));
+                    border: 2px solid rgba(255, 255, 255, 0.6);
+                    border-radius: 8px;
+                    padding: 8px 12px;
                     color: $text-color;
-                    font-size: 14px;
+                    font-size: 16px;
+                    transition: all 0.3s ease;
+                    
+                    &:focus {
+                        outline: none;
+                        border-color: $submit-button-color;
+                        box-shadow: 0 0 0 3px rgba($submit-button-color, 0.2);
+                    }
                 }
 
                 //give the select element a cursor pointer on hover
                 select {
                     &:hover {
                         cursor: pointer;
+                        border-color: rgba(255, 255, 255, 0.8);
                     }
                 }
 
                 //target the submit button specifically
                 input[type="submit"] {
                     //center the submit button
-                    margin: auto;
+                    margin: 20px auto 0 auto;
+                    min-width: 180px;
 
-                    background-color: $submit-button-color;
-                    color: black;
-                    font-size: 16px;
-                    height: 40px;
-                    width: 150px;
+                    background: linear-gradient(135deg, $submit-button-color, darken($submit-button-color, 5%));
+                    color: white;
+                    font-size: 18px;
+                    font-weight: 600;
+                    height: 45px;
+                    width: 180px;
 
                     //box model styles
-                    border: 2px solid white;
-                    border-radius: 10px;
+                    border: 2px solid rgba(255, 255, 255, 0.8);
+                    border-radius: 12px;
+                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+                    transition: all 0.3s ease;
 
                     //hover effect
                     &:hover {
-                        background-color: darken($submit-button-color, 5%);
+                        background: linear-gradient(135deg, darken($submit-button-color, 5%), darken($submit-button-color, 10%));
                         cursor: pointer;
+                        transform: translateY(-2px);
+                        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+                    }
+                    
+                    &:active {
+                        transform: translateY(0);
                     }
 
                     //change the width for the .startingBalance submit
                     &#startingBalanceSubmit {
-                        width: 250px;
+                        width: 280px;
+                        min-width: 280px;
                     }
                 }
             }

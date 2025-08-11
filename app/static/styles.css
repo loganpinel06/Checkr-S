@@ -3,10 +3,12 @@ body {
   font-size: 16px;
   background-color: #252321;
   color: #E0B8BE;
+  line-height: 1.6;
   width: 100%;
-  height: 100%;
+  min-height: 100vh;
   margin: 0;
   padding: 0;
+  transition: all 0.3s ease;
 }
 
 header .banner {
@@ -17,11 +19,18 @@ header .banner {
   font-size: 36px;
   font-weight: 800;
   text-align: center;
+  margin-bottom: 20px;
+  padding: 20px 0;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 header .banner img {
   width: 100px;
   height: 100px;
   margin-right: 20px;
+  transition: transform 0.3s ease;
+}
+header .banner img:hover {
+  transform: scale(1.05);
 }
 header nav.navbar {
   display: flex;
@@ -37,16 +46,23 @@ header nav.navbar ul {
   justify-content: center;
   gap: 2rem;
   margin-top: 0;
-  padding: 10px 0;
-  border: 2px solid white;
-  border-radius: 5px;
+  padding: 15px 0;
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   width: 80%;
+  background: linear-gradient(135deg, rgb(45.0871428571, 42.65, 40.2128571429), rgb(39.6957142857, 37.55, 35.4042857143));
 }
 header nav.navbar ul li {
   margin: 0;
-  padding: 5px 0;
+  padding: 8px 15px;
   display: flex;
   align-items: center;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+}
+header nav.navbar ul li:hover {
+  background-color: rgba(255, 255, 255, 0.1);
 }
 header nav.navbar ul a#logoutlink, header nav.navbar ul a#dashboardlink, header nav.navbar ul a#backlink {
   color: #c1717d;
@@ -54,10 +70,15 @@ header nav.navbar ul a#logoutlink, header nav.navbar ul a#dashboardlink, header 
   font-weight: 600;
   text-align: center;
   text-decoration: none;
+  transition: all 0.3s ease;
+  padding: 5px 10px;
+  border-radius: 5px;
 }
 header nav.navbar ul a#logoutlink:hover, header nav.navbar ul a#dashboardlink:hover, header nav.navbar ul a#backlink:hover {
-  color: #b24e5d;
+  color: #E0B8BE;
   cursor: pointer;
+  transform: translateY(-2px);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .flashedMessage {
@@ -66,27 +87,41 @@ header nav.navbar ul a#logoutlink:hover, header nav.navbar ul a#dashboardlink:ho
   align-items: center;
   justify-content: center;
   gap: 10px;
-  border: 2px solid white;
-  border-radius: 5px;
-  margin-top: 20px;
-  margin-left: 30%;
-  margin-right: 30%;
-  padding: 10px 0;
-  background-color: #32302d;
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  border-radius: 10px;
+  margin: 20px auto;
+  max-width: 600px;
+  padding: 15px 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  background: linear-gradient(135deg, rgb(58.5657142857, 55.4, 52.2342857143), rgb(50.4785714286, 47.75, 45.0214285714));
+  animation: slideIn 0.5s ease-out;
 }
 .flashedMessage button {
-  width: 1.5rem;
-  height: 1.5rem;
+  width: 1.8rem;
+  height: 1.8rem;
   background-color: #F08080;
-  border: 2px solid;
-  border-radius: 5px;
-  font-size: 12px;
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  font-size: 14px;
+  font-weight: bold;
+  transition: all 0.3s ease;
 }
 .flashedMessage button:hover {
-  background-color: #ed6969;
+  background-color: rgb(234.6126760563, 82.3873239437, 82.3873239437);
   cursor: pointer;
+  transform: scale(1.1);
 }
 
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 span#formErrors {
   display: flex;
   align-items: center;
@@ -104,42 +139,80 @@ span#formErrors {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  border: 2px solid white;
-  border-radius: 5px;
-  margin-left: 35%;
-  margin-right: 35%;
-  padding: 20px;
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  border-radius: 15px;
+  margin: 40px auto;
+  max-width: 500px;
+  padding: 30px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  background: linear-gradient(135deg, rgb(50.4785714286, 47.75, 45.0214285714), rgb(42.3914285714, 40.1, 37.8085714286));
 }
 .loginForm h2, .registerForm h2 {
   font-size: 36px;
+  margin-bottom: 25px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 .loginForm label, .registerForm label {
   font-size: 18px;
   font-weight: 800;
+  margin-bottom: 5px;
+  align-self: flex-start;
 }
 .loginForm input, .registerForm input {
   width: 100%;
-  padding: 10px;
-  margin: 10px 0;
-  border: 2px solid black;
-  border-radius: 5px;
+  padding: 12px 15px;
+  margin: 8px 0 15px 0;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 8px;
+  background-color: rgb(58.5657142857, 55.4, 52.2342857143);
+  color: #E0B8BE;
+  font-size: 16px;
   box-sizing: border-box;
+  transition: all 0.3s ease;
+}
+.loginForm input:focus, .registerForm input:focus {
+  outline: none;
+  border-color: #F08080;
+  box-shadow: 0 0 0 3px rgba(240, 128, 128, 0.2);
+}
+.loginForm input::-moz-placeholder, .registerForm input::-moz-placeholder {
+  color: rgb(177.5, 77.5, 92.5);
+}
+.loginForm input::placeholder, .registerForm input::placeholder {
+  color: rgb(177.5, 77.5, 92.5);
 }
 .loginForm input[type=submit], .registerForm input[type=submit] {
-  background-color: #F08080;
-  border: 2px solid white;
+  background: linear-gradient(135deg, #F08080, rgb(237.3063380282, 105.1936619718, 105.1936619718));
+  color: white;
+  font-weight: 600;
+  margin-top: 10px;
+  border: 2px solid rgba(255, 255, 255, 0.8);
   border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
 }
 .loginForm input[type=submit]:hover, .registerForm input[type=submit]:hover {
-  background-color: #ed6969;
+  background: linear-gradient(135deg, rgb(237.3063380282, 105.1936619718, 105.1936619718), rgb(234.6126760563, 82.3873239437, 82.3873239437));
   cursor: pointer;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+.loginForm input[type=submit]:active, .registerForm input[type=submit]:active {
+  transform: translateY(0);
 }
 .loginForm p, .registerForm p {
   text-align: center;
+  margin-top: 20px;
 }
 .loginForm p > a, .registerForm p > a {
-  color: #c1717d;
+  color: rgb(208.5, 148.5, 157.5);
   font-weight: 600;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+.loginForm p > a:hover, .registerForm p > a:hover {
+  color: #E0B8BE;
+  text-decoration: underline;
 }
 
 .yearSelector {
@@ -168,9 +241,9 @@ span#formErrors {
 }
 .yearSelector form .yearForm select {
   padding: 2px 0;
-  border: 2px solid #181615;
+  border: 2px solid rgb(23.5214285714, 22.25, 20.9785714286);
   border-radius: 5px;
-  background-color: #403d39;
+  background-color: rgb(63.9571428571, 60.5, 57.0428571429);
   color: #E0B8BE;
   font-size: 16px;
 }
@@ -185,7 +258,7 @@ span#formErrors {
   margin: 5px 0;
 }
 .yearSelector form input[type=submit]:hover {
-  background-color: #ed6969;
+  background-color: rgb(237.3063380282, 105.1936619718, 105.1936619718);
   cursor: pointer;
 }
 
@@ -194,24 +267,49 @@ span#formErrors {
   align-items: center;
   justify-content: center;
   grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
-  margin: 20px;
-  border: 2px solid white;
-  border-radius: 5px;
-  padding: 10px;
+  gap: 15px;
+  margin: 30px 20px;
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+  background: linear-gradient(135deg, rgb(45.0871428571, 42.65, 40.2128571429), rgb(39.6957142857, 37.55, 35.4042857143));
 }
 .monthButtonContainer button {
-  background-color: #4FD1C5;
+  background: linear-gradient(135deg, #C8A2C8, rgb(190.5236486486, 145.9763513514, 190.5236486486));
   width: 100%;
-  height: 60px;
-  border: 2px solid black;
-  border-radius: 5px;
+  height: 70px;
+  border: 2px solid rgba(255, 255, 255, 0.6);
+  border-radius: 10px;
   font-size: 18px;
   font-weight: 600;
+  color: rgb(10.0428571429, 9.5, 8.9571428571);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+.monthButtonContainer button:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
 }
 .monthButtonContainer button:hover {
-  background-color: #31bcaf;
+  background: linear-gradient(135deg, rgb(209.4763513514, 178.0236486486, 209.4763513514), #C8A2C8);
   cursor: pointer;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+}
+.monthButtonContainer button:hover:before {
+  left: 100%;
+}
+.monthButtonContainer button:active {
+  transform: translateY(-1px);
 }
 
 .tableData {
@@ -226,50 +324,79 @@ span#formErrors {
   margin: 20px;
 }
 .tableData table {
-  border: 2px solid white;
-  border-radius: 5px;
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  border-radius: 12px;
   border-spacing: 0;
-  width: 80%;
-  padding: 20px;
+  width: 90%;
+  padding: 0;
   margin-bottom: 40px;
-  background-color: #2a2826;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+  background: linear-gradient(135deg, rgb(47.7828571429, 45.2, 42.6171428571), rgb(42.3914285714, 40.1, 37.8085714286));
 }
 .tableData table thead th {
-  border: 2px solid white;
-  padding: 10px;
+  border-bottom: 3px solid rgba(255, 255, 255, 0.6);
+  padding: 15px 10px;
   margin: 0;
+  background: linear-gradient(135deg, rgb(58.5657142857, 55.4, 52.2342857143), rgb(53.1742857143, 50.3, 47.4257142857));
   font-size: 20px;
-  font-weight: 600;
+  font-weight: 700;
   text-align: center;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+.tableData table thead th:first-child {
+  border-top-left-radius: 10px;
+}
+.tableData table thead th:last-child {
+  border-top-right-radius: 10px;
+}
+.tableData table tr {
+  transition: background-color 0.3s ease;
+}
+.tableData table tr:hover {
+  background-color: rgba(255, 255, 255, 0.05);
 }
 .tableData table tr td {
-  border-left: 2px solid white;
-  border-right: 2px solid white;
-  border-bottom: 2px solid white;
-  padding: 10px;
+  border-left: 1px solid rgba(255, 255, 255, 0.3);
+  border-right: 1px solid rgba(255, 255, 255, 0.3);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 12px 10px;
   font-size: 18px;
   text-align: center;
 }
 .tableData table tr td.deposit {
-  background-color: #8FCB9B;
+  background: linear-gradient(135deg, #8FCB9B, rgb(125.5853658537, 194.9146341463, 139.4512195122));
+  color: black;
+  font-weight: 600;
 }
 .tableData table tr td.withdraw {
-  background-color: #D88383;
+  background: linear-gradient(135deg, #D88383, rgb(209.8987730061, 111.6012269939, 111.6012269939));
+  color: black;
+  font-weight: 600;
   width: 10%;
 }
 .tableData table tr td button {
-  background-color: #F08080;
+  background: linear-gradient(135deg, #F08080, rgb(237.3063380282, 105.1936619718, 105.1936619718));
   width: 100%;
-  height: 30px;
+  height: 35px;
   margin: 0.2rem 0;
   padding: 5px;
-  border: 2px solid white;
-  border-radius: 5px;
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   font-size: 16px;
+  font-weight: 600;
+  color: white;
+  transition: all 0.3s ease;
 }
 .tableData table tr td button:hover {
-  background-color: #ed6969;
+  background: linear-gradient(135deg, rgb(237.3063380282, 105.1936619718, 105.1936619718), rgb(234.6126760563, 82.3873239437, 82.3873239437));
   cursor: pointer;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+.tableData table tr td button:active {
+  transform: translateY(0);
 }
 
 .checkbookForms {
@@ -289,57 +416,85 @@ span#formErrors {
 .checkbookForms .userInput form, .checkbookForms .startingBalance form {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-  border: 2px solid white;
-  border-radius: 5px;
-  padding: 20px;
-  background-color: #2a2826;
+  gap: 1.5rem;
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  border-radius: 15px;
+  padding: 25px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+  background: linear-gradient(135deg, rgb(50.4785714286, 47.75, 45.0214285714), rgb(42.3914285714, 40.1, 37.8085714286));
 }
 .checkbookForms .userInput form p, .checkbookForms .startingBalance form p {
-  font-size: 18px;
-  font-weight: 600;
+  font-size: 20px;
+  font-weight: 700;
   text-align: center;
-  margin: 0;
+  margin: 0 0 10px 0;
   padding: 0;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
 }
 .checkbookForms .userInput form p span, .checkbookForms .startingBalance form p span {
-  color: #c1717d;
+  color: rgb(208.5, 148.5, 157.5);
+  font-weight: 600;
 }
 .checkbookForms .userInput form .form-row, .checkbookForms .startingBalance form .form-row {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 1.5rem;
+  padding: 10px;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+}
+.checkbookForms .userInput form .form-row:hover, .checkbookForms .startingBalance form .form-row:hover {
+  background-color: rgba(255, 255, 255, 0.05);
 }
 .checkbookForms .userInput form .form-row label, .checkbookForms .startingBalance form .form-row label {
   font-size: 18px;
   font-weight: 800;
+  min-width: 120px;
 }
 .checkbookForms .userInput form .form-row input, .checkbookForms .userInput form .form-row select, .checkbookForms .startingBalance form .form-row input, .checkbookForms .startingBalance form .form-row select {
   margin-left: auto;
-  background-color: #403d39;
-  border: 2px solid white;
-  border-radius: 5px;
-  padding: 5px;
+  min-width: 180px;
+  background: linear-gradient(135deg, rgb(69.3485714286, 65.6, 61.8514285714), rgb(58.5657142857, 55.4, 52.2342857143));
+  border: 2px solid rgba(255, 255, 255, 0.6);
+  border-radius: 8px;
+  padding: 8px 12px;
   color: #E0B8BE;
-  font-size: 14px;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+.checkbookForms .userInput form .form-row input:focus, .checkbookForms .userInput form .form-row select:focus, .checkbookForms .startingBalance form .form-row input:focus, .checkbookForms .startingBalance form .form-row select:focus {
+  outline: none;
+  border-color: #F08080;
+  box-shadow: 0 0 0 3px rgba(240, 128, 128, 0.2);
 }
 .checkbookForms .userInput form .form-row select:hover, .checkbookForms .startingBalance form .form-row select:hover {
   cursor: pointer;
+  border-color: rgba(255, 255, 255, 0.8);
 }
 .checkbookForms .userInput form .form-row input[type=submit], .checkbookForms .startingBalance form .form-row input[type=submit] {
-  margin: auto;
-  background-color: #F08080;
-  color: black;
-  font-size: 16px;
-  height: 40px;
-  width: 150px;
-  border: 2px solid white;
-  border-radius: 10px;
+  margin: 20px auto 0 auto;
+  min-width: 180px;
+  background: linear-gradient(135deg, #F08080, rgb(237.3063380282, 105.1936619718, 105.1936619718));
+  color: white;
+  font-size: 18px;
+  font-weight: 600;
+  height: 45px;
+  width: 180px;
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
 }
 .checkbookForms .userInput form .form-row input[type=submit]:hover, .checkbookForms .startingBalance form .form-row input[type=submit]:hover {
-  background-color: #ed6969;
+  background: linear-gradient(135deg, rgb(237.3063380282, 105.1936619718, 105.1936619718), rgb(234.6126760563, 82.3873239437, 82.3873239437));
   cursor: pointer;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+.checkbookForms .userInput form .form-row input[type=submit]:active, .checkbookForms .startingBalance form .form-row input[type=submit]:active {
+  transform: translateY(0);
 }
 .checkbookForms .userInput form .form-row input[type=submit]#startingBalanceSubmit, .checkbookForms .startingBalance form .form-row input[type=submit]#startingBalanceSubmit {
-  width: 250px;
+  width: 280px;
+  min-width: 280px;
 }/*# sourceMappingURL=styles.css.map */
