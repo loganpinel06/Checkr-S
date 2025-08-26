@@ -7,6 +7,11 @@ Built primarily with Flask, the app features strong authentication, session secu
 
 This app was created by Logan Pinel and completed on June 24th, 2025
 
+# ‼️ Important Update
+Unfortunately, due to free tier limitations and my development of new applications, Checkr-S is no longer deployed via Render.  
+Please refer to the 🎥 Project Demonstration section to view a video demonstration of the project.  
+I will work on creating a new branch for this repository that will have slightly modified code allowing users to run and test the software in a local environment if desired.
+
 # 🎥 Project Demonstration
 [![Watch the video](https://img.youtube.com/vi/1jHb-fYGMRY/maxresdefault.jpg)](https://youtu.be/1jHb-fYGMRY)
 
