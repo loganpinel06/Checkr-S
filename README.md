@@ -93,7 +93,7 @@ Explore Checkr S here: https://checkr-s.onrender.com
 # 💾 Run the Project Locally
 ### Clone the Repository
 ```
-git clone https://github.com/loganpinel06/CheckBook-App
+git clone https://github.com/loganpinel06/Checkr-S
 ```
 ### Create a Python Virtual Environment in the local repository
 macOS:
