@@ -7,6 +7,11 @@ Built primarily with Flask, the app features strong authentication, session secu
 
 This app was created by Logan Pinel and completed on June 24th, 2025
 
+# 🎥 Project Demonstration
+[![Watch the video](https://img.youtube.com/vi/1jHb-fYGMRY/maxresdefault.jpg)](https://youtu.be/1jHb-fYGMRY)
+
+### [Project Demonstration Here](https://youtu.be/1jHb-fYGMRY)
+
 # 💡 Features
 - ### 🔐 **Secure User Authentication**
     - Username and Password validation with Flask-WTF and Regepx to force strong inputs
